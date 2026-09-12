@@ -1,0 +1,6 @@
+/* Hoja de estilos mínima: tipografía del sistema, sin fuentes externas que descargar */
+body { font-family: system-ui, sans-serif; margin: 0; background: #fbfbf8; color: #1c2430; }
+main { max-width: 42rem; margin: 3rem auto; padding: 0 1rem; line-height: 1.6; }
+h1 { font-weight: 600; }
+code { background: #eef0ec; padding: .1em .3em; border-radius: 3px; }
+@media (prefers-color-scheme: dark) { body { background: #0e1419; color: #d7dee4; } code { background: #1b242c; } }

@@ -1,0 +1,9 @@
+codigo;nombre;dimension;valor;meta;mayorEsMejor;ods
+A-01;Electricidad renovable consumida en el CPD (%);AMBIENTAL;72;100;true;7|13
+A-02;Emisiones de alcance 1 y 2 (t CO2e);AMBIENTAL;410;350;false;13
+A-03;Residuos electrónicos enviados a reutilización (%);AMBIENTAL;38;60;true;12
+S-01;Horas de formación por persona empleada;SOCIAL;28;40;true;4|8
+S-02;Brecha salarial de género (%);SOCIAL;9;5;false;5|10
+S-03;Web y apps que cumplen WCAG 2.2 AA (%);SOCIAL;55;100;true;10
+G-01;Personas del consejo independientes (%);GOBERNANZA;40;50;true;16
+G-02;Plantilla formada en el código ético (%);GOBERNANZA;91;100;true;16

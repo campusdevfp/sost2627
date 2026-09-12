@@ -2,7 +2,7 @@ site_name: 1708 · Sostenibilidad aplicada al sistema productivo
 site_description: Materiales, actividades y proyectos del alumnado (DAW, con Java y Spring Boot)
 site_author: Departamento de Informática
 # Cambia esta URL por la de tu repositorio en GitHub Pages
-site_url: https://USUARIO.github.io/repo-alumno-1708/
+site_url: https://ivanjimenez.github.io/campusdevfp/sost2627
 docs_dir: docs
 
 theme:

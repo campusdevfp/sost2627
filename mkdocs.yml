@@ -1,23 +1,17 @@
 site_name: 1708 · Sostenibilidad aplicada al sistema productivo
-site_description: Materiales, actividades y proyectos del alumnado (DAW, con Java y Spring Boot)
-site_author: Departamento de Informática
+site_description: Curso práctico en Java para el ciclo de Desarrollo de Aplicaciones Web
 # Cambia esta URL por la de tu repositorio en GitHub Pages
-site_url: https://ivanjimenez.github.io/campusdevfp/sost2627
+site_url: https://USUARIO.github.io/sostenibilidad-1708/
 docs_dir: docs
 
 theme:
   name: material
   language: es
-  font: false          # tipografía del sistema → funciona 100 % offline
+  font: false
   features:
     - navigation.sections
     - navigation.top
-    - navigation.footer
-    - navigation.instant
     - content.code.copy
-    - content.code.annotate
-    - content.tabs.link
-    - content.tooltips
     - search.suggest
     - search.highlight
     - toc.follow
@@ -33,60 +27,32 @@ theme:
         icon: material/weather-sunny
         name: Modo claro
 
-extra_css:
-  - stylesheets/extra.css
-
-extra_javascript:
-  - javascripts/imprimir.js
-
-hooks:
-  - hooks/pagina_completa.py
-
 nav:
   - Inicio: index.md
-  - El módulo profesional: el-modulo.md
-  - El curso de un vistazo: el-curso.md
-  - 1.º trimestre:
-      - 1 · Sostenibilidad, ODS y criterios ASG (RA1): ud1/index.md
-      - 2 · Retos ambientales y sociales (RA2): ud2/index.md
-      - 3 · Sostenibilidad en el trabajo del desarrollador (RA3): ud3/index.md
-  - 2.º trimestre:
-      - 4 · Economía circular y ecodiseño (RA4): ud4/index.md
-      - 5 · Actividades sostenibles y huella del software (RA5): ud5/index.md
-      - 6 · Plan de sostenibilidad empresarial (RA6): ud6/index.md
-  - Recursos:
-      - Entorno de trabajo: recursos/entorno.md
-      - Rigor, datos y greenwashing: recursos/rigor-y-fuentes.md
-      - Java y Spring Boot sostenibles: recursos/java-spring-sostenible.md
-      - Proyectos: proyectos/index.md
-  - Retos de programación: retos/index.md
-  - Todo el material (PDF): completo.md
+  - Entorno de trabajo: entorno.md
+  - Unidades:
+      - 1 · Sostenibilidad, ODS y ASG: ut1/index.md
+      - 2 · Retos ambientales y energía: ut2/index.md
+      - 3 · Tu trabajo y tu vida: ut3/index.md
+      - 4 · Economía circular: ut4/index.md
+      - 5 · Huella del software: ut5/index.md
+      - 6 · Plan de sostenibilidad: ut6/index.md
+  - Cómo se evalúa: evaluacion.md
 
 plugins:
   - search:
       lang: es
-  # El plugin offline solo se activa al ejecutar: OFFLINE=true mkdocs build
-  # (sirve para repartir el sitio en una carpeta o un pendrive y abrirlo sin servidor).
-  # En GitHub Pages debe estar apagado, que es lo que ocurre por defecto.
-  - offline:
-      enabled: !ENV [OFFLINE, false]
 
 markdown_extensions:
   - admonition
   - attr_list
-  - md_in_html
   - tables
   - toc:
       permalink: true
   - pymdownx.details
+  - pymdownx.highlight
   - pymdownx.tabbed:
       alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.highlight:
-      anchor_linenums: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid

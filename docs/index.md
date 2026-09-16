@@ -1,41 +1,59 @@
 # 1708 · Sostenibilidad aplicada al sistema productivo
 
-Bienvenida y bienvenido al material del módulo **Sostenibilidad aplicada al sistema productivo** (1708, 30 horas). Aquí tienes todo lo necesario para estudiarlo, y lo vas a trabajar como trabaja un desarrollador web: **programando con Java y Spring Boot**, las mismas herramientas que usas en *Desarrollo Web en Entorno Servidor*.
+Módulo de **30 horas** del ciclo de Desarrollo de Aplicaciones Web. Aquí la sostenibilidad no se estudia: **se calcula**. Vas a escribir 48 métodos en Java que responden preguntas reales: cuánto CO₂ emite una web, a qué hora conviene lanzar un proceso, si compensa reparar un portátil o comprar otro.
 
-## Cómo está organizado
+## Cómo funciona
 
-El módulo tiene **6 unidades**, una por cada **Resultado de Aprendizaje (RA)**. Cada unidad combina una teoría breve con **muchas actividades** y termina en un **proyecto Spring Boot** que se comprueba solo con tests: tú escribes la lógica, `./mvnw test` te dice si está bien, y después interpretas lo que significan tus resultados.
+Un único proyecto Maven con seis clases, una por unidad. En cada una completas **8 métodos** y unos tests te dicen si están bien.
 
-| Unidad | Tema | Horas | Peso | Proyecto |
-|:---:|---|:---:|:---:|---|
-| **1** | Sostenibilidad, ODS y criterios ASG | 4 h | 12 % | Radar ASG |
-| **2** | Retos ambientales y sociales | 4 h | 15 % | Observatorio energético |
-| **3** | Sostenibilidad en el trabajo del desarrollador | 4 h | 15 % | Auditor web sostenible |
-| **4** | Economía circular y ecodiseño | 4 h | 16 % | ReUsa: gestión circular de equipos |
-| **5** | Actividades sostenibles y huella del software | 5 h | 22 % | Laboratorio de huella |
-| **6** | Plan de sostenibilidad empresarial | 5 h | 20 % | Plan e informe de sostenibilidad |
-| | Exámenes prácticos (dos sesiones) | 4 h | | |
-| | **TOTAL** | **30 h** | **100 %** | |
+```bash
+cd proyecto
+mvn test                        # los 124 tests: al principio fallan todos
+mvn test -Dtest=Ut1AsgTest      # solo los de la unidad 1
+```
+
+| Unidad | Tema | Clase | Horas | Peso |
+|:-:|---|---|:-:|:-:|
+| [**1**](ut1/index.md) | Sostenibilidad, ODS y criterios ASG | `Ut1Asg` | 4 h | 12 % |
+| [**2**](ut2/index.md) | Retos ambientales y huella de la electricidad | `Ut2Energia` | 4 h | 15 % |
+| [**3**](ut3/index.md) | Sostenibilidad en tu trabajo y en tu vida | `Ut3Desarrollo` | 4 h | 15 % |
+| [**4**](ut4/index.md) | Economía circular y ecodiseño | `Ut4Circular` | 4 h | 16 % |
+| [**5**](ut5/index.md) | La huella de carbono del software | `Ut5Huella` | 5 h | 22 % |
+| [**6**](ut6/index.md) | El plan de sostenibilidad de una empresa | `Ut6Plan` | 4 h | 20 % |
+| | Exámenes prácticos (dos sesiones de 2 h) | | 4 h | |
+| | **TOTAL** | | **30 h** | **100 %** |
+
+Cada unidad tiene siempre la misma estructura:
+
+```mermaid
+flowchart LR
+    T["1 · Teoría<br/>en 5 minutos"] --> B["2 · Batería<br/>6 ejercicios<br/>con solución"]
+    B --> RE["3 · Reto ejemplo<br/>resuelto y comentado"]
+    RE --> RR["4 · Reto a realizar<br/>8 métodos + tests"]
+    RR --> A["5 · Autoevaluación<br/>18 preguntas"]
+    style RR fill:#1d7a6c,color:#fff
+```
+
+La **batería** es para aprender: cada ejercicio trae su solución desplegable. El **reto ejemplo** te enseña el resultado completo con código y salida real. El **reto a realizar** es lo que entregas. Y de la **autoevaluación** salen las preguntas del examen.
 
 ## Antes de empezar
 
-0. Lee la [introducción al módulo](el-modulo.md): normativa, contenidos, metodología y cómo se evalúa exactamente.
-1. Prepara tu **entorno de trabajo** (JDK, IDE y Maven Wrapper): [Entorno de trabajo](recursos/entorno.md).
-2. Lee las normas sobre **rigor, datos y greenwashing**: [Rigor, datos y greenwashing](recursos/rigor-y-fuentes.md). Es obligatorio.
-3. Repasa las piezas de **Java y Spring Boot** que usaremos: [Java y Spring Boot sostenibles](recursos/java-spring-sostenible.md).
+Necesitas **JDK 21** o superior y un IDE (IntelliJ IDEA Community o VS Code con el *Extension Pack for Java*). Maven va incluido en los dos. Comprueba que todo funciona:
 
-## Cómo se evalúa
+```bash
+cd proyecto
+mvn -q test -Dtest=Ut1AsgTest
+```
 
-Cada RA se evalúa con una **tarea práctica** que se corrige con una rúbrica pública:
+Si ves fallos de tests, perfecto: es lo que debe pasar antes de escribir nada. Si ves errores de compilación o de Maven, revisa [el entorno](entorno.md).
 
-| # | Criterio | Puntos |
-|:---:|---|:---:|
-| 1 | Que el programa funcione (casos de prueba) | 7,0 |
-| 2 | Criterio específico del RA | 1,0 |
-| 3 | Documentación (Javadoc/comentarios) | 1,0 |
-| 4 | Interpretación de los resultados | 1,0 |
+## Cómo se aprueba
 
-**Se supera con 5, y hay que aprobar los seis RA**: no hay compensación entre ellos.
+Cada unidad se califica sobre 10 con la misma regla:
 
-!!! warning "Sostenibilidad con datos, no con eslóganes"
-    En este módulo cada cifra tiene una fuente y cada afirmación se puede comprobar. Presentar como «verde» algo que no lo es tiene nombre, *greenwashing*, y la normativa europea lo persigue. Lee [Rigor, datos y greenwashing](recursos/rigor-y-fuentes.md).
+| Criterio | Puntos |
+|---|:-:|
+| Tests que pasan: `(superados ÷ total) × 8` | 0 – 8 |
+| Caso práctico resuelto e interpretado | 0 – 2 |
+
+**Se aprueba cada unidad con 5 y hay que aprobarlas todas**: no se compensan entre sí. Más detalle en [cómo se evalúa](evaluacion.md).

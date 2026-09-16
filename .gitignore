@@ -1,14 +1,9 @@
 site/
-.venv/
-venv/
-__pycache__/
-*.pyc
-.DS_Store
-.cache/
-# Java / Maven / IDE
 target/
 *.class
+.venv/
+__pycache__/
 .idea/
 *.iml
 .vscode/
-.mvn/wrapper/maven-wrapper.jar
+.DS_Store

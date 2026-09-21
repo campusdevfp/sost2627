@@ -79,14 +79,70 @@ La dimensión económica se convierte en **gobernanza**: cómo se dirige y contr
 
 ### Ejercicio 2 · Calcular el cumplimiento a mano
 
-El **cumplimiento** dice qué parte del camino hacia la meta se ha recorrido, en una escala de **0 a 1**. Se calcula así:
+El **cumplimiento** responde a una sola pregunta: **¿cuánto le falta a este indicador para llegar a su meta?** Es un número entre 0 y 1:
 
-| Caso | Fórmula |
-|---|---|
-| Mayor es mejor | `valor / meta`, con **tope 1,0** |
-| Mayor es mejor y la meta es 0 | `1,0` (no hay nada que alcanzar) |
-| Menor es mejor y ya se ha alcanzado (`valor ≤ meta`) | `1,0` |
-| Menor es mejor y se ha pasado | `meta / valor` |
+| Cumplimiento | Significa |
+|:-:|---|
+| **1,0** | Meta conseguida |
+| **0,5** | A medio camino |
+| **0,0** | Nada conseguido |
+
+Se calcula de forma distinta según la **dirección** del indicador.
+
+#### Caso 1 · Mayor es mejor
+
+*Ejemplo: porcentaje de electricidad renovable.* La meta es **llegar** a un número. Divides lo que tienes entre lo que quieres:
+
+```text
+cumplimiento = valor / meta
+```
+
+| Meta | Valor | Cuenta | Cumplimiento |
+|---:|---:|---|---:|
+| 100 % | 50 % | 50 / 100 | **0,50** · vas por la mitad |
+| 100 % | 72 % | 72 / 100 | **0,72** |
+| 80 % | 95 % | 95 / 80 = 1,19 → **se corta en 1,0** | **1,00** |
+
+Si te pasas de la meta, el cumplimiento se queda en **1,0**: la meta está conseguida, y no existe el «119 % conseguido».
+
+#### Caso 2 · Menor es mejor
+
+*Ejemplo: toneladas de CO₂ emitidas.* La meta es **no pasar** de un número. Hay dos situaciones:
+
+- Si estás **por debajo o justo en la meta**, la has cumplido: **1,0**.
+- Si te has **pasado**, divides **al revés**:
+
+```text
+cumplimiento = meta / valor
+```
+
+| Meta | Emites | Situación | Cumplimiento |
+|---:|---:|---|---:|
+| 350 t | 300 t | por debajo de la meta | **1,00** |
+| 350 t | 350 t | justo en la meta | **1,00** |
+| 350 t | 410 t | te has pasado | 350 / 410 = **0,85** |
+| 350 t | 700 t | emites el doble de lo permitido | 350 / 700 = **0,50** |
+
+**¿Por qué se divide al revés?** Porque aquí, cuanto **más** emites, **peor**. Si el valor va abajo, cuanto más grande es, más pequeño sale el resultado: emitir el doble de lo permitido da 0,5; el triple, 0,33. Si dividieras `valor / meta` saldría 2,0, y parecería que emitir el doble es **mejor**.
+
+#### Caso especial · la meta es 0
+
+A veces la meta es cero: «cero accidentes», «cero residuos a vertedero». Se trata aparte porque **no se puede dividir entre cero**:
+
+- **Mayor es mejor con meta 0:** cualquier valor ya llega a 0, así que **1,0**. Es un caso rarísimo; está para que el programa no falle.
+- **Menor es mejor con meta 0:** si el valor es 10, te has pasado, y `meta / valor = 0 / 10 = 0,0`. Correcto: de «cero residuos» no has conseguido nada.
+
+#### Todo junto, en un diagrama
+
+```mermaid
+flowchart TD
+    A{"¿Mayor es mejor?"} -->|Sí| B{"¿La meta es 0?"}
+    B -->|Sí| R1["1,0"]
+    B -->|No| R2["valor / meta<br/>como mucho 1,0"]
+    A -->|No| C{"¿valor ≤ meta?"}
+    C -->|Sí| R3["1,0<br/>meta cumplida"]
+    C -->|No| R4["meta / valor"]
+```
 
 **Qué tienes que hacer.** Calcula el cumplimiento de estos cuatro casos, con dos decimales.
 

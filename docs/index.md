@@ -8,7 +8,7 @@ Un único proyecto Maven con seis clases, una por unidad. En cada una completas 
 
 ```bash
 cd proyecto
-mvn test                        # los 124 tests: al principio fallan todos
+mvn test                        # 192 tests: al principio fallan todos
 mvn test -Dtest=Ut1AsgTest      # solo los de la unidad 1
 ```
 
@@ -30,11 +30,11 @@ flowchart LR
     T["1 · Teoría<br/>en 5 minutos"] --> B["2 · Batería<br/>6 ejercicios<br/>con solución"]
     B --> RE["3 · Reto ejemplo<br/>resuelto y comentado"]
     RE --> RR["4 · Reto a realizar<br/>8 métodos + tests"]
-    RR --> A["5 · Autoevaluación<br/>18 preguntas"]
+    RR --> A["5 · Simulacro de examen<br/>3 métodos + 30 preguntas"]
     style RR fill:#1d7a6c,color:#fff
 ```
 
-La **batería** es para aprender: cada ejercicio trae su solución desplegable. El **reto ejemplo** te enseña el resultado completo con código y salida real. El **reto a realizar** es lo que entregas. Y de la **autoevaluación** salen las preguntas del examen.
+La **batería** es para aprender: cada ejercicio trae su solución desplegable. El **reto ejemplo** te enseña el resultado completo con código y salida real. El **reto a realizar** es lo que entregas. Y el **simulacro de examen** es la evaluación de la unidad: tiene el formato del examen, y **las preguntas de test del examen salen de su banco**.
 
 ## Antes de empezar
 

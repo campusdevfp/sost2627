@@ -67,22 +67,22 @@ Compensar es **el último** paso. Anunciarse como «neutro en carbono» solo com
 | `"COGENERACIÓN"` | `"cogeneracion"` | ? | ? |
 | `"ciclo combinado"` | `"ciclo combinado"` | ? | ? |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| Viene de la API | ¿Coincide? | Factor que saldría | Factor correcto |
-|---|:-:|---:|---:|
-| `"Carbón"` | **No** (tilde y mayúscula) | 0,00 | 0,95 |
-| `"COGENERACIÓN"` | **No** | 0,00 | 0,38 |
-| `"ciclo combinado"` | Sí | 0,37 | 0,37 |
+    | Viene de la API | ¿Coincide? | Factor que saldría | Factor correcto |
+    |---|:-:|---:|---:|
+    | `"Carbón"` | **No** (tilde y mayúscula) | 0,00 | 0,95 |
+    | `"COGENERACIÓN"` | **No** | 0,00 | 0,38 |
+    | `"ciclo combinado"` | Sí | 0,37 | 0,37 |
 
-**Lo importante:** el fallo **no rompe el programa**. Devuelve un número perfectamente creíble, solo que el carbón habría emitido cero. En un cálculo de emisiones, un error silencioso es peor que una excepción.
+    **Lo importante:** el fallo **no rompe el programa**. Devuelve un número perfectamente creíble, solo que el carbón habría emitido cero. En un cálculo de emisiones, un error silencioso es peor que una excepción.
 
-La solución es `Ut1Asg.normalizar(...)`, que ya escribiste en la UT1:
+    La solución es `Ut1Asg.normalizar(...)`, que ya escribiste en la UT1:
 
-```java
-String t = Ut1Asg.normalizar(tecnologia);   // "Carbón" -> "carbon"
-```
-</details>
+    ```java
+    String t = Ut1Asg.normalizar(tecnologia);   // "Carbón" -> "carbon"
+    ```
+
 
 ---
 
@@ -106,18 +106,18 @@ Cada tecnología tiene un **factor de emisión** en toneladas de CO₂ por MWh g
 | Ciclo combinado | 200 |
 | Nuclear | 500 |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```text
-300 × 0,00  =    0 t   (eólica)
-200 × 0,37  =   74 t   (ciclo combinado)
-500 × 0,00  =    0 t   (nuclear)
-                ─────
-                 74 t
-```
+    ```text
+    300 × 0,00  =    0 t   (eólica)
+    200 × 0,37  =   74 t   (ciclo combinado)
+    500 × 0,00  =    0 t   (nuclear)
+                    ─────
+                     74 t
+    ```
 
-**Cuidado con un error frecuente:** los 800 MWh que no emiten **no se descartan**. Siguen contando, y mucho, en el ejercicio siguiente: son los que bajan la media.
-</details>
+    **Cuidado con un error frecuente:** los 800 MWh que no emiten **no se descartan**. Siguen contando, y mucho, en el ejercicio siguiente: son los que bajan la media.
+
 
 ---
 
@@ -139,25 +139,25 @@ El `× 1000` sale de que **1 t/MWh = 1 000 000 g ÷ 1 000 kWh = 1 000 g/kWh**.
 2. Escribe `double intensidad(String[] tecnologias, double[] mwh)`, que es el **método 4 del reto final**.
 3. Explica qué debe devolver si el total de MWh es 0.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. `74 t / 1000 MWh = 0,074 t/MWh → ` **74,0 g/kWh**
+    1. `74 t / 1000 MWh = 0,074 t/MWh → ` **74,0 g/kWh**
 
-2. ```java
-   double intensidad(String[] tecnologias, double[] mwh) {
-       double totalMwh = 0;
-       for (double m : mwh) totalMwh += m;
-       if (totalMwh == 0) return 0.0;                     // (1)
-       double t = toneladas(tecnologias, mwh);            // (2)
-       return Math.round(t / totalMwh * 1000 * 10) / 10.0;
-   }
-   ```
+    2. ```java
+       double intensidad(String[] tecnologias, double[] mwh) {
+           double totalMwh = 0;
+           for (double m : mwh) totalMwh += m;
+           if (totalMwh == 0) return 0.0;                     // (1)
+           double t = toneladas(tecnologias, mwh);            // (2)
+           return Math.round(t / totalMwh * 1000 * 10) / 10.0;
+       }
+       ```
 
-      1. Sin esta línea, dividirías entre cero y obtendrías `NaN`. Y `NaN` es contagioso: cualquier cuenta posterior también da `NaN`.
-      2. Reutiliza el método del ejercicio 2 en lugar de repetir el bucle.
+          1. Sin esta línea, dividirías entre cero y obtendrías `NaN`. Y `NaN` es contagioso: cualquier cuenta posterior también da `NaN`.
+          2. Reutiliza el método del ejercicio 2 en lugar de repetir el bucle.
 
-3. **0.0**. No hay generación, así que no hay intensidad que calcular.
-</details>
+    3. **0.0**. No hay generación, así que no hay intensidad que calcular.
+
 
 ---
 
@@ -171,19 +171,19 @@ El `× 1000` sale de que **1 t/MWh = 1 000 000 g ÷ 1 000 kWh = 1 000 g/kWh**.
 | Ciclo combinado | 300 | No |
 | Solar fotovoltaica | 100 | Sí |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-**Toneladas:** `100 × 0,95 + 300 × 0,37 = 95 + 111 = 206 t`
-**Intensidad:** `206 / 500 × 1000 = ` **412,0 g/kWh** → semáforo **ROJO**
-**Renovable:** `100 / 500 = ` **20,0 %**
+    **Toneladas:** `100 × 0,95 + 300 × 0,37 = 95 + 111 = 206 t`
+    **Intensidad:** `206 / 500 × 1000 = ` **412,0 g/kWh** → semáforo **ROJO**
+    **Renovable:** `100 / 500 = ` **20,0 %**
 
-```text
-Día con viento  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   74,0 g/kWh  VERDE
-Día sin viento  ████████████████████████████████████████████████  412,0 g/kWh  ROJO
-```
+    ```text
+    Día con viento  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   74,0 g/kWh  VERDE
+    Día sin viento  ████████████████████████████████████████████████  412,0 g/kWh  ROJO
+    ```
 
-**5,6 veces más CO₂ por cada kWh.** Y fíjate: el día sucio genera **menos** MWh en total (500 frente a 1000). No se trata de cuánta electricidad hay, sino de **con qué se ha fabricado**.
-</details>
+    **5,6 veces más CO₂ por cada kWh.** Y fíjate: el día sucio genera **menos** MWh en total (500 frente a 1000). No se trata de cuánta electricidad hay, sino de **con qué se ha fabricado**.
+
 
 ---
 
@@ -195,18 +195,18 @@ Día sin viento  █████████████████████
 2. ¿Es renovable?
 3. ¿Por qué el código tiene dos métodos separados, `factorEmision` y `esRenovable`, en lugar de uno solo?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. **No emite CO₂ al generar.** Por eso no está en la tabla de factores y `factorEmision("Nuclear")` devuelve 0,0.
-2. **No es renovable.** El uranio es un recurso finito, así que no está en `RENOVABLES`.
-3. Porque son **dos propiedades independientes**. Si las juntaras en un método tipo `esLimpia()`, tendrías que decidir qué responder con la nuclear y **cualquier respuesta sería incorrecta** en uno de los dos sentidos. Dos preguntas, dos métodos.
+    1. **No emite CO₂ al generar.** Por eso no está en la tabla de factores y `factorEmision("Nuclear")` devuelve 0,0.
+    2. **No es renovable.** El uranio es un recurso finito, así que no está en `RENOVABLES`.
+    3. Porque son **dos propiedades independientes**. Si las juntaras en un método tipo `esLimpia()`, tendrías que decidir qué responder con la nuclear y **cualquier respuesta sería incorrecta** en uno de los dos sentidos. Dos preguntas, dos métodos.
 
-| Tecnología | ¿Emite? | ¿Renovable? |
-|---|:-:|:-:|
-| Eólica | No | Sí |
-| Nuclear | No | **No** |
-| Ciclo combinado | Sí | No |
-</details>
+    | Tecnología | ¿Emite? | ¿Renovable? |
+    |---|:-:|:-:|
+    | Eólica | No | Sí |
+    | Nuclear | No | **No** |
+    | Ciclo combinado | Sí | No |
+
 
 ---
 
@@ -219,23 +219,23 @@ Día sin viento  █████████████████████
 
 Escribe también `double kgCo2(double kwh, double gramosPorKwh)`, redondeando a 2 decimales.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```text
-250 kWh × 74 g/kWh  = 18 500 g = 18,5 kg
-250 kWh × 412 g/kWh = 103 000 g = 103,0 kg
-```
+    ```text
+    250 kWh × 74 g/kWh  = 18 500 g = 18,5 kg
+    250 kWh × 412 g/kWh = 103 000 g = 103,0 kg
+    ```
 
-```java
-double kgCo2(double kwh, double gramosPorKwh) {
-    return Math.round(kwh * gramosPorKwh / 1000 * 100) / 100.0;   // (1)
-}
-```
+    ```java
+    double kgCo2(double kwh, double gramosPorKwh) {
+        return Math.round(kwh * gramosPorKwh / 1000 * 100) / 100.0;   // (1)
+    }
+    ```
 
-1. Se divide entre 1000 para pasar de gramos a kilos. El `* 100 … / 100.0` es el redondeo a dos decimales.
+    1. Se divide entre 1000 para pasar de gramos a kilos. El `* 100 … / 100.0` es el redondeo a dos decimales.
 
-**84,5 kg de diferencia** por el mismo consumo, la misma máquina y el mismo código. Lo único que cambia es **cuándo**. Ese es el dato que justifica toda la unidad.
-</details>
+    **84,5 kg de diferencia** por el mismo consumo, la misma máquina y el mismo código. Lo único que cambia es **cuándo**. Ese es el dato que justifica toda la unidad.
+
 
 ---
 
@@ -378,23 +378,287 @@ El proceso a planificar consume **60 kWh** y se ejecuta una vez al día, todos l
 
 ---
 
-## 5. Autoevaluación
+## 5. Simulacro de examen
 
-<details><summary><b>1.</b> La transición justa es…<br>a) repartir emisiones por igual · b) descarbonizar sin dejar atrás a trabajadores y territorios · c) una tasa · d) un juicio</summary><b>b</b></details>
-<details><summary><b>2.</b> Del residuo electrónico de 2022 se recicló formalmente cerca del…<br>a) 5 % · b) 22 % · c) 50 % · d) 78 %</summary><b>b</b></details>
-<details><summary><b>3.</b> La intensidad de carbono se mide en…<br>a) kWh/GB · b) g CO₂/kWh · c) t/año · d) €/MWh</summary><b>b</b></details>
-<details><summary><b>4.</b> 0,37 t CO₂/MWh son…<br>a) 3,7 g/kWh · b) 37 g/kWh · c) 370 g/kWh · d) 3700 g/kWh</summary><b>c</b></details>
-<details><summary><b>5.</b> 300 MWh eólicos + 200 de ciclo combinado + 500 nucleares emiten…<br>a) 0 t · b) 74 t · c) 185 t · d) 370 t</summary><b>b</b></details>
-<details><summary><b>6.</b> Y su intensidad es…<br>a) 7,4 g/kWh · b) 74,0 g/kWh · c) 370 g/kWh · d) 740 g/kWh</summary><b>b</b></details>
-<details><summary><b>7.</b> 100 MWh de carbón + 300 de ciclo combinado + 100 solares dan…<br>a) 206 g/kWh · b) 412 g/kWh · c) 515 g/kWh · d) 95 g/kWh</summary><b>b</b>. 206 t entre 500 MWh.</details>
-<details><summary><b>8.</b> ¿Es renovable la nuclear?<br>a) sí · b) no, aunque no emita al generar · c) depende del país · d) solo de noche</summary><b>b</b></details>
-<details><summary><b>9.</b> El factor de emisión de la eólica en la tabla es…<br>a) 0,95 · b) 0,37 · c) 0,0 · d) da error</summary><b>c</b>. No está en la tabla.</details>
-<details><summary><b>10.</b> Si no normalizas `"COGENERACIÓN"`…<br>a) salta una excepción · b) el factor sale 0 y el resultado es falso pero creíble · c) no compila · d) se ordena mal</summary><b>b</b></details>
-<details><summary><b>11.</b> Con el total de MWh a 0, `intensidad` debe devolver…<br>a) NaN · b) 0.0 · c) excepción · d) Infinity</summary><b>b</b></details>
-<details><summary><b>12.</b> 250 kWh a 120 g/kWh emiten…<br>a) 3 kg · b) 30 kg · c) 300 kg · d) 0,3 kg</summary><b>b</b></details>
-<details><summary><b>13.</b> Una intensidad de 150 g/kWh da semáforo…<br>a) VERDE · b) AMBAR · c) ROJO · d) depende</summary><b>b</b></details>
-<details><summary><b>14.</b> En el reto ejemplo, mover el proceso del jueves al sábado ahorraba…<br>a) 0,27 kg · b) 2,70 kg · c) 27 kg · d) 270 kg</summary><b>b</b>, un 51 % menos.</details>
-<details><summary><b>15.</b> Ese ahorro semanal, a lo largo de un año, supone unos…<br>a) 14 kg · b) 140 kg · c) 1,4 t · d) nada apreciable</summary><b>b</b>. La escala es lo que convierte lo pequeño en relevante.</details>
-<details><summary><b>16.</b> En `diaMasLimpio`, un empate lo gana…<br>a) el último · b) el primero, porque solo se cambia si es estrictamente menor · c) es aleatorio · d) lanza excepción</summary><b>b</b></details>
-<details><summary><b>17.</b> El orden correcto de actuación es…<br>a) compensar, sustituir, reducir, evitar · b) evitar, reducir, sustituir, compensar · c) reducir, compensar, evitar · d) sustituir, evitar, compensar</summary><b>b</b></details>
-<details><summary><b>18.</b> Comprar créditos sin reducir y anunciarse «neutro en carbono» es…<br>a) correcto · b) greenwashing · c) adaptación · d) alcance 3</summary><b>b</b></details>
+> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA2 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA2 preparado.
+
+```mermaid
+flowchart LR
+    S["Simulacro RA2"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    P --> N["Tu nota del RA2<br/>sobre 10"]
+    T --> N
+```
+
+### Parte práctica · 8 puntos
+
+Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa2.java`, completa los 3 métodos y lanza:
+
+```bash
+mvn test -Dtest=SimulacroRa2Test
+```
+
+```text
+nota práctica = (tests superados ÷ 7) × 8
+```
+
+!!! warning "Las reglas no son las de clase"
+    Cambian pesos, umbrales o redondeos, y el Javadoc lo avisa en mayúsculas. Es el fallo número uno del examen: código correcto con las constantes de clase.
+
+### Banco de preguntas · 2 puntos
+
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+
+#### A · Teoría y cálculo
+
+**1.** La transición justa es…
+
+a) repartir emisiones por igual · b) descarbonizar sin dejar atrás a trabajadores y territorios · c) una tasa · d) un juicio
+
+??? success "Respuesta"
+
+    **b**
+
+**2.** Del residuo electrónico de 2022 se recicló formalmente cerca del…
+
+a) 5 % · b) 22 % · c) 50 % · d) 78 %
+
+??? success "Respuesta"
+
+    **b**
+
+**3.** La intensidad de carbono se mide en…
+
+a) kWh/GB · b) g CO₂/kWh · c) t/año · d) €/MWh
+
+??? success "Respuesta"
+
+    **b**
+
+**4.** 0,37 t CO₂/MWh son…
+
+a) 3,7 g/kWh · b) 37 g/kWh · c) 370 g/kWh · d) 3700 g/kWh
+
+??? success "Respuesta"
+
+    **c**
+
+**5.** 300 MWh eólicos + 200 de ciclo combinado + 500 nucleares emiten…
+
+a) 0 t · b) 74 t · c) 185 t · d) 370 t
+
+??? success "Respuesta"
+
+    **b**
+
+**6.** Y su intensidad es…
+
+a) 7,4 g/kWh · b) 74,0 g/kWh · c) 370 g/kWh · d) 740 g/kWh
+
+??? success "Respuesta"
+
+    **b**
+
+**7.** 100 MWh de carbón + 300 de ciclo combinado + 100 solares dan…
+
+a) 206 g/kWh · b) 412 g/kWh · c) 515 g/kWh · d) 95 g/kWh
+
+??? success "Respuesta"
+
+    **b**. 206 t entre 500 MWh.
+
+**8.** ¿Es renovable la nuclear?
+
+a) sí · b) no, aunque no emita al generar · c) depende del país · d) solo de noche
+
+??? success "Respuesta"
+
+    **b**
+
+**9.** El factor de emisión de la eólica en la tabla es…
+
+a) 0,95 · b) 0,37 · c) 0,0 · d) da error
+
+??? success "Respuesta"
+
+    **c**. No está en la tabla.
+
+**10.** Si no normalizas `"COGENERACIÓN"`…
+
+a) salta una excepción · b) el factor sale 0 y el resultado es falso pero creíble · c) no compila · d) se ordena mal
+
+??? success "Respuesta"
+
+    **b**
+
+**11.** Con el total de MWh a 0, `intensidad` debe devolver…
+
+a) NaN · b) 0.0 · c) excepción · d) Infinity
+
+??? success "Respuesta"
+
+    **b**
+
+**12.** 250 kWh a 120 g/kWh emiten…
+
+a) 3 kg · b) 30 kg · c) 300 kg · d) 0,3 kg
+
+??? success "Respuesta"
+
+    **b**
+
+**13.** Una intensidad de 150 g/kWh da semáforo…
+
+a) VERDE · b) AMBAR · c) ROJO · d) depende
+
+??? success "Respuesta"
+
+    **b**
+
+**14.** En el reto ejemplo, mover el proceso del jueves al sábado ahorraba…
+
+a) 0,27 kg · b) 2,70 kg · c) 27 kg · d) 270 kg
+
+??? success "Respuesta"
+
+    **b**, un 51 % menos.
+
+**15.** Ese ahorro semanal, a lo largo de un año, supone unos…
+
+a) 14 kg · b) 140 kg · c) 1,4 t · d) nada apreciable
+
+??? success "Respuesta"
+
+    **b**. La escala es lo que convierte lo pequeño en relevante.
+
+**16.** En `diaMasLimpio`, un empate lo gana…
+
+a) el último · b) el primero, porque solo se cambia si es estrictamente menor · c) es aleatorio · d) lanza excepción
+
+??? success "Respuesta"
+
+    **b**
+
+**17.** El orden correcto de actuación es…
+
+a) compensar, sustituir, reducir, evitar · b) evitar, reducir, sustituir, compensar · c) reducir, compensar, evitar · d) sustituir, evitar, compensar
+
+??? success "Respuesta"
+
+    **b**
+
+**18.** Comprar créditos sin reducir y anunciarse «neutro en carbono» es…
+
+a) correcto · b) greenwashing · c) adaptación · d) alcance 3
+
+??? success "Respuesta"
+
+    **b**
+
+**19.** Con la tabla del simulacro, 250 MWh de ciclo combinado (0,40) entre 1000 MWh totales dan…
+
+a) 40 g/kWh · b) 100 g/kWh · c) 250 g/kWh · d) 400 g/kWh
+
+??? success "Respuesta"
+
+    b. 100 t / 1000 MWh × 1000.
+
+**20.** `kgCo2(3.3, 123.4)` redondeando a UN decimal devuelve…
+
+a) 0,41 · b) 0,4 · c) 407,2 · d) 0,0
+
+??? success "Respuesta"
+
+    b. 0,40722 redondeado a un decimal. Si has escrito dos decimales, has usado la regla de clase.
+
+**21.** La cogeneración, en la tabla del simulacro, tiene un factor de…
+
+a) 0,38 · b) 0,40 · c) 0,0 · d) error
+
+??? success "Respuesta"
+
+    c. No está en la tabla del simulacro, así que devuelve 0. Lee siempre la tabla del enunciado, no la de clase.
+
+**22.** ¿Qué acción va PRIMERO en la jerarquía para reducir impactos?
+
+a) compensar · b) sustituir · c) reducir · d) evitar
+
+??? success "Respuesta"
+
+    d. Evitar, reducir, sustituir y, por último, compensar.
+
+#### B · ¿Qué devuelve este código?
+
+Sin ejecutarlo. Razona con las reglas de la unidad, no con las del simulacro.
+
+**23.** ¿Qué devuelve `Ut2Energia.factorEmision("MOTORES DIÉSEL")`?
+
+a) `0.0` · b) `0.77` · c) `0.37` · d) excepción
+
+??? success "Respuesta"
+
+    **b**. Normalizado queda «motores diesel», que sí está en la tabla.
+
+**24.** ¿Qué devuelve `Ut2Energia.esRenovable("Solar térmica")`?
+
+a) `true` · b) `false` · c) excepción · d) null
+
+??? success "Respuesta"
+
+    **a**. Normalizado, «solar termica» está en `RENOVABLES`.
+
+**25.** ¿Qué devuelve `Ut2Energia.toneladas(new String[]{"Carbón","Eólica"}, new double[]{10, 90})`?
+
+a) `9.5` · b) `95.0` · c) `0.0` · d) `100.0`
+
+??? success "Respuesta"
+
+    **a**. 10 × 0,95 + 90 × 0 = 9,5 t.
+
+**26.** ¿Qué devuelve `Ut2Energia.intensidad(new String[]{"Carbón","Eólica"}, new double[]{10, 90})`?
+
+a) `9.5` · b) `950.0` · c) `95.0` · d) `0.095`
+
+??? success "Respuesta"
+
+    **c**. 9,5 t / 100 MWh × 1000.
+
+**27.** ¿Qué devuelve `Ut2Energia.porcentajeRenovable(new String[]{"Nuclear","Eólica"}, new double[]{60, 40})`?
+
+a) `100.0` · b) `60.0` · c) `40.0` · d) `0.4`
+
+??? success "Respuesta"
+
+    **c**. La nuclear no es renovable: solo cuenta la eólica.
+
+**28.** ¿Qué devuelve `Ut2Energia.semaforoRed(200)`?
+
+a) `"AMBAR"` · b) `"ROJO"` · c) `"VERDE"` · d) excepción
+
+??? success "Respuesta"
+
+    **b**. Ámbar es «por debajo de 200». Con exactamente 200 ya es rojo.
+
+**29.** ¿Qué devuelve `Ut2Energia.kgCo2(1000, 250)`?
+
+a) `250000.0` · b) `250.0` · c) `0.25` · d) `25.0`
+
+??? success "Respuesta"
+
+    **b**. 1000 × 250 = 250 000 g = 250 kg.
+
+**30.** ¿Qué devuelve `Ut2Energia.diaMasLimpio(new double[]{90, 60, 60, 120})`?
+
+a) `2` · b) `1` · c) `60` · d) `0`
+
+??? success "Respuesta"
+
+    **b**. Devuelve la **posición**, no el valor. En el empate gana la primera.
+
+### Tu nota del simulacro
+
+```text
+nota RA2 = (tests superados ÷ 7) × 8  +  aciertos en 4 preguntas × 0,5
+```
+
+Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.

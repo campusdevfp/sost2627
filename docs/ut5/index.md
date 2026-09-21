@@ -80,22 +80,22 @@ kWh = bytes ÷ 1 000 000 000 × 0,81
 | b | 2 MB (2 000 000 bytes) | ? |
 | c | 274 kB (274 000 bytes) | ? |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| # | Cuenta | kWh |
-|:-:|---|---|
-| a | `1 × 0,81` | **0,81** |
-| b | `0,002 × 0,81` | **0,00162** |
-| c | `0,000274 × 0,81` | **0,000222** |
+    | # | Cuenta | kWh |
+    |:-:|---|---|
+    | a | `1 × 0,81` | **0,81** |
+    | b | `0,002 × 0,81` | **0,00162** |
+    | c | `0,000274 × 0,81` | **0,000222** |
 
-```java
-double kwhTransferencia(long bytes) {
-    return bytes / BYTES_POR_GB * KWH_POR_GB;    // sin redondear
-}
-```
+    ```java
+    double kwhTransferencia(long bytes) {
+        return bytes / BYTES_POR_GB * KWH_POR_GB;    // sin redondear
+    }
+    ```
 
-**No redondees aquí.** Si redondeas a dos decimales, los casos b y c se convierten en **0,00** y todo lo que venga después dará cero. En esta unidad solo se redondea al final, en `kgAnuales`.
-</details>
+    **No redondees aquí.** Si redondeas a dos decimales, los casos b y c se convierten en **0,00** y todo lo que venga después dará cero. En esta unidad solo se redondea al final, en `kgAnuales`.
+
 
 ---
 
@@ -109,15 +109,15 @@ g CO₂ = kWh × intensidad (g CO₂/kWh)
 
 **Qué tienes que hacer.** Con la red a **150 g/kWh**, calcula los gramos de una respuesta de 2 MB y de otra de 274 kB.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```text
-2 MB:    0,00162  × 150 = 0,243 g
-274 kB:  0,000222 × 150 = 0,0333 g
-```
+    ```text
+    2 MB:    0,00162  × 150 = 0,243 g
+    274 kB:  0,000222 × 150 = 0,0333 g
+    ```
 
-**Una respuesta emite tres centésimas de gramo.** Ridículo, ¿no? Pasa al ejercicio 3.
-</details>
+    **Una respuesta emite tres centésimas de gramo.** Ridículo, ¿no? Pasa al ejercicio 3.
+
 
 ---
 
@@ -129,26 +129,26 @@ g CO₂ = kWh × intensidad (g CO₂/kWh)
 2. ¿Y al año?
 3. Escribe `double kgAnuales(long bytesPorPeticion, long peticionesDia, double gramosPorKwh)`, redondeando a 1 decimal.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. `0,0333 × 10 000 = 333 g al día` (un tercio de kilo)
-2. `333 × 365 = 121 512 g = ` **121,5 kg al año**
+    1. `0,0333 × 10 000 = 333 g al día` (un tercio de kilo)
+    2. `333 × 365 = 121 512 g = ` **121,5 kg al año**
 
-3. ```java
-   double kgAnuales(long bytesPorPeticion, long peticionesDia, double gramosPorKwh) {
-       double gramos = gramosCo2(bytesPorPeticion, gramosPorKwh) * peticionesDia * 365;
-       return Math.round(gramos / 1000 * 10) / 10.0;     // gramos -> kilos, 1 decimal
-   }
-   ```
+    3. ```java
+       double kgAnuales(long bytesPorPeticion, long peticionesDia, double gramosPorKwh) {
+           double gramos = gramosCo2(bytesPorPeticion, gramosPorKwh) * peticionesDia * 365;
+           return Math.round(gramos / 1000 * 10) / 10.0;     // gramos -> kilos, 1 decimal
+       }
+       ```
 
-```text
-Una petición  ·                                        0,0333 g
-Un día        ███                                       333 g
-Un año        ████████████████████████████████████  121 512 g = 121,5 kg
-```
+    ```text
+    Una petición  ·                                        0,0333 g
+    Un día        ███                                       333 g
+    Un año        ████████████████████████████████████  121 512 g = 121,5 kg
+    ```
 
-**De 0,03 gramos a 121 kilos.** La huella del software casi nunca está en una operación: está en **multiplicarla por la escala a la que ocurre**. Esta es la idea central de la unidad.
-</details>
+    **De 0,03 gramos a 121 kilos.** La huella del software casi nunca está en una operación: está en **multiplicarla por la escala a la que ocurre**. Esta es la idea central de la unidad.
+
 
 ---
 
@@ -173,16 +173,16 @@ SCI = (E × I + M) ÷ R
 2. Mañana atiende **20 000 peticiones** con el mismo hardware y la misma energía. ¿Cuál es el nuevo SCI?
 3. ¿Ha emitido más o menos en total? ¿Y es más o menos eficiente?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. `(5 × 150 + 4250) / 10 000 = 5 000 / 10 000 = ` **0,5 g por petición**
-2. `5 000 / 20 000 = ` **0,25 g por petición**
-3. **Emite exactamente lo mismo en total** (5 000 g), pero es **el doble de eficiente**: el mismo hardware, que ya estaba fabricado, sirve para el doble de trabajo útil.
+    1. `(5 × 150 + 4250) / 10 000 = 5 000 / 10 000 = ` **0,5 g por petición**
+    2. `5 000 / 20 000 = ` **0,25 g por petición**
+    3. **Emite exactamente lo mismo en total** (5 000 g), pero es **el doble de eficiente**: el mismo hardware, que ya estaba fabricado, sirve para el doble de trabajo útil.
 
-Por eso el SCI es una **tasa** y no un total: es el «litros a los 100 km» del software. Un servicio con más usuarios emitirá más en total, y aun así puede estar mucho mejor diseñado.
+    Por eso el SCI es una **tasa** y no un total: es el «litros a los 100 km» del software. Un servicio con más usuarios emitirá más en total, y aun así puede estar mucho mejor diseñado.
 
-Y por eso **R nunca puede ser 0**: sin trabajo útil, la tasa no significa nada. El método debe lanzar `IllegalArgumentException`.
-</details>
+    Y por eso **R nunca puede ser 0**: sin trabajo útil, la tasa no significa nada. El método debe lanzar `IllegalArgumentException`.
+
 
 ---
 
@@ -199,25 +199,25 @@ Traes una lista de elementos de la base de datos y, al recorrerla, pides un dato
 | c | 21 | 20 | ? |
 | d | 2 | 2 | ? |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| # | ¿N+1? | Sobran |
-|:-:|---|---|
-| a | **Sí** | 1 999 consultas |
-| b | No | Es el caso ideal |
-| c | **Sí** | 19 consultas |
-| d | No | Con 2 elementos harían falta 3 para sospechar |
+    | # | ¿N+1? | Sobran |
+    |:-:|---|---|
+    | a | **Sí** | 1 999 consultas |
+    | b | No | Es el caso ideal |
+    | c | **Sí** | 19 consultas |
+    | d | No | Con 2 elementos harían falta 3 para sospechar |
 
-```java
-boolean hayNMasUno(long consultas, int elementos) {
-    return elementos >= 2 && consultas >= elementos + 1L;   // (1)
-}
-```
+    ```java
+    boolean hayNMasUno(long consultas, int elementos) {
+        return elementos >= 2 && consultas >= elementos + 1L;   // (1)
+    }
+    ```
 
-1. El `L` convierte la suma a `long`: con muchos elementos, `elementos + 1` en `int` podría desbordar. Y el `elementos >= 2` evita falsos positivos con listas de un solo elemento.
+    1. El `L` convierte la suma a `long`: con muchos elementos, `elementos + 1` en `int` podría desbordar. Y el `elementos >= 2` evita falsos positivos con listas de un solo elemento.
 
-**Lo que hay que retener:** el coste del N+1 **no aparece en los bytes**. La respuesta puede pesar exactamente lo mismo mientras la base de datos hace 2 000 veces más trabajo. Lo verás en el reto.
-</details>
+    **Lo que hay que retener:** el coste del N+1 **no aparece en los bytes**. La respuesta puede pesar exactamente lo mismo mientras la base de datos hace 2 000 veces más trabajo. Lo verás en el reto.
+
 
 ---
 
@@ -231,14 +231,14 @@ Muchas tareas (copias, informes, reindexados) **no tienen hora fija**. Moverlas 
 2. Si la tarea es diaria, ¿cuánto al año?
 3. ¿Qué salvaguarda hay que añadir para que la idea no falle?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. `12 × (180 − 70) = 1 320 g = ` **1,32 kg** por ejecución
-2. `1,32 × 365 = ` **482 kg al año**
-3. Una **hora límite**. Si a las 6:00 la red sigue sucia, la tarea **se ejecuta igualmente**.
+    1. `12 × (180 − 70) = 1 320 g = ` **1,32 kg** por ejecución
+    2. `1,32 × 365 = ` **482 kg al año**
+    3. Una **hora límite**. Si a las 6:00 la red sigue sucia, la tarea **se ejecuta igualmente**.
 
-Sin ese límite, una tarea que espera el momento perfecto puede no ejecutarse nunca. Y una copia de seguridad que no se hace no es una optimización: es una avería.
-</details>
+    Sin ese límite, una tarea que espera el momento perfecto puede no ejecutarse nunca. Y una copia de seguridad que no se hace no es una optimización: es una avería.
+
 
 ---
 
@@ -380,23 +380,287 @@ Tráfico: **8 000 peticiones al día**. Red a **180 g/kWh**.
 
 ---
 
-## 5. Autoevaluación
+## 5. Simulacro de examen
 
-<details><summary><b>1.</b> El modelo Sustainable Web Design estima…<br>a) 0,081 kWh/GB · b) 0,81 kWh/GB · c) 8,1 kWh/GB · d) 81 kWh/GB</summary><b>b</b></details>
-<details><summary><b>2.</b> Una respuesta de 2 MB a 150 g/kWh emite…<br>a) 0,024 g · b) 0,243 g · c) 2,43 g · d) 24,3 g</summary><b>b</b></details>
-<details><summary><b>3.</b> Una de 274 kB servida 10 000 veces al día emite al año…<br>a) 12,2 kg · b) 121,5 kg · c) 1215 kg · d) 0,03 kg</summary><b>b</b></details>
-<details><summary><b>4.</b> En SCI = (E × I + M) / R, la **M** es…<br>a) los megabytes · b) el carbono embebido del hardware · c) los minutos · d) la memoria</summary><b>b</b></details>
-<details><summary><b>5.</b> `sci(5, 150, 4250, 10000)` vale…<br>a) 0,075 · b) 0,5 · c) 5,0 · d) 50</summary><b>b</b></details>
-<details><summary><b>6.</b> Si el tráfico se duplica con la misma infraestructura, el SCI…<br>a) sube · b) baja · c) no cambia · d) se duplica</summary><b>b</b></details>
-<details><summary><b>7.</b> Si R es 0, `sci` debe…<br>a) devolver 0 · b) lanzar IllegalArgumentException · c) devolver Infinity · d) devolver el numerador</summary><b>b</b></details>
-<details><summary><b>8.</b> Recorrer 2000 elementos pidiendo un dato de cada uno genera…<br>a) 1 consulta · b) 2 · c) 2001 · d) 4000</summary><b>c</b></details>
-<details><summary><b>9.</b> `hayNMasUno(2, 2)` devuelve…<br>a) true · b) false · c) excepción · d) depende</summary><b>b</b>. Hacen falta al menos elementos + 1.</details>
-<details><summary><b>10.</b> En el reto ejemplo, la v1 con 2001 consultas sacó etiqueta…<br>a) A · b) C · c) E · d) F</summary><b>a</b>. Y ese es justo el problema.</details>
-<details><summary><b>11.</b> Que las dos versiones saquen A demuestra que…<br>a) la etiqueta está mal calculada · b) el modelo por bytes no ve base de datos ni CPU · c) la v1 era buena · d) hay que subir los umbrales</summary><b>b</b></details>
-<details><summary><b>12.</b> La reducción por petición fue del 99,3 %, pero por producto mostrado fue del…<br>a) 99,3 % · b) 66 % · c) 34,3 % · d) 0 %</summary><b>c</b></details>
-<details><summary><b>13.</b> Presumir del 99,3 % sin decir que cambió la unidad funcional es…<br>a) correcto · b) engañoso · c) obligatorio · d) irrelevante</summary><b>b</b></details>
-<details><summary><b>14.</b> `reduccionPorcentual(100, 150)` devuelve…<br>a) 50 · b) −50 · c) 0 · d) excepción</summary><b>b</b>. Ha empeorado.</details>
-<details><summary><b>15.</b> En `mejorHora`, un empate lo gana…<br>a) la hora más tardía · b) la más temprana · c) es aleatorio · d) la última del array</summary><b>b</b></details>
-<details><summary><b>16.</b> Una tarea de 12 kWh movida de 180 a 70 g/kWh ahorra…<br>a) 0,13 kg · b) 1,32 kg · c) 13,2 kg · d) 132 kg</summary><b>b</b></details>
-<details><summary><b>17.</b> Una tarea carbon-aware necesita siempre…<br>a) ejecutarse de noche · b) una hora límite para no aplazarse indefinidamente · c) internet · d) un servidor dedicado</summary><b>b</b></details>
-<details><summary><b>18.</b> Consolidar tres servidores al 10 % de uso en uno responde al principio de…<br>a) conciencia de carbono · b) eficiencia del hardware · c) medición · d) compensación</summary><b>b</b></details>
+> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA5 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA5 preparado.
+
+```mermaid
+flowchart LR
+    S["Simulacro RA5"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    P --> N["Tu nota del RA5<br/>sobre 10"]
+    T --> N
+```
+
+### Parte práctica · 8 puntos
+
+Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa5.java`, completa los 3 métodos y lanza:
+
+```bash
+mvn test -Dtest=SimulacroRa5Test
+```
+
+```text
+nota práctica = (tests superados ÷ 10) × 8
+```
+
+!!! warning "Las reglas no son las de clase"
+    Cambian pesos, umbrales o redondeos, y el Javadoc lo avisa en mayúsculas. Es el fallo número uno del examen: código correcto con las constantes de clase.
+
+### Banco de preguntas · 2 puntos
+
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+
+#### A · Teoría y cálculo
+
+**1.** El modelo Sustainable Web Design estima…
+
+a) 0,081 kWh/GB · b) 0,81 kWh/GB · c) 8,1 kWh/GB · d) 81 kWh/GB
+
+??? success "Respuesta"
+
+    **b**
+
+**2.** Una respuesta de 2 MB a 150 g/kWh emite…
+
+a) 0,024 g · b) 0,243 g · c) 2,43 g · d) 24,3 g
+
+??? success "Respuesta"
+
+    **b**
+
+**3.** Una de 274 kB servida 10 000 veces al día emite al año…
+
+a) 12,2 kg · b) 121,5 kg · c) 1215 kg · d) 0,03 kg
+
+??? success "Respuesta"
+
+    **b**
+
+**4.** En SCI = (E × I + M) / R, la **M** es…
+
+a) los megabytes · b) el carbono embebido del hardware · c) los minutos · d) la memoria
+
+??? success "Respuesta"
+
+    **b**
+
+**5.** `sci(5, 150, 4250, 10000)` vale…
+
+a) 0,075 · b) 0,5 · c) 5,0 · d) 50
+
+??? success "Respuesta"
+
+    **b**
+
+**6.** Si el tráfico se duplica con la misma infraestructura, el SCI…
+
+a) sube · b) baja · c) no cambia · d) se duplica
+
+??? success "Respuesta"
+
+    **b**
+
+**7.** Si R es 0, `sci` debe…
+
+a) devolver 0 · b) lanzar IllegalArgumentException · c) devolver Infinity · d) devolver el numerador
+
+??? success "Respuesta"
+
+    **b**
+
+**8.** Recorrer 2000 elementos pidiendo un dato de cada uno genera…
+
+a) 1 consulta · b) 2 · c) 2001 · d) 4000
+
+??? success "Respuesta"
+
+    **c**
+
+**9.** `hayNMasUno(2, 2)` devuelve…
+
+a) true · b) false · c) excepción · d) depende
+
+??? success "Respuesta"
+
+    **b**. Hacen falta al menos elementos + 1.
+
+**10.** En el reto ejemplo, la v1 con 2001 consultas sacó etiqueta…
+
+a) A · b) C · c) E · d) F
+
+??? success "Respuesta"
+
+    **a**. Y ese es justo el problema.
+
+**11.** Que las dos versiones saquen A demuestra que…
+
+a) la etiqueta está mal calculada · b) el modelo por bytes no ve base de datos ni CPU · c) la v1 era buena · d) hay que subir los umbrales
+
+??? success "Respuesta"
+
+    **b**
+
+**12.** La reducción por petición fue del 99,3 %, pero por producto mostrado fue del…
+
+a) 99,3 % · b) 66 % · c) 34,3 % · d) 0 %
+
+??? success "Respuesta"
+
+    **c**
+
+**13.** Presumir del 99,3 % sin decir que cambió la unidad funcional es…
+
+a) correcto · b) engañoso · c) obligatorio · d) irrelevante
+
+??? success "Respuesta"
+
+    **b**
+
+**14.** `reduccionPorcentual(100, 150)` devuelve…
+
+a) 50 · b) −50 · c) 0 · d) excepción
+
+??? success "Respuesta"
+
+    **b**. Ha empeorado.
+
+**15.** En `mejorHora`, un empate lo gana…
+
+a) la hora más tardía · b) la más temprana · c) es aleatorio · d) la última del array
+
+??? success "Respuesta"
+
+    **b**
+
+**16.** Una tarea de 12 kWh movida de 180 a 70 g/kWh ahorra…
+
+a) 0,13 kg · b) 1,32 kg · c) 13,2 kg · d) 132 kg
+
+??? success "Respuesta"
+
+    **b**
+
+**17.** Una tarea carbon-aware necesita siempre…
+
+a) ejecutarse de noche · b) una hora límite para no aplazarse indefinidamente · c) internet · d) un servidor dedicado
+
+??? success "Respuesta"
+
+    **b**
+
+**18.** Consolidar tres servidores al 10 % de uso en uno responde al principio de…
+
+a) conciencia de carbono · b) eficiencia del hardware · c) medición · d) compensación
+
+??? success "Respuesta"
+
+    **b**
+
+**19.** Con el modelo del simulacro (0,5 kWh/GB), 2 MB consumen…
+
+a) 0,00162 kWh · b) 0,001 kWh · c) 0,5 kWh · d) 1 kWh
+
+??? success "Respuesta"
+
+    b. 0,002 GB × 0,5. La a) usa el modelo de clase.
+
+**20.** Un servicio que solo funciona los días laborables se multiplica por…
+
+a) 365 · b) 250 · c) 30 · d) 52
+
+??? success "Respuesta"
+
+    b. Es lo que dice el enunciado del simulacro.
+
+**21.** Con el criterio nuevo, `hayNMasUno(4, 4)` devuelve…
+
+a) true · b) false · c) excepción · d) depende
+
+??? success "Respuesta"
+
+    b. Hacen falta al menos 5 elementos.
+
+**22.** El SCI de un servicio baja a la mitad si…
+
+a) emite el doble · b) atiende el doble de peticiones con la misma energía y hardware · c) se apaga de noche · d) cambia de proveedor
+
+??? success "Respuesta"
+
+    b. Es una tasa por unidad funcional.
+
+#### B · ¿Qué devuelve este código?
+
+Sin ejecutarlo. Razona con las reglas de la unidad, no con las del simulacro.
+
+**23.** ¿Qué devuelve `Ut5Huella.kwhTransferencia(500_000_000L)`?
+
+a) `0.81` · b) `405.0` · c) `0.405` · d) `0.5`
+
+??? success "Respuesta"
+
+    **c**. Medio GB × 0,81.
+
+**24.** ¿Qué devuelve `Ut5Huella.gramosCo2(1_000_000_000L, 100)`?
+
+a) `0.81` · b) `81.0` · c) `8.1` · d) `100.0`
+
+??? success "Respuesta"
+
+    **b**. 0,81 kWh × 100 g/kWh.
+
+**25.** ¿Qué devuelve `Ut5Huella.kgAnuales(1_000_000L, 1_000L, 200)`?
+
+a) `59.1` · b) `0.2` · c) `162.0` · d) `59130.0`
+
+??? success "Respuesta"
+
+    **a**. 0,162 g × 1000 × 365 = 59 130 g, que en kilos y con un decimal es 59,1. La d) se queda en gramos.
+
+**26.** ¿Qué devuelve `Ut5Huella.sci(2, 100, 800, 1000)`?
+
+a) `0.2` · b) `1.0` · c) `1000.0` · d) `0.8`
+
+??? success "Respuesta"
+
+    **b**. (2 × 100 + 800) / 1000.
+
+**27.** ¿Qué devuelve `Ut5Huella.reduccionPorcentual(200, 50)`?
+
+a) `25.0` · b) `-75.0` · c) `75.0` · d) `150.0`
+
+??? success "Respuesta"
+
+    **c**. (200 − 50) / 200 × 100.
+
+**28.** ¿Qué devuelve `Ut5Huella.hayNMasUno(101, 100)`?
+
+a) `true` · b) `false` · c) excepción · d) depende
+
+??? success "Respuesta"
+
+    **a**. Hay más de 2 elementos y las consultas llegan a elementos + 1.
+
+**29.** ¿Qué devuelve `Ut5Huella.mejorHora(new double[]{50, 40, 40, 30}, 0, 2)`?
+
+a) `3` · b) `2` · c) `1` · d) `40`
+
+??? success "Respuesta"
+
+    **c**. La hora 3 está fuera de la ventana. Entre la 1 y la 2 hay empate y gana la más temprana.
+
+**30.** ¿Qué devuelve `Ut5Huella.etiqueta(0.4)`?
+
+a) `"B"` · b) `"D"` · c) `"C"` · d) `"E"`
+
+??? success "Respuesta"
+
+    **c**. El tramo C llega hasta 0,4 incluido.
+
+### Tu nota del simulacro
+
+```text
+nota RA5 = (tests superados ÷ 10) × 8  +  aciertos en 4 preguntas × 0,5
+```
+
+Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.

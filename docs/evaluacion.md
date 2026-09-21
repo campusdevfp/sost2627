@@ -43,16 +43,22 @@ El primer criterio es proporcional y automático: si pasas 12 de 16 tests, son 6
 
 ## Exámenes
 
-**Parciales.** Una sesión de **2 horas** al final de cada trimestre. Contiene:
+Un examen de **2 horas** al final de cada trimestre, con los tres RA del trimestre. **Cada RA se califica por separado**:
 
-- una **parte práctica**: métodos equivalentes a los de las unidades del trimestre, corregidos con una batería de tests;
-- una **parte de test**: preguntas tomadas de los tests de comprobación de cada unidad.
+| Por cada RA | Qué es | Puntos |
+|---|---|:-:|
+| Práctica | 3 métodos parecidos a los de clase, con reglas cambiadas | 8 |
+| Test | 4 preguntas sacadas del banco del simulacro de la unidad | 2 |
 
-Si la nota del parcial es mejor que la de las unidades, se toma la mejor de las dos.
+Así, el examen del primer trimestre da **tres notas**: una de RA1, una de RA2 y una de RA3. No se compensan entre sí.
 
-**Ordinaria y extraordinaria.** Se examina **solo de las unidades suspensas**, con la misma estructura. Las aprobadas se conservan.
+**Para cada RA se toma la mejor nota** entre la unidad (reto entregado) y el examen.
 
-**Recuperación durante el curso.** Una unidad suspensa se recupera entregando de nuevo los ejercicios corregidos antes de la siguiente sesión de evaluación, sin penalización en la nota.
+**Simulacros.** Cada unidad termina con un simulacro de examen de su RA, con el mismo formato. Hazlos: son el mejor predictor de tu nota. Ver [Simulacro del trimestre](simulacros.md).
+
+**Ordinaria y extraordinaria.** Te examinas **solo de los RA suspensos**, con el mismo formato por RA. Los aprobados se conservan.
+
+**Recuperación durante el curso.** Un RA suspenso se recupera entregando de nuevo el reto corregido antes de la siguiente sesión de evaluación.
 
 ## Cómo se corrige
 

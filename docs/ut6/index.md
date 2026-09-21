@@ -77,17 +77,17 @@ La **matriz de poder e interés** cruza cuánta **influencia** tiene un grupo so
 | Vecindario del centro de datos | 2 | 4 | ? |
 | Proveedores de material de oficina | 2 | 2 | ? |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| Grupo | Estrategia | Por qué |
-|---|---|---|
-| Clientes | **GESTIONAR DE CERCA** | Deciden mucho y les importa mucho |
-| Inversores | **MANTENER SATISFECHO** | Pueden cambiarlo todo, pero el tema no les ocupa el día a día |
-| Vecindario | **MANTENER INFORMADO** | Les afecta mucho y pueden hacer poco |
-| Proveedores de oficina | **MONITORIZAR** | Ni influyen ni les afecta demasiado |
+    | Grupo | Estrategia | Por qué |
+    |---|---|---|
+    | Clientes | **GESTIONAR DE CERCA** | Deciden mucho y les importa mucho |
+    | Inversores | **MANTENER SATISFECHO** | Pueden cambiarlo todo, pero el tema no les ocupa el día a día |
+    | Vecindario | **MANTENER INFORMADO** | Les afecta mucho y pueden hacer poco |
+    | Proveedores de oficina | **MONITORIZAR** | Ni influyen ni les afecta demasiado |
 
-**La matriz no es burocracia: es el plan de comunicación.** A los clientes se les convoca a una reunión; al vecindario se le manda el informe y se le abre un canal; a los proveedores de folios, nada especial.
-</details>
+    **La matriz no es burocracia: es el plan de comunicación.** A los clientes se les convoca a una reunión; al vecindario se le manda el informe y se le abre un canal; a los proveedores de folios, nada especial.
+
 
 ---
 
@@ -107,25 +107,25 @@ Un asunto es **material** si merece que la empresa lo gestione e informe de él.
 | c) Riesgo regulatorio de protección de datos | 2 | 5 | ? | ? |
 | d) Patrocinio deportivo local | 1 | 1 | ? | ? |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| Aspecto | ¿Material? | Tipo |
-|---|:-:|---|
-| a | Sí | **AMBAS** |
-| b | **Sí** | **IMPACTO** |
-| c | Sí | **FINANCIERA** |
-| d | No | NO MATERIAL |
+    | Aspecto | ¿Material? | Tipo |
+    |---|:-:|---|
+    | a | Sí | **AMBAS** |
+    | b | **Sí** | **IMPACTO** |
+    | c | Sí | **FINANCIERA** |
+    | d | No | NO MATERIAL |
 
-```java
-boolean esMaterial(double impacto, double financiero, double umbral) {
-    return impacto >= umbral || financiero >= umbral;    // (1)
-}
-```
+    ```java
+    boolean esMaterial(double impacto, double financiero, double umbral) {
+        return impacto >= umbral || financiero >= umbral;    // (1)
+    }
+    ```
 
-1. **Con `&&` en vez de `||`**, el caso b desaparecería del informe.
+    1. **Con `&&` en vez de `||`**, el caso b desaparecería del informe.
 
-Y el caso b es justo el que importa: la empresa **daña** un recurso de su comarca sin sufrir ninguna consecuencia económica por ello. Esos son los asuntos que las empresas tienden a callar, y un operador lógico mal elegido los borra del mapa. Es, literalmente, la diferencia entre rendir cuentas y no hacerlo.
-</details>
+    Y el caso b es justo el que importa: la empresa **daña** un recurso de su comarca sin sufrir ninguna consecuencia económica por ello. Esos son los asuntos que las empresas tienden a callar, y un operador lógico mal elegido los borra del mapa. Es, literalmente, la diferencia entre rendir cuentas y no hacerlo.
+
 
 ---
 
@@ -144,17 +144,17 @@ prioridad = (la mayor de las dos materialidades + importancia para los grupos) �
 | Consumo energético | 5 | 5 | 4,5 |
 | Privacidad de datos | 4 | 5 | 5 |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```text
-Consumo energético:  (max(5, 5) + 4,5) / 2 = 9,5 / 2 = 4,75 → 4,8
-Privacidad de datos: (max(4, 5) + 5)   / 2 = 10  / 2 = 5,00 → 5,0
-```
+    ```text
+    Consumo energético:  (max(5, 5) + 4,5) / 2 = 9,5 / 2 = 4,75 → 4,8
+    Privacidad de datos: (max(4, 5) + 5)   / 2 = 10  / 2 = 5,00 → 5,0
+    ```
 
-**Gana la privacidad de datos**, aunque su impacto sea menor (4 frente a 5).
+    **Gana la privacidad de datos**, aunque su impacto sea menor (4 frente a 5).
 
-¿Por qué? Porque **los grupos de interés la puntúan más alto**. La prioridad no es solo lo que la empresa cree que importa: es también lo que le están exigiendo clientes, reguladores y plantilla. Una empresa que solo se mira a sí misma prioriza mal.
-</details>
+    ¿Por qué? Porque **los grupos de interés la puntúan más alto**. La prioridad no es solo lo que la empresa cree que importa: es también lo que le están exigiendo clientes, reguladores y plantilla. Una empresa que solo se mira a sí misma prioriza mal.
+
 
 ---
 
@@ -175,28 +175,28 @@ progreso = (actual − base) ÷ (meta − base)      acotado entre 0 y 1
 | c | Equipos con segunda vida (%) | 10 | 60 | 75 |
 | d | Equipos con segunda vida (%) | 10 | 60 | 5 |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| # | Cuenta | Progreso |
-|:-:|---|---:|
-| a | `(72 − 40) / (100 − 40) = 32/60 = 0,533` | **0,53** |
-| b | `(1,6 − 1,8) / (1,4 − 1,8) = (−0,2)/(−0,4)` | **0,50** |
-| c | `(75 − 10) / 50 = 1,3` → acotado | **1,00** |
-| d | `(5 − 10) / 50 = −0,1` → acotado | **0,00** |
+    | # | Cuenta | Progreso |
+    |:-:|---|---:|
+    | a | `(72 − 40) / (100 − 40) = 32/60 = 0,533` | **0,53** |
+    | b | `(1,6 − 1,8) / (1,4 − 1,8) = (−0,2)/(−0,4)` | **0,50** |
+    | c | `(75 − 10) / 50 = 1,3` → acotado | **1,00** |
+    | d | `(5 − 10) / 50 = −0,1` → acotado | **0,00** |
 
-**El caso b es la clave de todo el ejercicio.** La meta **baja** (un PUE menor es mejor), y sin embargo **la fórmula es exactamente la misma**: los dos signos negativos se cancelan.
+    **El caso b es la clave de todo el ejercicio.** La meta **baja** (un PUE menor es mejor), y sin embargo **la fórmula es exactamente la misma**: los dos signos negativos se cancelan.
 
-Mucha gente escribe un `if` para distinguir los dos casos y se equivoca en una de las dos ramas. No hace falta:
+    Mucha gente escribe un `if` para distinguir los dos casos y se equivoca en una de las dos ramas. No hace falta:
 
-```java
-double progreso(double lineaBase, double meta, double valorActual) {
-    double recorrido = meta - lineaBase;
-    if (recorrido == 0) throw new IllegalArgumentException("Meta igual a la línea base");
-    double p = (valorActual - lineaBase) / recorrido;
-    return Math.round(Math.max(0, Math.min(1, p)) * 100) / 100.0;
-}
-```
-</details>
+    ```java
+    double progreso(double lineaBase, double meta, double valorActual) {
+        double recorrido = meta - lineaBase;
+        if (recorrido == 0) throw new IllegalArgumentException("Meta igual a la línea base");
+        double p = (valorActual - lineaBase) / recorrido;
+        return Math.round(Math.max(0, Math.min(1, p)) * 100) / 100.0;
+    }
+    ```
+
 
 ---
 
@@ -208,17 +208,17 @@ double progreso(double lineaBase, double meta, double valorActual) {
 2. ¿Va **en plazo**?
 3. Otra acción está en 0,30 con esos mismos 18 de 36 meses. ¿Estado y plazo?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-Tiempo consumido: `18 / 36 = 0,50`.
+    Tiempo consumido: `18 / 36 = 0,50`.
 
-| Acción | Progreso | Estado | ¿En plazo? |
-|---|---:|---|---|
-| Renovables | 0,53 | **AVANZADA** | **Sí**, por 0,03 |
-| La otra | 0,30 | **INICIADA** | **No**: 0,30 < 0,50 |
+    | Acción | Progreso | Estado | ¿En plazo? |
+    |---|---:|---|---|
+    | Renovables | 0,53 | **AVANZADA** | **Sí**, por 0,03 |
+    | La otra | 0,30 | **INICIADA** | **No**: 0,30 < 0,50 |
 
-**Estado y plazo son dos preguntas distintas.** Una acción puede estar «AVANZADA» y llegar tarde igualmente si el reloj corre más deprisa que ella. En un informe hay que dar las dos cosas, porque «avanzada» suena bien y puede estar tapando un retraso.
-</details>
+    **Estado y plazo son dos preguntas distintas.** Una acción puede estar «AVANZADA» y llegar tarde igualmente si el reloj corre más deprisa que ella. En un informe hay que dar las dos cosas, porque «avanzada» suena bien y puede estar tapando un retraso.
+
 
 ---
 
@@ -234,20 +234,20 @@ Acciones del plan:    "CONSUMO ENERGÉTICO"
 1. ¿Qué aspectos se quedan sin acción?
 2. ¿Qué pasaría si compararas los nombres con `equals` en lugar de `equalsIgnoreCase`?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. **Privacidad de datos** y **Uso de agua**.
+    1. **Privacidad de datos** y **Uso de agua**.
 
-2. Con `equals`, `"CONSUMO ENERGÉTICO"` no casaría con `"Consumo energético"` y el informe diría que **los tres** aspectos están sin acción. Un falso positivo que arruina la credibilidad del análisis entero: estarías acusando a la empresa de no hacer algo que sí hace.
+    2. Con `equals`, `"CONSUMO ENERGÉTICO"` no casaría con `"Consumo energético"` y el informe diría que **los tres** aspectos están sin acción. Un falso positivo que arruina la credibilidad del análisis entero: estarías acusando a la empresa de no hacer algo que sí hace.
 
-```java
-for (String c : aspectosConAccion) {
-    if (c.equalsIgnoreCase(a)) tiene = true;
-}
-```
+    ```java
+    for (String c : aspectosConAccion) {
+        if (c.equalsIgnoreCase(a)) tiene = true;
+    }
+    ```
 
-Los nombres llegan de sitios distintos (una hoja de cálculo, un informe en PDF, un formulario) y cada uno con sus mayúsculas. **Comparar texto que viene de varias fuentes siempre exige normalizarlo.** Es la misma lección de la UT2 con las tecnologías eléctricas.
-</details>
+    Los nombres llegan de sitios distintos (una hoja de cálculo, un informe en PDF, un formulario) y cada uno con sus mayúsculas. **Comparar texto que viene de varias fuentes siempre exige normalizarlo.** Es la misma lección de la UT2 con las tecnologías eléctricas.
+
 
 ---
 
@@ -397,23 +397,287 @@ Acciones en marcha:
 
 ---
 
-## 5. Autoevaluación
+## 5. Simulacro de examen
 
-<details><summary><b>1.</b> Un grupo de interés es…<br>a) solo los accionistas · b) quien afecta a la empresa o se ve afectado por ella · c) la dirección · d) los clientes grandes</summary><b>b</b></details>
-<details><summary><b>2.</b> Influencia 5, interés 2 →<br>a) gestionar de cerca · b) mantener satisfecho · c) mantener informado · d) monitorizar</summary><b>b</b></details>
-<details><summary><b>3.</b> Influencia 2, interés 4 →<br>a) gestionar de cerca · b) mantener satisfecho · c) mantener informado · d) monitorizar</summary><b>c</b></details>
-<details><summary><b>4.</b> La doble materialidad considera material un asunto si…<br>a) lo es por impacto Y por finanzas · b) lo es por impacto O por finanzas · c) lo pide un cliente · d) sale en los ODS</summary><b>b</b></details>
-<details><summary><b>5.</b> Impacto 4, financiero 2, umbral 3,5. Es…<br>a) no material · b) material por impacto · c) material financiero · d) material por ambas</summary><b>b</b></details>
-<details><summary><b>6.</b> Programar `esMaterial` con `&&` haría que…<br>a) diera igual · b) desaparecieran los asuntos con impacto alto y efecto financiero bajo · c) no compilara · d) todo fuera material</summary><b>b</b></details>
-<details><summary><b>7.</b> Impacto 4, financiero 5, grupos 5. La prioridad es…<br>a) 4,5 · b) 4,7 · c) 5,0 · d) 4,0</summary><b>c</b></details>
-<details><summary><b>8.</b> Base 40, meta 100, actual 72. El progreso es…<br>a) 0,72 · b) 0,53 · c) 0,60 · d) 0,40</summary><b>b</b></details>
-<details><summary><b>9.</b> Base 1,8, meta 1,4, actual 1,6 (PUE). El progreso es…<br>a) 0,0 · b) 0,5 · c) 0,89 · d) no se puede, la meta baja</summary><b>b</b></details>
-<details><summary><b>10.</b> ¿Hace falta un `if` distinto para las metas que bajan?<br>a) sí · b) no, los dos signos negativos se cancelan · c) solo si el valor es negativo · d) sí, con valor absoluto</summary><b>b</b></details>
-<details><summary><b>11.</b> Si meta y línea base son iguales, `progreso` debe…<br>a) devolver 1,0 · b) lanzar IllegalArgumentException · c) devolver 0,0 · d) devolver NaN</summary><b>b</b></details>
-<details><summary><b>12.</b> Un progreso de 0,53 da estado…<br>a) COMPLETADA · b) AVANZADA · c) INICIADA · d) SIN EMPEZAR</summary><b>b</b></details>
-<details><summary><b>13.</b> Ese 0,53 con 18 de 36 meses consumidos…<br>a) va retrasada · b) va en plazo, muy justa · c) está completada · d) no se puede valorar</summary><b>b</b></details>
-<details><summary><b>14.</b> En el reto ejemplo, el aspecto de mayor prioridad era…<br>a) consumo energético · b) privacidad de datos · c) uso de agua · d) residuos electrónicos</summary><b>b</b>, con 5,0.</details>
-<details><summary><b>15.</b> Y lo llamativo de ese aspecto era que…<br>a) ya estaba resuelto · b) no tenía ninguna acción asignada · c) no era material · d) lo llevaba otro departamento</summary><b>b</b></details>
-<details><summary><b>16.</b> Subir el umbral de 3,5 a 4,0 haría que…<br>a) no cambiara nada · b) el agua y los residuos salieran del informe sin hacer nada · c) mejorara la cobertura · d) fuera obligatorio</summary><b>b</b></details>
-<details><summary><b>17.</b> En `aspectosSinAccion` se usa `equalsIgnoreCase` porque…<br>a) es más rápido · b) los nombres llegan con mayúsculas dispares según la fuente · c) lo exige Java · d) para ordenar</summary><b>b</b></details>
-<details><summary><b>18.</b> Publicar los aspectos materiales sin acción…<br>a) perjudica a la empresa · b) es la señal de que el informe es honesto · c) está prohibido · d) es opcional y poco útil</summary><b>b</b></details>
+> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA6 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA6 preparado.
+
+```mermaid
+flowchart LR
+    S["Simulacro RA6"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    P --> N["Tu nota del RA6<br/>sobre 10"]
+    T --> N
+```
+
+### Parte práctica · 8 puntos
+
+Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa6.java`, completa los 3 métodos y lanza:
+
+```bash
+mvn test -Dtest=SimulacroRa6Test
+```
+
+```text
+nota práctica = (tests superados ÷ 14) × 8
+```
+
+!!! warning "Las reglas no son las de clase"
+    Cambian pesos, umbrales o redondeos, y el Javadoc lo avisa en mayúsculas. Es el fallo número uno del examen: código correcto con las constantes de clase.
+
+### Banco de preguntas · 2 puntos
+
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+
+#### A · Teoría y cálculo
+
+**1.** Un grupo de interés es…
+
+a) solo los accionistas · b) quien afecta a la empresa o se ve afectado por ella · c) la dirección · d) los clientes grandes
+
+??? success "Respuesta"
+
+    **b**
+
+**2.** Influencia 5, interés 2 →
+
+a) gestionar de cerca · b) mantener satisfecho · c) mantener informado · d) monitorizar
+
+??? success "Respuesta"
+
+    **b**
+
+**3.** Influencia 2, interés 4 →
+
+a) gestionar de cerca · b) mantener satisfecho · c) mantener informado · d) monitorizar
+
+??? success "Respuesta"
+
+    **c**
+
+**4.** La doble materialidad considera material un asunto si…
+
+a) lo es por impacto Y por finanzas · b) lo es por impacto O por finanzas · c) lo pide un cliente · d) sale en los ODS
+
+??? success "Respuesta"
+
+    **b**
+
+**5.** Impacto 4, financiero 2, umbral 3,5. Es…
+
+a) no material · b) material por impacto · c) material financiero · d) material por ambas
+
+??? success "Respuesta"
+
+    **b**
+
+**6.** Programar `esMaterial` con `&&` haría que…
+
+a) diera igual · b) desaparecieran los asuntos con impacto alto y efecto financiero bajo · c) no compilara · d) todo fuera material
+
+??? success "Respuesta"
+
+    **b**
+
+**7.** Impacto 4, financiero 5, grupos 5. La prioridad es…
+
+a) 4,5 · b) 4,7 · c) 5,0 · d) 4,0
+
+??? success "Respuesta"
+
+    **c**
+
+**8.** Base 40, meta 100, actual 72. El progreso es…
+
+a) 0,72 · b) 0,53 · c) 0,60 · d) 0,40
+
+??? success "Respuesta"
+
+    **b**
+
+**9.** Base 1,8, meta 1,4, actual 1,6 (PUE). El progreso es…
+
+a) 0,0 · b) 0,5 · c) 0,89 · d) no se puede, la meta baja
+
+??? success "Respuesta"
+
+    **b**
+
+**10.** ¿Hace falta un `if` distinto para las metas que bajan?
+
+a) sí · b) no, los dos signos negativos se cancelan · c) solo si el valor es negativo · d) sí, con valor absoluto
+
+??? success "Respuesta"
+
+    **b**
+
+**11.** Si meta y línea base son iguales, `progreso` debe…
+
+a) devolver 1,0 · b) lanzar IllegalArgumentException · c) devolver 0,0 · d) devolver NaN
+
+??? success "Respuesta"
+
+    **b**
+
+**12.** Un progreso de 0,53 da estado…
+
+a) COMPLETADA · b) AVANZADA · c) INICIADA · d) SIN EMPEZAR
+
+??? success "Respuesta"
+
+    **b**
+
+**13.** Ese 0,53 con 18 de 36 meses consumidos…
+
+a) va retrasada · b) va en plazo, muy justa · c) está completada · d) no se puede valorar
+
+??? success "Respuesta"
+
+    **b**
+
+**14.** En el reto ejemplo, el aspecto de mayor prioridad era…
+
+a) consumo energético · b) privacidad de datos · c) uso de agua · d) residuos electrónicos
+
+??? success "Respuesta"
+
+    **b**, con 5,0.
+
+**15.** Y lo llamativo de ese aspecto era que…
+
+a) ya estaba resuelto · b) no tenía ninguna acción asignada · c) no era material · d) lo llevaba otro departamento
+
+??? success "Respuesta"
+
+    **b**
+
+**16.** Subir el umbral de 3,5 a 4,0 haría que…
+
+a) no cambiara nada · b) el agua y los residuos salieran del informe sin hacer nada · c) mejorara la cobertura · d) fuera obligatorio
+
+??? success "Respuesta"
+
+    **b**
+
+**17.** En `aspectosSinAccion` se usa `equalsIgnoreCase` porque…
+
+a) es más rápido · b) los nombres llegan con mayúsculas dispares según la fuente · c) lo exige Java · d) para ordenar
+
+??? success "Respuesta"
+
+    **b**
+
+**18.** Publicar los aspectos materiales sin acción…
+
+a) perjudica a la empresa · b) es la señal de que el informe es honesto · c) está prohibido · d) es opcional y poco útil
+
+??? success "Respuesta"
+
+    **b**
+
+**19.** Con "alto" = 4 o más, un grupo con influencia 3 e interés 5 debe…
+
+a) gestionarse de cerca · b) mantenerse satisfecho · c) mantenerse informado · d) monitorizarse
+
+??? success "Respuesta"
+
+    c. La influencia 3 ya no es alta en el simulacro.
+
+**20.** Con la fórmula del simulacro, la prioridad de (5, 5, 4,5) es…
+
+a) 4,8 · b) 4,75 · c) 5,0 · d) 14,5
+
+??? success "Respuesta"
+
+    a. (5 + 5 + 4,5) / 3 = 4,83 → 4,8.
+
+**21.** Un progreso de 0,80 tiene estado…
+
+a) COMPLETADA · b) CASI · c) EN MARCHA · d) AVANZADA
+
+??? success "Respuesta"
+
+    b. Desde 0,75. «AVANZADA» es un estado de clase que aquí no existe.
+
+**22.** La doble materialidad considera material un aspecto si…
+
+a) lo es por impacto y por finanzas · b) lo es por impacto o por finanzas · c) lo decide el consejo · d) aparece en un ODS
+
+??? success "Respuesta"
+
+    b.
+
+#### B · ¿Qué devuelve este código?
+
+Sin ejecutarlo. Razona con las reglas de la unidad, no con las del simulacro.
+
+**23.** ¿Qué devuelve `Ut6Plan.estrategiaGrupo(3, 2)`?
+
+a) `"MONITORIZAR"` · b) `"MANTENER SATISFECHO"` · c) `"MANTENER INFORMADO"` · d) `"GESTIONAR DE CERCA"`
+
+??? success "Respuesta"
+
+    **b**. La influencia 3 ya es alta; el interés 2 es bajo.
+
+**24.** ¿Qué devuelve `Ut6Plan.esMaterial(3.4, 3.4, 3.5)`?
+
+a) `true` · b) `false` · c) excepción · d) `3.4`
+
+??? success "Respuesta"
+
+    **b**. Ninguna de las dos llega al umbral.
+
+**25.** ¿Qué devuelve `Ut6Plan.tipoMaterialidad(2, 4, 3.5)`?
+
+a) `"IMPACTO"` · b) `"AMBAS"` · c) `"FINANCIERA"` · d) `"NO MATERIAL"`
+
+??? success "Respuesta"
+
+    **c**. Solo la financiera alcanza el umbral.
+
+**26.** ¿Qué devuelve `Ut6Plan.prioridad(2, 3, 5)`?
+
+a) `3.3` · b) `4.0` · c) `5.0` · d) `2.5`
+
+??? success "Respuesta"
+
+    **b**. (máx(2, 3) + 5) / 2. La a) es la media de las tres, que es otra fórmula.
+
+**27.** ¿Qué devuelve `Ut6Plan.progreso(100, 50, 75)`?
+
+a) `-0.5` · b) `0.75` · c) `0.5` · d) `1.0`
+
+??? success "Respuesta"
+
+    **c**. (75 − 100) / (50 − 100): la meta baja y los dos negativos se cancelan.
+
+**28.** ¿Qué devuelve `Ut6Plan.estado(0.49)`?
+
+a) `"AVANZADA"` · b) `"INICIADA"` · c) `"SIN EMPEZAR"` · d) `"COMPLETADA"`
+
+??? success "Respuesta"
+
+    **b**. AVANZADA empieza en 0,5.
+
+**29.** ¿Qué devuelve `Ut6Plan.vaEnPlazo(0.4, 12, 24)`?
+
+a) `true` · b) `false` · c) `0.5` · d) excepción
+
+??? success "Respuesta"
+
+    **b**. Ha pasado la mitad del plazo (0,5) y el progreso es 0,4.
+
+**30.** ¿Qué devuelve `Ut6Plan.aspectosSinAccion(new String[]{"A","B","C"}, new String[]{"b"}).length`?
+
+a) `3` · b) `1` · c) `2` · d) `0`
+
+??? success "Respuesta"
+
+    **c**. «b» casa con «B» sin distinguir mayúsculas. Quedan A y C.
+
+### Tu nota del simulacro
+
+```text
+nota RA6 = (tests superados ÷ 14) × 8  +  aciertos en 4 preguntas × 0,5
+```
+
+Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.

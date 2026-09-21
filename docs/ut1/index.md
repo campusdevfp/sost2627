@@ -63,17 +63,17 @@ La dimensión económica se convierte en **gobernanza**: cómo se dirige y contr
 | Horas de formación por persona | 24 | 28 |
 | Brecha salarial de género (%) | 11 | 9 |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| Indicador | Dirección | 2024 → 2025 | ¿Mejora? |
-|---|---|---|:-:|
-| Electricidad renovable | **mayor es mejor** | 65 → 72 (sube) | **Sí** |
-| Emisiones | **menor es mejor** | 380 → 410 (sube) | **No** |
-| Horas de formación | **mayor es mejor** | 24 → 28 (sube) | **Sí** |
-| Brecha salarial | **menor es mejor** | 11 → 9 (baja) | **Sí** |
+    | Indicador | Dirección | 2024 → 2025 | ¿Mejora? |
+    |---|---|---|:-:|
+    | Electricidad renovable | **mayor es mejor** | 65 → 72 (sube) | **Sí** |
+    | Emisiones | **menor es mejor** | 380 → 410 (sube) | **No** |
+    | Horas de formación | **mayor es mejor** | 24 → 28 (sube) | **Sí** |
+    | Brecha salarial | **menor es mejor** | 11 → 9 (baja) | **Sí** |
 
-**Lo importante:** en tres de los cuatro el número sube, pero solo en dos eso es una buena noticia. Un programa que no sepa la dirección de cada indicador dará resultados al revés. Por eso todos los métodos de esta unidad llevan el parámetro `mayorEsMejor`.
-</details>
+    **Lo importante:** en tres de los cuatro el número sube, pero solo en dos eso es una buena noticia. Un programa que no sepa la dirección de cada indicador dará resultados al revés. Por eso todos los métodos de esta unidad llevan el parámetro `mayorEsMejor`.
+
 
 ---
 
@@ -97,19 +97,19 @@ El **cumplimiento** dice qué parte del camino hacia la meta se ha recorrido, en
 | c | 410 | 350 | menor es mejor |
 | d | 10 | 0 | menor es mejor |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| # | Cuenta | Resultado |
-|:-:|---|---:|
-| a | `72 / 100` | **0,72** |
-| b | `95 / 80 = 1,19` → tope | **1,00** |
-| c | 410 > 350, así que `350 / 410` | **0,85** |
-| d | 10 > 0, así que `0 / 10` | **0,00** |
+    | # | Cuenta | Resultado |
+    |:-:|---|---:|
+    | a | `72 / 100` | **0,72** |
+    | b | `95 / 80 = 1,19` → tope | **1,00** |
+    | c | 410 > 350, así que `350 / 410` | **0,85** |
+    | d | 10 > 0, así que `0 / 10` | **0,00** |
 
-**El caso b** se acota porque no existe el 119 % de cumplimiento: si no, una empresa taparía tres indicadores malos con uno espectacular.
+    **El caso b** se acota porque no existe el 119 % de cumplimiento: si no, una empresa taparía tres indicadores malos con uno espectacular.
 
-**El caso d** es una meta de «cero residuos a vertedero» y se enviaron 10 t: el cumplimiento es 0, correcto. Ojo con hacerlo al revés (`valor / meta = 10/0`): en Java eso no lanza excepción, devuelve `Infinity` y se propaga por todo el informe sin avisar.
-</details>
+    **El caso d** es una meta de «cero residuos a vertedero» y se enviaron 10 t: el cumplimiento es 0, correcto. Ojo con hacerlo al revés (`valor / meta = 10/0`): en Java eso no lanza excepción, devuelve `Infinity` y se propaga por todo el informe sin avisar.
+
 
 ---
 
@@ -123,26 +123,26 @@ double cumplimiento(double valor, double meta, boolean mayorEsMejor)
 
 Debe devolver exactamente los resultados del ejercicio 2. Es el **método 2 del reto final**, así que lo que escribas aquí te vale tal cual.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```java
-double cumplimiento(double valor, double meta, boolean mayorEsMejor) {
-    if (mayorEsMejor) {
-        if (meta == 0) return 1.0;              // (1) caso límite ANTES de dividir
-        return Math.min(1.0, valor / meta);     // (2) tope en 1
+    ```java
+    double cumplimiento(double valor, double meta, boolean mayorEsMejor) {
+        if (mayorEsMejor) {
+            if (meta == 0) return 1.0;              // (1) caso límite ANTES de dividir
+            return Math.min(1.0, valor / meta);     // (2) tope en 1
+        }
+        if (valor <= meta) return 1.0;              // (3) ya se ha alcanzado
+        return meta / valor;                        // (4) se ha pasado
     }
-    if (valor <= meta) return 1.0;              // (3) ya se ha alcanzado
-    return meta / valor;                        // (4) se ha pasado
-}
-```
+    ```
 
-1. Si no compruebas la meta 0 aquí, la línea 2 divide entre cero.
-2. `Math.min` es más limpio que un `if` para poner el tope.
-3. Con «menor es mejor», estar **por debajo** de la meta es cumplir del todo.
-4. Aquí `valor` siempre es mayor que 0 (porque es mayor que `meta`, que es ≥ 0), así que esta división es segura.
+    1. Si no compruebas la meta 0 aquí, la línea 2 divide entre cero.
+    2. `Math.min` es más limpio que un `if` para poner el tope.
+    3. Con «menor es mejor», estar **por debajo** de la meta es cumplir del todo.
+    4. Aquí `valor` siempre es mayor que 0 (porque es mayor que `meta`, que es ≥ 0), así que esta división es segura.
 
-**Compruébalo** con los cuatro casos del ejercicio 2 antes de seguir.
-</details>
+    **Compruébalo** con los cuatro casos del ejercicio 2 antes de seguir.
+
 
 ---
 
@@ -158,24 +158,24 @@ La dirección no quiere ver decimales, quiere colores:
 
 **Qué tienes que hacer.** Escribe `String semaforo(double cumplimiento)`. Si el valor no está entre 0 y 1, lanza `IllegalArgumentException`. Después aplícalo a los cuatro resultados del ejercicio 2.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```java
-String semaforo(double cumplimiento) {
-    if (cumplimiento < 0 || cumplimiento > 1) {                     // (1)
-        throw new IllegalArgumentException("Fuera de rango: " + cumplimiento);
+    ```java
+    String semaforo(double cumplimiento) {
+        if (cumplimiento < 0 || cumplimiento > 1) {                     // (1)
+            throw new IllegalArgumentException("Fuera de rango: " + cumplimiento);
+        }
+        if (cumplimiento >= 0.90) return "VERDE";                        // (2)
+        if (cumplimiento >= 0.70) return "AMBAR";
+        return "ROJO";
     }
-    if (cumplimiento >= 0.90) return "VERDE";                        // (2)
-    if (cumplimiento >= 0.70) return "AMBAR";
-    return "ROJO";
-}
-```
+    ```
 
-1. Validar primero evita tener que repetir comprobaciones después.
-2. Los tramos se comprueban **de mayor a menor**. Si los pusieras al revés, el primer `if` se tragaría todos los casos.
+    1. Validar primero evita tener que repetir comprobaciones después.
+    2. Los tramos se comprueban **de mayor a menor**. Si los pusieras al revés, el primer `if` se tragaría todos los casos.
 
-Aplicado al ejercicio 2: 0,72 → **AMBAR** · 1,00 → **VERDE** · 0,85 → **AMBAR** · 0,00 → **ROJO**.
-</details>
+    Aplicado al ejercicio 2: 0,72 → **AMBAR** · 1,00 → **VERDE** · 0,85 → **AMBAR** · 0,00 → **ROJO**.
+
 
 ---
 
@@ -193,31 +193,31 @@ La puntuación de una dimensión es la **media de los cumplimientos de sus indic
 
 Si el array llega vacío, el método debe devolver `0.0` (no lanzar excepción).
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```java
-double puntuacionDimension(double[] cumplimientos) {
-    if (cumplimientos.length == 0) return 0.0;          // (1)
-    double suma = 0;
-    for (double c : cumplimientos) suma += c;
-    double media = suma / cumplimientos.length;
-    return Math.round(media * 100 * 10) / 10.0;         // (2)
-}
-```
+    ```java
+    double puntuacionDimension(double[] cumplimientos) {
+        if (cumplimientos.length == 0) return 0.0;          // (1)
+        double suma = 0;
+        for (double c : cumplimientos) suma += c;
+        double media = suma / cumplimientos.length;
+        return Math.round(media * 100 * 10) / 10.0;         // (2)
+    }
+    ```
 
-1. Sin esto, dividirías entre cero. Devolver 0 es lo correcto: una dimensión sin indicadores no ha demostrado nada.
-2. El truco del redondeo a un decimal: multiplicas por 10, redondeas al entero y divides entre 10,0. El `.0` es imprescindible, o Java haría una división entera.
+    1. Sin esto, dividirías entre cero. Devolver 0 es lo correcto: una dimensión sin indicadores no ha demostrado nada.
+    2. El truco del redondeo a un decimal: multiplicas por 10, redondeas al entero y divides entre 10,0. El `.0` es imprescindible, o Java haría una división entera.
 
-**Resultado:** `(0,720 + 0,854 + 0,633) / 3 = 0,736` → **73,6**
+    **Resultado:** `(0,720 + 0,854 + 0,633) / 3 = 0,736` → **73,6**
 
-```text
-Renovables      ███████████████████████████████████░░░░░░░░░░░░░  72,0
-Emisiones       ██████████████████████████████████████████░░░░░░  85,4
-Residuos        ███████████████████████████░░░░░░░░░░░░░░░░░░░░░  63,3
-                ────────────────────────────────────────────────
-DIMENSIÓN A     ████████████████████████████████████░░░░░░░░░░░░  73,6
-```
-</details>
+    ```text
+    Renovables      ███████████████████████████████████░░░░░░░░░░░░░  72,0
+    Emisiones       ██████████████████████████████████████████░░░░░░  85,4
+    Residuos        ███████████████████████████░░░░░░░░░░░░░░░░░░░░░  63,3
+                    ────────────────────────────────────────────────
+    DIMENSIÓN A     ████████████████████████████████████░░░░░░░░░░░░  73,6
+    ```
+
 
 ---
 
@@ -237,19 +237,19 @@ Y el rating sale de esa nota: **≥ 85 AAA · ≥ 70 AA · ≥ 55 A · ≥ 40 BB
 2. Calcula también la **media simple** de las tres.
 3. Explica en una frase por qué la diferencia importa.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. `50 × 0,4 + 80 × 0,3 + 90 × 0,3 = 20 + 24 + 27 = ` **71,0** → rating **AA**
-2. Media simple: `(50 + 80 + 90) / 3 = ` **73,3**
-3. Son **2,3 puntos de diferencia** solo por cómo se pondera. Con otros pesos, la misma empresa podría quedarse en **A**. Por eso las agencias publican su metodología: sin saber cómo se pondera, un rating no se puede interpretar ni comparar con el de otra agencia.
+    1. `50 × 0,4 + 80 × 0,3 + 90 × 0,3 = 20 + 24 + 27 = ` **71,0** → rating **AA**
+    2. Media simple: `(50 + 80 + 90) / 3 = ` **73,3**
+    3. Son **2,3 puntos de diferencia** solo por cómo se pondera. Con otros pesos, la misma empresa podría quedarse en **A**. Por eso las agencias publican su metodología: sin saber cómo se pondera, un rating no se puede interpretar ni comparar con el de otra agencia.
 
-```java
-double puntuacionAsg(double ambiental, double social, double gobernanza) {
-    double total = ambiental * 0.4 + social * 0.3 + gobernanza * 0.3;
-    return Math.round(total * 10) / 10.0;
-}
-```
-</details>
+    ```java
+    double puntuacionAsg(double ambiental, double social, double gobernanza) {
+        double total = ambiental * 0.4 + social * 0.3 + gobernanza * 0.3;
+        return Math.round(total * 10) / 10.0;
+    }
+    ```
+
 
 ---
 
@@ -400,23 +400,287 @@ Cuando los tests estén en verde, copia el programa `DemoUt1` del reto ejemplo, 
 
 ---
 
-## 5. Autoevaluación
+## 5. Simulacro de examen
 
-<details><summary><b>1.</b> El desarrollo sostenible atiende las necesidades actuales…<br>a) eliminando toda emisión · b) sin comprometer las de las generaciones futuras · c) priorizando lo ambiental · d) solo en países ricos</summary><b>b</b></details>
-<details><summary><b>2.</b> La Agenda 2030 tiene…<br>a) 15 ODS · b) 17 ODS y 169 metas · c) 20 ODS · d) 17 metas</summary><b>b</b></details>
-<details><summary><b>3.</b> En ASG, la «G» es…<br>a) gestión · b) globalización · c) gobernanza · d) garantía</summary><b>c</b></details>
-<details><summary><b>4.</b> «Brecha salarial de género» pertenece a la dimensión…<br>a) ambiental · b) social · c) gobernanza · d) financiera</summary><b>b</b></details>
-<details><summary><b>5.</b> «Plantilla formada en el código ético» pertenece a…<br>a) ambiental · b) social · c) gobernanza · d) no es ASG</summary><b>c</b>. Mide cumplimiento y ética.</details>
-<details><summary><b>6.</b> Las emisiones pasan de 380 a 410 t. Han…<br>a) mejorado · b) empeorado · c) no se sabe · d) da igual</summary><b>b</b></details>
-<details><summary><b>7.</b> `cumplimiento(95, 80, true)` devuelve…<br>a) 1,19 · b) 1,0 · c) 0,84 · d) 0,0</summary><b>b</b>. Se acota a 1,0.</details>
-<details><summary><b>8.</b> `cumplimiento(125, 100, false)` devuelve…<br>a) 1,25 · b) 0,8 · c) 1,0 · d) 0,0</summary><b>b</b>. meta/valor.</details>
-<details><summary><b>9.</b> Meta 0, valor 10, menor es mejor. El cumplimiento es…<br>a) 1,0 · b) 0,0 · c) Infinity · d) excepción</summary><b>b</b></details>
-<details><summary><b>10.</b> Dividir dos `double` entre cero en Java…<br>a) lanza ArithmeticException · b) devuelve Infinity o NaN sin avisar · c) devuelve 0 · d) no compila</summary><b>b</b>. Por eso hay que tratar el caso antes.</details>
-<details><summary><b>11.</b> Cumplimientos 0,72 · 0,854 · 0,633 dan una puntuación de dimensión de…<br>a) 63,3 · b) 73,6 · c) 85,4 · d) 220,7</summary><b>b</b></details>
-<details><summary><b>12.</b> A=50, S=80, G=90 con pesos 0,4/0,3/0,3 dan…<br>a) 73,3 · b) 71,0 · c) 80,0 · d) 66,7</summary><b>b</b>. La a) es la media simple.</details>
-<details><summary><b>13.</b> En el reto ejemplo, la puntuación global fue 75,6. El rating es…<br>a) AAA · b) AA · c) A · d) BBB</summary><b>b</b></details>
-<details><summary><b>14.</b> En ese mismo reto, la dimensión más débil era…<br>a) ambiental · b) social · c) gobernanza · d) todas iguales</summary><b>b</b>, con 62,8.</details>
-<details><summary><b>15.</b> Y el indicador peor parado era…<br>a) los residuos electrónicos · b) la brecha salarial · c) las emisiones · d) el código ético</summary><b>b</b>, con 0,556 de cumplimiento (semáforo rojo).</details>
-<details><summary><b>16.</b> Que una empresa tenga rating AA significa que…<br>a) todo va bien · b) la nota global es alta, pero puede esconder dimensiones muy débiles · c) cumple la ley · d) no emite CO₂</summary><b>b</b></details>
-<details><summary><b>17.</b> Dos agencias dan ratings distintos a la misma empresa porque…<br>a) una miente · b) usan indicadores y ponderaciones distintas · c) es aleatorio · d) no sirven</summary><b>b</b></details>
-<details><summary><b>18.</b> «Hosting ecológico», sin datos, es…<br>a) una afirmación válida · b) greenwashing · c) un indicador ASG · d) un ODS</summary><b>b</b></details>
+> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA1 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA1 preparado.
+
+```mermaid
+flowchart LR
+    S["Simulacro RA1"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    P --> N["Tu nota del RA1<br/>sobre 10"]
+    T --> N
+```
+
+### Parte práctica · 8 puntos
+
+Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa1.java`, completa los 3 métodos y lanza:
+
+```bash
+mvn test -Dtest=SimulacroRa1Test
+```
+
+```text
+nota práctica = (tests superados ÷ 13) × 8
+```
+
+!!! warning "Las reglas no son las de clase"
+    Cambian pesos, umbrales o redondeos, y el Javadoc lo avisa en mayúsculas. Es el fallo número uno del examen: código correcto con las constantes de clase.
+
+### Banco de preguntas · 2 puntos
+
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+
+#### A · Teoría y cálculo
+
+**1.** El desarrollo sostenible atiende las necesidades actuales…
+
+a) eliminando toda emisión · b) sin comprometer las de las generaciones futuras · c) priorizando lo ambiental · d) solo en países ricos
+
+??? success "Respuesta"
+
+    **b**
+
+**2.** La Agenda 2030 tiene…
+
+a) 15 ODS · b) 17 ODS y 169 metas · c) 20 ODS · d) 17 metas
+
+??? success "Respuesta"
+
+    **b**
+
+**3.** En ASG, la «G» es…
+
+a) gestión · b) globalización · c) gobernanza · d) garantía
+
+??? success "Respuesta"
+
+    **c**
+
+**4.** «Brecha salarial de género» pertenece a la dimensión…
+
+a) ambiental · b) social · c) gobernanza · d) financiera
+
+??? success "Respuesta"
+
+    **b**
+
+**5.** «Plantilla formada en el código ético» pertenece a…
+
+a) ambiental · b) social · c) gobernanza · d) no es ASG
+
+??? success "Respuesta"
+
+    **c**. Mide cumplimiento y ética.
+
+**6.** Las emisiones pasan de 380 a 410 t. Han…
+
+a) mejorado · b) empeorado · c) no se sabe · d) da igual
+
+??? success "Respuesta"
+
+    **b**
+
+**7.** `cumplimiento(95, 80, true)` devuelve…
+
+a) 1,19 · b) 1,0 · c) 0,84 · d) 0,0
+
+??? success "Respuesta"
+
+    **b**. Se acota a 1,0.
+
+**8.** `cumplimiento(125, 100, false)` devuelve…
+
+a) 1,25 · b) 0,8 · c) 1,0 · d) 0,0
+
+??? success "Respuesta"
+
+    **b**. meta/valor.
+
+**9.** Meta 0, valor 10, menor es mejor. El cumplimiento es…
+
+a) 1,0 · b) 0,0 · c) Infinity · d) excepción
+
+??? success "Respuesta"
+
+    **b**
+
+**10.** Dividir dos `double` entre cero en Java…
+
+a) lanza ArithmeticException · b) devuelve Infinity o NaN sin avisar · c) devuelve 0 · d) no compila
+
+??? success "Respuesta"
+
+    **b**. Por eso hay que tratar el caso antes.
+
+**11.** Cumplimientos 0,72 · 0,854 · 0,633 dan una puntuación de dimensión de…
+
+a) 63,3 · b) 73,6 · c) 85,4 · d) 220,7
+
+??? success "Respuesta"
+
+    **b**
+
+**12.** A=50, S=80, G=90 con pesos 0,4/0,3/0,3 dan…
+
+a) 73,3 · b) 71,0 · c) 80,0 · d) 66,7
+
+??? success "Respuesta"
+
+    **b**. La a) es la media simple.
+
+**13.** En el reto ejemplo, la puntuación global fue 75,6. El rating es…
+
+a) AAA · b) AA · c) A · d) BBB
+
+??? success "Respuesta"
+
+    **b**
+
+**14.** En ese mismo reto, la dimensión más débil era…
+
+a) ambiental · b) social · c) gobernanza · d) todas iguales
+
+??? success "Respuesta"
+
+    **b**, con 62,8.
+
+**15.** Y el indicador peor parado era…
+
+a) los residuos electrónicos · b) la brecha salarial · c) las emisiones · d) el código ético
+
+??? success "Respuesta"
+
+    **b**, con 0,556 de cumplimiento (semáforo rojo).
+
+**16.** Que una empresa tenga rating AA significa que…
+
+a) todo va bien · b) la nota global es alta, pero puede esconder dimensiones muy débiles · c) cumple la ley · d) no emite CO₂
+
+??? success "Respuesta"
+
+    **b**
+
+**17.** Dos agencias dan ratings distintos a la misma empresa porque…
+
+a) una miente · b) usan indicadores y ponderaciones distintas · c) es aleatorio · d) no sirven
+
+??? success "Respuesta"
+
+    **b**
+
+**18.** «Hosting ecológico», sin datos, es…
+
+a) una afirmación válida · b) greenwashing · c) un indicador ASG · d) un ODS
+
+??? success "Respuesta"
+
+    **b**
+
+**19.** Una empresa pasa de emitir 450 t a 480 t con una meta de 400 t. Su cumplimiento pasa de…
+
+a) 0,89 a 0,83 · b) 1,12 a 1,20 · c) 0,83 a 0,89 · d) no cambia
+
+??? success "Respuesta"
+
+    a. Menor es mejor y se ha pasado de la meta: meta/valor. 400/450 = 0,89 y 400/480 = 0,83. Empeora.
+
+**20.** Con pesos 0,3 / 0,3 / 0,4, una empresa con A=50, S=80 y G=80 saca…
+
+a) 70,0 · b) 71,0 · c) 73,3 · d) 68,0
+
+??? success "Respuesta"
+
+    b. 15 + 24 + 32 = 71,0.
+
+**21.** ¿Qué dimensión ASG mide el porcentaje de consejeros independientes?
+
+a) ambiental · b) social · c) gobernanza · d) ninguna
+
+??? success "Respuesta"
+
+    c. Es un asunto de cómo se dirige y controla la empresa.
+
+**22.** Una empresa presume de un rating alto pero tiene la dimensión social en rojo. Lo correcto es…
+
+a) fiarse del rating · b) revisar el detalle por dimensión e indicador · c) pedir otro rating · d) ignorar lo social
+
+??? success "Respuesta"
+
+    b. La nota global puede esconder dimensiones muy débiles.
+
+#### B · ¿Qué devuelve este código?
+
+Sin ejecutarlo. Razona con las reglas de la unidad, no con las del simulacro.
+
+**23.** ¿Qué devuelve `Ut1Asg.clasificar("Consumo de AGUA en oficinas")`?
+
+a) `"SOCIAL"` · b) `"AMBIENTAL"` · c) `"SIN CLASIFICAR"` · d) `"GOBERNANZA"`
+
+??? success "Respuesta"
+
+    **b**. Tras normalizar queda «consumo de agua en oficinas», que contiene la raíz `agua`.
+
+**24.** ¿Qué devuelve `Ut1Asg.clasificar("Política anticorrupción")`?
+
+a) `"GOBERNANZA"` · b) `"SOCIAL"` · c) `"SIN CLASIFICAR"` · d) `"AMBIENTAL"`
+
+??? success "Respuesta"
+
+    **a**. Contiene la raíz `corrupci`. Fíjate en que `contains` la encuentra aunque vaya pegada a «anti».
+
+**25.** ¿Qué devuelve `Ut1Asg.cumplimiento(45, 60, true)`?
+
+a) `1.33` · b) `0.75` · c) `1.0` · d) `0.25`
+
+??? success "Respuesta"
+
+    **b**. Mayor es mejor: 45 / 60. La opción a) es 60 / 45, la división al revés.
+
+**26.** ¿Qué devuelve `Ut1Asg.cumplimiento(500, 400, false)`?
+
+a) `1.25` · b) `1.0` · c) `0.8` · d) `0.2`
+
+??? success "Respuesta"
+
+    **c**. Menor es mejor y se ha pasado de la meta: 400 / 500.
+
+**27.** ¿Qué devuelve `Ut1Asg.semaforo(0.9)`?
+
+a) `"AMBAR"` · b) `"ROJO"` · c) `"VERDE"` · d) excepción
+
+??? success "Respuesta"
+
+    **c**. El tramo verde empieza **en** 0,9: la comparación es `>=`.
+
+**28.** ¿Qué devuelve `Ut1Asg.puntuacionDimension(new double[]{1.0, 0.5, 0.0})`?
+
+a) `1.5` · b) `0.5` · c) `50.0` · d) `150.0`
+
+??? success "Respuesta"
+
+    **c**. Media 0,5, multiplicada por 100.
+
+**29.** ¿Qué devuelve `Ut1Asg.rating(69.9)`?
+
+a) `"AA"` · b) `"A"` · c) `"BBB"` · d) `"AAA"`
+
+??? success "Respuesta"
+
+    **b**. AA empieza en 70: con 69,9 no llega.
+
+**30.** ¿Qué devuelve `Ut1Asg.odsCubiertos(new int[]{3, 3, 18, 1}).length`?
+
+a) `4` · b) `3` · c) `2` · d) `1`
+
+??? success "Respuesta"
+
+    **c**. Se quitan el 3 repetido y el 18, que no es un ODS válido. Quedan {1, 3}.
+
+### Tu nota del simulacro
+
+```text
+nota RA1 = (tests superados ÷ 13) × 8  +  aciertos en 4 preguntas × 0,5
+```
+
+Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.

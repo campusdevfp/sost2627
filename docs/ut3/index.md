@@ -62,24 +62,24 @@ Content-Type: image/jpeg
 
 **Qué tienes que hacer.** Di cuáles de esos cuatro son **comprimibles** (merece la pena aplicarles gzip) y qué pasa si comparas el primero directamente con `"text/html"` usando `equals`.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| Content-Type | ¿Comprimible? | Por qué |
-|---|:-:|---|
-| `text/html; charset=UTF-8` | **Sí** | Es texto |
-| `Text/CSS` | **Sí** | Es texto, aunque venga en mayúsculas |
-| `application/json` | **Sí** | Texto muy repetitivo: comprime genial |
-| `image/jpeg` | **No** | Ya viene comprimido |
+    | Content-Type | ¿Comprimible? | Por qué |
+    |---|:-:|---|
+    | `text/html; charset=UTF-8` | **Sí** | Es texto |
+    | `Text/CSS` | **Sí** | Es texto, aunque venga en mayúsculas |
+    | `application/json` | **Sí** | Texto muy repetitivo: comprime genial |
+    | `image/jpeg` | **No** | Ya viene comprimido |
 
-Con `equals` directo, `"text/html; charset=UTF-8"` **no coincide** con `"text/html"`. Resultado: el HTML se daría por no comprimible y perderías el hallazgo más importante de la auditoría.
+    Con `equals` directo, `"text/html; charset=UTF-8"` **no coincide** con `"text/html"`. Resultado: el HTML se daría por no comprimible y perderías el hallazgo más importante de la auditoría.
 
-La línea que lo arregla:
+    La línea que lo arregla:
 
-```java
-String tipo = tipoContenido.split(";")[0].trim().toLowerCase();
-//                          └ corta en ';'   └ quita espacios  └ ignora mayúsculas
-```
-</details>
+    ```java
+    String tipo = tipoContenido.split(";")[0].trim().toLowerCase();
+    //                          └ corta en ';'   └ quita espacios  └ ignora mayúsculas
+    ```
+
 
 ---
 
@@ -97,33 +97,33 @@ String tipo = tipoContenido.split(";")[0].trim().toLowerCase();
 | d | `no-cache` | ? |
 | e | *(la cabecera no viene)* → `null` | ? |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| # | max-age | Por qué |
-|:-:|---:|---|
-| a | **31 536 000** | Un año entero |
-| b | **3 600** | Una hora |
-| c | **0** | `no-store` **prohíbe** guardar la respuesta y gana sobre cualquier `max-age` que venga detrás |
-| d | **0** | No hay `max-age` |
-| e | **0** | Si no compruebas el `null`, aquí tienes un `NullPointerException` en producción |
+    | # | max-age | Por qué |
+    |:-:|---:|---|
+    | a | **31 536 000** | Un año entero |
+    | b | **3 600** | Una hora |
+    | c | **0** | `no-store` **prohíbe** guardar la respuesta y gana sobre cualquier `max-age` que venga detrás |
+    | d | **0** | No hay `max-age` |
+    | e | **0** | Si no compruebas el `null`, aquí tienes un `NullPointerException` en producción |
 
-```java
-long maxAge(String cacheControl) {
-    if (cacheControl == null) return 0;                          // (1)
-    long segundos = 0;
-    for (String parte : cacheControl.toLowerCase().split(",")) { // (2)
-        String p = parte.trim();
-        if (p.equals("no-store")) return 0;                      // (3)
-        if (p.startsWith("max-age=")) segundos = Long.parseLong(p.substring(8));
+    ```java
+    long maxAge(String cacheControl) {
+        if (cacheControl == null) return 0;                          // (1)
+        long segundos = 0;
+        for (String parte : cacheControl.toLowerCase().split(",")) { // (2)
+            String p = parte.trim();
+            if (p.equals("no-store")) return 0;                      // (3)
+            if (p.startsWith("max-age=")) segundos = Long.parseLong(p.substring(8));
+        }
+        return segundos;
     }
-    return segundos;
-}
-```
+    ```
 
-1. El caso `null` es el primero, siempre.
-2. La cabecera trae varias directivas separadas por comas.
-3. `return` inmediato: `no-store` anula lo demás aunque aparezca antes.
-</details>
+    1. El caso `null` es el primero, siempre.
+    2. La cabecera trae varias directivas separadas por comas.
+    3. `return` inmediato: `no-store` anula lo demás aunque aparezca antes.
+
 
 ---
 
@@ -145,16 +145,16 @@ El auditor parte de 100 puntos y resta:
 | b | application/json | 650 000 | No | *(nada)* |
 | c | image/png | 3 000 | No | *(nada)* |
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-| Recurso | Restas | Puntuación |
-|---|---|---:|
-| a | ninguna | **100** |
-| b | −30 (sin comprimir) −20 (sin caché) −25 (pesa) | **25** |
-| c | −20 (sin caché). **No** resta por compresión: un PNG no es comprimible | **80** |
+    | Recurso | Restas | Puntuación |
+    |---|---|---:|
+    | a | ninguna | **100** |
+    | b | −30 (sin comprimir) −20 (sin caché) −25 (pesa) | **25** |
+    | c | −20 (sin caché). **No** resta por compresión: un PNG no es comprimible | **80** |
 
-El recurso **c** es el que más se falla. Un PNG sin comprimir **no es un problema**: no tiene sentido comprimirlo. Penalizarlo sería como reñir a alguien por no hacer algo que no debe hacer.
-</details>
+    El recurso **c** es el que más se falla. Un PNG sin comprimir **no es un problema**: no tiene sentido comprimirlo. Penalizarlo sería como reñir a alguien por no hacer algo que no debe hacer.
+
 
 ---
 
@@ -166,28 +166,28 @@ El recurso **c** es el que más se falla. Un PNG sin comprimir **no es un proble
 2. Escribe `double reduccion(long antes, long despues)`.
 3. ¿Qué debe pasar si `antes` vale 0?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-1. `(366000 − 26000) / 366000 × 100 = ` **92,9 %**
+    1. `(366000 − 26000) / 366000 × 100 = ` **92,9 %**
 
-```text
-Sin comprimir  ████████████████████████████████████████████████  366 kB
-Comprimido     ███░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   26 kB
-```
+    ```text
+    Sin comprimir  ████████████████████████████████████████████████  366 kB
+    Comprimido     ███░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   26 kB
+    ```
 
-2. ```java
-   double reduccion(long antes, long despues) {
-       if (antes <= 0) throw new IllegalArgumentException("Tamaño no válido");
-       return Math.round((antes - despues) * 100.0 / antes * 10) / 10.0;   // (1)
-   }
-   ```
+    2. ```java
+       double reduccion(long antes, long despues) {
+           if (antes <= 0) throw new IllegalArgumentException("Tamaño no válido");
+           return Math.round((antes - despues) * 100.0 / antes * 10) / 10.0;   // (1)
+       }
+       ```
 
-      1. El `100.0` con decimal es **imprescindible**: con `100` a secas, Java haría una división entera y te devolvería 0.
+          1. El `100.0` con decimal es **imprescindible**: con `100` a secas, Java haría una división entera y te devolvería 0.
 
-3. **Lanzar `IllegalArgumentException`.** Un recurso de 0 bytes no existe, así que no tiene sentido calcular su reducción: es un dato erróneo y hay que avisar.
+    3. **Lanzar `IllegalArgumentException`.** Un recurso de 0 bytes no existe, así que no tiene sentido calcular su reducción: es un dato erróneo y hay que avisar.
 
-El JSON comprime tantísimo porque repite miles de veces las mismas claves. Y esto se consigue con **una línea de configuración en el servidor**.
-</details>
+    El JSON comprime tantísimo porque repite miles de veces las mismas claves. Y esto se consigue con **una línea de configuración en el servidor**.
+
 
 ---
 
@@ -209,23 +209,23 @@ Cada medio tiene un factor en kg de CO₂ por km y persona:
 2. en autobús,
 3. ¿qué factor se olvida casi todo el mundo en esta cuenta?
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```text
-Coche:   0,16 × 12 × 2 × 5 × 42 = 806,4 kg/año
-Autobús: 0,08 × 12 × 2 × 5 × 42 = 403,2 kg/año
-                      ↑
-                  ¡LA VUELTA!
-```
+    ```text
+    Coche:   0,16 × 12 × 2 × 5 × 42 = 806,4 kg/año
+    Autobús: 0,08 × 12 × 2 × 5 × 42 = 403,2 kg/año
+                          ↑
+                      ¡LA VUELTA!
+    ```
 
-3. El **× 2**. Se cuenta solo el viaje de ida y el resultado sale **a la mitad**. En una auditoría real, presentar la mitad de las emisiones de la plantilla no es un despiste menor: invalida el informe.
+    3. El **× 2**. Se cuenta solo el viaje de ida y el resultado sale **a la mitad**. En una auditoría real, presentar la mitad de las emisiones de la plantilla no es un despiste menor: invalida el informe.
 
-```text
-Coche    ████████████████████████████████████████████████  806,4 kg
-Autobús  ████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░  403,2 kg
-Bici     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░    0,0 kg
-```
-</details>
+    ```text
+    Coche    ████████████████████████████████████████████████  806,4 kg
+    Autobús  ████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░  403,2 kg
+    Bici     ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░    0,0 kg
+    ```
+
 
 ---
 
@@ -244,29 +244,29 @@ Requisitos:
 - El resultado se redondea a 1 decimal.
 - `"AUTOBÚS"` y `"autobus"` deben funcionar igual.
 
-<details class="sol"><summary>Solución</summary>
+??? success "Solución"
 
-```java
-double kgDesplazamiento(String medio, double kmIda, int diasPorSemana, int semanas) {
-    if (kmIda < 0 || diasPorSemana < 0 || semanas < 0) {                    // (1)
-        throw new IllegalArgumentException("Los datos no pueden ser negativos");
-    }
-    String m = Ut1Asg.normalizar(medio);                                    // (2)
-    for (int i = 0; i < MEDIOS.length; i++) {
-        if (MEDIOS[i].equals(m)) {
-            double kg = KG_POR_KM[i] * kmIda * 2 * diasPorSemana * semanas; // (3)
-            return Math.round(kg * 10) / 10.0;
+    ```java
+    double kgDesplazamiento(String medio, double kmIda, int diasPorSemana, int semanas) {
+        if (kmIda < 0 || diasPorSemana < 0 || semanas < 0) {                    // (1)
+            throw new IllegalArgumentException("Los datos no pueden ser negativos");
         }
+        String m = Ut1Asg.normalizar(medio);                                    // (2)
+        for (int i = 0; i < MEDIOS.length; i++) {
+            if (MEDIOS[i].equals(m)) {
+                double kg = KG_POR_KM[i] * kmIda * 2 * diasPorSemana * semanas; // (3)
+                return Math.round(kg * 10) / 10.0;
+            }
+        }
+        throw new IllegalArgumentException("Medio desconocido: " + medio);      // (4)
     }
-    throw new IllegalArgumentException("Medio desconocido: " + medio);      // (4)
-}
-```
+    ```
 
-1. Las validaciones simples, al principio.
-2. Otra vez `normalizar`: `"AUTOBÚS"` → `"autobus"`. Tercera unidad que lo reutilizas.
-3. El `× 2` de la vuelta.
-4. Si el bucle termina sin encontrar el medio, es que no existe. La excepción va **fuera** del bucle: si la pones dentro, saltaría en la primera fila que no coincida.
-</details>
+    1. Las validaciones simples, al principio.
+    2. Otra vez `normalizar`: `"AUTOBÚS"` → `"autobus"`. Tercera unidad que lo reutilizas.
+    3. El `× 2` de la vuelta.
+    4. Si el bucle termina sin encontrar el medio, es que no existe. La excepción va **fuera** del bucle: si la pones dentro, saltaría en la primera fila que no coincida.
+
 
 ---
 
@@ -403,23 +403,287 @@ Y calcula además tu propia huella: alguien que va **8 km** al trabajo **en moto
 
 ---
 
-## 5. Autoevaluación
+## 5. Simulacro de examen
 
-<details><summary><b>1.</b> La cabecera que dice que una respuesta viene comprimida es…<br>a) Accept-Encoding · b) Content-Encoding · c) Content-Type · d) Cache-Control</summary><b>b</b>. Accept-Encoding la manda el cliente.</details>
-<details><summary><b>2.</b> ¿Cuál **no** conviene comprimir?<br>a) text/css · b) application/json · c) image/svg+xml · d) image/jpeg</summary><b>d</b></details>
-<details><summary><b>3.</b> `"Text/CSS"` debe dar…<br>a) false · b) true, tras pasar a minúsculas · c) depende del tamaño · d) error</summary><b>b</b></details>
-<details><summary><b>4.</b> `"text/html; charset=UTF-8"` comparado sin cortar por el `;`…<br>a) coincide igual · b) no coincide y el HTML se daría por no comprimible · c) lanza excepción · d) da true por defecto</summary><b>b</b></details>
-<details><summary><b>5.</b> `maxAge("no-store, max-age=3600")` vale…<br>a) 3600 · b) 0 · c) 86400 · d) error</summary><b>b</b></details>
-<details><summary><b>6.</b> `maxAge(null)` vale…<br>a) 0 · b) −1 · c) NullPointerException · d) 3600</summary><b>a</b>, si compruebas el null.</details>
-<details><summary><b>7.</b> Un CSS de 12 kB comprimido y con caché de un año puntúa…<br>a) 100 · b) 70 · c) 50 · d) 25</summary><b>a</b></details>
-<details><summary><b>8.</b> Un JSON de 366 kB sin comprimir y sin caché puntúa…<br>a) 25 · b) 50 · c) 70 · d) 100</summary><b>b</b>. 100 − 30 − 20. No penaliza por peso: no llega a 500 kB.</details>
-<details><summary><b>9.</b> Un PNG de 780 kB con `max-age=600` puntúa…<br>a) 25 · b) 50 · c) 75 · d) 100</summary><b>c</b>. Solo penaliza el peso.</details>
-<details><summary><b>10.</b> Que ese PNG saque mejor nota que el HTML demuestra que…<br>a) el código está mal · b) una puntuación automática orienta pero no decide · c) el PNG está bien optimizado · d) hay que subir los umbrales</summary><b>b</b></details>
-<details><summary><b>11.</b> De 366 000 a 26 000 bytes, la reducción es del…<br>a) 92,9 % · b) 7,1 % · c) 14,1 % · d) 34 %</summary><b>a</b></details>
-<details><summary><b>12.</b> Una página de 1,1 MB tiene etiqueta…<br>a) LIGERA · b) NORMAL · c) PESADA · d) sin etiqueta</summary><b>b</b></details>
-<details><summary><b>13.</b> 12 km de ida en coche, 5 días, 42 semanas dan…<br>a) 403,2 kg · b) 806,4 kg · c) 100,8 kg · d) 1008 kg</summary><b>b</b>. La a) es olvidar la vuelta.</details>
-<details><summary><b>14.</b> El mismo trayecto en autobús ahorra…<br>a) 0 kg · b) 403,2 kg · c) 806,4 kg · d) 202 kg</summary><b>b</b></details>
-<details><summary><b>15.</b> `ahorroCambio("autobus", "coche", …)` devuelve…<br>a) positivo · b) negativo · c) cero · d) excepción</summary><b>b</b>. El nuevo contamina más.</details>
-<details><summary><b>16.</b> El principio del RGPD de tratar solo lo necesario es…<br>a) exactitud · b) minimización · c) integridad · d) limitación del plazo</summary><b>b</b></details>
-<details><summary><b>17.</b> Las pautas de accesibilidad del W3C son…<br>a) WSG · b) WCAG · c) RGPD · d) GRI</summary><b>b</b></details>
-<details><summary><b>18.</b> Devolver solo los campos que usa la vista mejora…<br>a) solo la privacidad · b) solo el rendimiento · c) las dos cosas · d) ninguna</summary><b>c</b></details>
+> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA3 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA3 preparado.
+
+```mermaid
+flowchart LR
+    S["Simulacro RA3"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    P --> N["Tu nota del RA3<br/>sobre 10"]
+    T --> N
+```
+
+### Parte práctica · 8 puntos
+
+Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa3.java`, completa los 3 métodos y lanza:
+
+```bash
+mvn test -Dtest=SimulacroRa3Test
+```
+
+```text
+nota práctica = (tests superados ÷ 12) × 8
+```
+
+!!! warning "Las reglas no son las de clase"
+    Cambian pesos, umbrales o redondeos, y el Javadoc lo avisa en mayúsculas. Es el fallo número uno del examen: código correcto con las constantes de clase.
+
+### Banco de preguntas · 2 puntos
+
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+
+#### A · Teoría y cálculo
+
+**1.** La cabecera que dice que una respuesta viene comprimida es…
+
+a) Accept-Encoding · b) Content-Encoding · c) Content-Type · d) Cache-Control
+
+??? success "Respuesta"
+
+    **b**. Accept-Encoding la manda el cliente.
+
+**2.** ¿Cuál **no** conviene comprimir?
+
+a) text/css · b) application/json · c) image/svg+xml · d) image/jpeg
+
+??? success "Respuesta"
+
+    **d**
+
+**3.** `"Text/CSS"` debe dar…
+
+a) false · b) true, tras pasar a minúsculas · c) depende del tamaño · d) error
+
+??? success "Respuesta"
+
+    **b**
+
+**4.** `"text/html; charset=UTF-8"` comparado sin cortar por el `;`…
+
+a) coincide igual · b) no coincide y el HTML se daría por no comprimible · c) lanza excepción · d) da true por defecto
+
+??? success "Respuesta"
+
+    **b**
+
+**5.** `maxAge("no-store, max-age=3600")` vale…
+
+a) 3600 · b) 0 · c) 86400 · d) error
+
+??? success "Respuesta"
+
+    **b**
+
+**6.** `maxAge(null)` vale…
+
+a) 0 · b) −1 · c) NullPointerException · d) 3600
+
+??? success "Respuesta"
+
+    **a**, si compruebas el null.
+
+**7.** Un CSS de 12 kB comprimido y con caché de un año puntúa…
+
+a) 100 · b) 70 · c) 50 · d) 25
+
+??? success "Respuesta"
+
+    **a**
+
+**8.** Un JSON de 366 kB sin comprimir y sin caché puntúa…
+
+a) 25 · b) 50 · c) 70 · d) 100
+
+??? success "Respuesta"
+
+    **b**. 100 − 30 − 20. No penaliza por peso: no llega a 500 kB.
+
+**9.** Un PNG de 780 kB con `max-age=600` puntúa…
+
+a) 25 · b) 50 · c) 75 · d) 100
+
+??? success "Respuesta"
+
+    **c**. Solo penaliza el peso.
+
+**10.** Que ese PNG saque mejor nota que el HTML demuestra que…
+
+a) el código está mal · b) una puntuación automática orienta pero no decide · c) el PNG está bien optimizado · d) hay que subir los umbrales
+
+??? success "Respuesta"
+
+    **b**
+
+**11.** De 366 000 a 26 000 bytes, la reducción es del…
+
+a) 92,9 % · b) 7,1 % · c) 14,1 % · d) 34 %
+
+??? success "Respuesta"
+
+    **a**
+
+**12.** Una página de 1,1 MB tiene etiqueta…
+
+a) LIGERA · b) NORMAL · c) PESADA · d) sin etiqueta
+
+??? success "Respuesta"
+
+    **b**
+
+**13.** 12 km de ida en coche, 5 días, 42 semanas dan…
+
+a) 403,2 kg · b) 806,4 kg · c) 100,8 kg · d) 1008 kg
+
+??? success "Respuesta"
+
+    **b**. La a) es olvidar la vuelta.
+
+**14.** El mismo trayecto en autobús ahorra…
+
+a) 0 kg · b) 403,2 kg · c) 806,4 kg · d) 202 kg
+
+??? success "Respuesta"
+
+    **b**
+
+**15.** `ahorroCambio("autobus", "coche", …)` devuelve…
+
+a) positivo · b) negativo · c) cero · d) excepción
+
+??? success "Respuesta"
+
+    **b**. El nuevo contamina más.
+
+**16.** El principio del RGPD de tratar solo lo necesario es…
+
+a) exactitud · b) minimización · c) integridad · d) limitación del plazo
+
+??? success "Respuesta"
+
+    **b**
+
+**17.** Las pautas de accesibilidad del W3C son…
+
+a) WSG · b) WCAG · c) RGPD · d) GRI
+
+??? success "Respuesta"
+
+    **b**
+
+**18.** Devolver solo los campos que usa la vista mejora…
+
+a) solo la privacidad · b) solo el rendimiento · c) las dos cosas · d) ninguna
+
+??? success "Respuesta"
+
+    **c**
+
+**19.** En el simulacro, `esComprimible("image/svg+xml")` devuelve…
+
+a) true, como en clase · b) false, porque el enunciado lo excluye · c) excepción · d) depende del tamaño
+
+??? success "Respuesta"
+
+    b. Es la trampa del simulacro: la regla cambia respecto a clase.
+
+**20.** Un CSS comprimido de 10 kB con `max-age` de 600 segundos puntúa…
+
+a) 100 · b) 75 · c) 50 · d) 25
+
+??? success "Respuesta"
+
+    b. 600 < 3600: la caché dura menos de una hora y resta 25.
+
+**21.** 10 km en coche (0,16), 5 días con 2 de teletrabajo, 40 semanas dan…
+
+a) 640 kg · b) 384 kg · c) 192 kg · d) 256 kg
+
+??? success "Respuesta"
+
+    b. 0,16 × 10 × 2 × 3 × 40 = 384. La a) ignora el teletrabajo.
+
+**22.** Si `diasTeletrabajo` es mayor que `diasPorSemana`, el método debe…
+
+a) devolver 0 · b) devolver un número negativo · c) lanzar IllegalArgumentException · d) ignorar el teletrabajo
+
+??? success "Respuesta"
+
+    c. Es un dato imposible y hay que avisar.
+
+#### B · ¿Qué devuelve este código?
+
+Sin ejecutarlo. Razona con las reglas de la unidad, no con las del simulacro.
+
+**23.** ¿Qué devuelve `Ut3Desarrollo.esComprimible("IMAGE/SVG+XML")`?
+
+a) `false` · b) `true` · c) excepción · d) depende del tamaño
+
+??? success "Respuesta"
+
+    **b**. Se pasa a minúsculas y `image/svg+xml` está en la lista: el SVG es texto.
+
+**24.** ¿Qué devuelve `Ut3Desarrollo.maxAge("private, max-age=600")`?
+
+a) `0` · b) `3600` · c) `600` · d) excepción
+
+??? success "Respuesta"
+
+    **c**. Se recorren las partes separadas por comas y se lee el número tras `max-age=`.
+
+**25.** ¿Qué devuelve `Ut3Desarrollo.puntuacionRecurso("text/css", 600_000, true, "max-age=60")`?
+
+a) `100` · b) `75` · c) `55` · d) `25`
+
+??? success "Respuesta"
+
+    **b**. Comprimido y con caché: solo resta 25 por superar los 500 000 bytes.
+
+**26.** ¿Qué devuelve `Ut3Desarrollo.puntuacionRecurso("image/webp", 50_000, false, null)`?
+
+a) `50` · b) `70` · c) `80` · d) `100`
+
+??? success "Respuesta"
+
+    **c**. No es comprimible, así que no resta 30. Solo resta 20 por no tener caché.
+
+**27.** ¿Qué devuelve `Ut3Desarrollo.reduccion(1000, 250)`?
+
+a) `25.0` · b) `75.0` · c) `750.0` · d) `0.75`
+
+??? success "Respuesta"
+
+    **b**. (1000 − 250) / 1000 × 100.
+
+**28.** ¿Qué devuelve `Ut3Desarrollo.kgDesplazamiento("tren", 20, 5, 40)`?
+
+a) `120.0` · b) `240.0` · c) `480.0` · d) `0.0`
+
+??? success "Respuesta"
+
+    **b**. 0,03 × 20 × 2 × 5 × 40. La a) olvida la vuelta.
+
+**29.** ¿Qué devuelve `Ut3Desarrollo.ahorroCambio("moto", "bici", 10, 5, 40)`?
+
+a) `400.0` · b) `200.0` · c) `-400.0` · d) `0.0`
+
+??? success "Respuesta"
+
+    **a**. La moto emite 400 kg y la bici 0: se ahorran 400.
+
+**30.** ¿Qué devuelve `Ut3Desarrollo.etiquetaPeso(2_000_000)`?
+
+a) `"LIGERA"` · b) `"PESADA"` · c) `"NORMAL"` · d) excepción
+
+??? success "Respuesta"
+
+    **c**. NORMAL llega **hasta** 2 000 000 incluido.
+
+### Tu nota del simulacro
+
+```text
+nota RA3 = (tests superados ÷ 12) × 8  +  aciertos en 4 preguntas × 0,5
+```
+
+Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.

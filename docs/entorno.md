@@ -23,7 +23,7 @@ cd proyecto
 mvn test
 ```
 
-Verás **124 tests y 124 fallos**. Es lo correcto: todos los métodos están sin hacer.
+Verás **192 tests y 192 fallos** (124 de las unidades y 68 de los simulacros). Es lo correcto: todos los métodos están sin hacer.
 
 ## El ciclo de trabajo
 
@@ -57,8 +57,11 @@ proyecto/
     │   ├── Ut4Circular.java
     │   ├── Ut5Huella.java
     │   └── Ut6Plan.java
-    └── test/java/sostenibilidad/
-        └── Ut1AsgTest.java …                 los tests: NO se tocan
+    ├── main/java/simulacro/
+    │   └── SimulacroRa1.java … Ra6          ← simulacros de examen
+    └── test/java/
+        ├── sostenibilidad/Ut1AsgTest.java …  los tests: NO se tocan
+        └── simulacro/SimulacroRa1Test.java …
 ```
 
 !!! warning "Los tests son el enunciado"

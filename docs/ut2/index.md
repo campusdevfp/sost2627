@@ -275,7 +275,11 @@ flowchart LR
 
 ### El programa
 
+Crea el fichero `src/main/java/sostenibilidad/DemoUt2.java` y ejecútalo con el botón de *play* del IDE:
+
 ```java
+package sostenibilidad;
+
 public class DemoUt2 {
     public static void main(String[] args) {
         double[] semana = {72.1, 83.8, 113.0, 131.9, 104.8, 64.4, 78.8};

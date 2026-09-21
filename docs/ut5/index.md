@@ -279,7 +279,11 @@ Los pasos 1 a 3 son la cuenta obvia. **El paso 4 es el que casi nadie hace** y e
 
 ### El programa
 
+Crea el fichero `src/main/java/sostenibilidad/DemoUt5.java` y ejecútalo con el botón de *play* del IDE:
+
 ```java
+package sostenibilidad;
+
 public class DemoUt5 {
     public static void main(String[] args) {
         double intensidad = 150;

@@ -22,9 +22,9 @@ class SimulacroRa1Test {
         assertEquals(1.0, SimulacroRa1.cumplimiento(300, 400, false), 1e-9);
     }
 
-    @Test @DisplayName("1 · casos con meta 0")
+    @Test @DisplayName("1 · meta cero cuando menor es mejor")
     void metaCero() {
-        assertEquals(1.0, SimulacroRa1.cumplimiento(7, 0, true), 1e-9);
+        assertEquals(1.0, SimulacroRa1.cumplimiento(0, 0, false), 1e-9);
         assertEquals(0.0, SimulacroRa1.cumplimiento(7, 0, false), 1e-9);
     }
 

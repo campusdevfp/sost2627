@@ -47,7 +47,7 @@ La misma fórmula sirve si la meta sube **o baja**: los dos signos negativos se 
 | Indicador | Base | Meta | Actual | Progreso |
 |---|:-:|:-:|:-:|:-:|
 | Renovables (%) | 40 | 100 | 72 | 0,53 |
-| PUE del CPD | 1,8 | 1,4 | 1,6 | 0,50 |
+| PUE del centro de datos | 1,8 | 1,4 | 1,6 | 0,50 |
 
 **Comunicar.** Un informe honesto es equilibrado (cuenta lo que va mal), comparable, preciso con sus fuentes y, si puede, verificado por un tercero. Publicar los **aspectos materiales sin acción** es lo que lo distingue de un folleto.
 
@@ -102,7 +102,7 @@ Un asunto es **material** si merece que la empresa lo gestione e informe de él.
 
 | Aspecto | Impacto | Financiero | ¿Material? | Tipo |
 |---|:-:|:-:|---|---|
-| a) Consumo energético del CPD | 5 | 5 | ? | ? |
+| a) Consumo energético del centro de datos | 5 | 5 | ? | ? |
 | b) Uso de agua en refrigeración | 4 | 2 | ? | ? |
 | c) Riesgo regulatorio de protección de datos | 2 | 5 | ? | ? |
 | d) Patrocinio deportivo local | 1 | 1 | ? | ? |
@@ -253,19 +253,46 @@ Acciones del plan:    "CONSUMO ENERGÉTICO"
 
 ## 3. Reto ejemplo (resuelto)
 
-**Situación.** Plan de *NubeVerde Hosting S.L.* Umbral de materialidad: **3,5**.
+> Aquí se juntan los seis ejercicios en un programa que analiza el plan completo de una empresa. El reto que entregas es igual, con otra empresa.
 
-| Aspecto | Impacto | Financiero | Grupos |
+### El encargo
+
+La dirección de **NubeVerde Hosting S.L.** te pide revisar su plan de sostenibilidad: **qué asuntos son materiales, en qué orden atenderlos, cómo van las acciones y qué falta**. El umbral de materialidad es **3,5**.
+
+| Aspecto | Impacto | Financiero | Importancia para los grupos |
 |---|:-:|:-:|:-:|
-| Consumo energético del CPD | 5 | 5 | 4,5 |
+| Consumo energético del centro de datos | 5 | 5 | 4,5 |
 | Privacidad y seguridad de datos | 4 | 5 | 5 |
 | Uso de agua en refrigeración | 4 | 2 | 3,5 |
 | Residuos electrónicos | 4 | 3 | 3 |
 | Patrocinio deportivo local | 1 | 1 | 2 |
 
-Acciones en marcha: **renovables** (base 40 %, meta 100 %, actual 72 %, lleva 18 de 36 meses) y **reacondicionamiento** (base 10 %, meta 60 %, actual 38 %).
+| Acción en marcha | Responde al aspecto | Base | Meta | Actual | Meses |
+|---|---|---:|---:|---:|---|
+| Contratar electricidad renovable (%) | Consumo energético | 40 | 100 | 72 | 18 de 36 |
+| Reacondicionar equipos retirados (%) | Residuos electrónicos | 10 | 60 | 38 | — |
+
+### Cómo se resuelve, paso a paso
+
+```mermaid
+flowchart LR
+    A["1 · ¿Qué aspectos<br/>son materiales?"] --> B["2 · ¿De qué tipo<br/>y con qué prioridad?"]
+    B --> C["3 · ¿Cómo van<br/>las acciones?"]
+    C --> D["4 · ¿Qué aspectos<br/>no tienen acción?"]
+```
+
+1. `esMaterial` descarta los que no alcanzan el umbral por ninguna de las dos perspectivas.
+2. `tipoMaterialidad` y `prioridad` dicen por qué importa cada uno y cuánto.
+3. `progreso`, `estado` y `vaEnPlazo` dan el estado de cada acción.
+4. `aspectosSinAccion` compara la lista de materiales con los aspectos que ya tienen alguna acción.
+
+### El programa
+
+Crea el fichero `src/main/java/sostenibilidad/DemoUt6.java` y ejecútalo con el botón de *play* del IDE:
 
 ```java
+package sostenibilidad;
+
 public class DemoUt6 {
     public static void main(String[] args) {
         String[] aspectos = {"Consumo energético", "Privacidad de datos",
@@ -275,14 +302,16 @@ public class DemoUt6 {
         double[] gru = {4.5, 5, 3.5, 3, 2};
         double umbral = 3.5;
 
+        // Pasos 1 y 2: materiales, tipo y prioridad
         System.out.println("ASPECTO                 TIPO           PRIORIDAD");
         for (int i = 0; i < aspectos.length; i++) {
-            if (!Ut6Plan.esMaterial(imp[i], fin[i], umbral)) continue;
+            if (!Ut6Plan.esMaterial(imp[i], fin[i], umbral)) continue;   // descarta los no materiales
             System.out.printf("%-22s  %-13s  %.1f%n", aspectos[i],
                     Ut6Plan.tipoMaterialidad(imp[i], fin[i], umbral),
                     Ut6Plan.prioridad(imp[i], fin[i], gru[i]));
         }
 
+        // Paso 3: estado de las acciones
         double pReno = Ut6Plan.progreso(40, 100, 72);
         double pReac = Ut6Plan.progreso(10, 60, 38);
         System.out.printf("%nRenovables: %.0f %% (%s), en plazo: %b%n",
@@ -290,6 +319,7 @@ public class DemoUt6 {
         System.out.printf("Reacondicionamiento: %.0f %% (%s)%n",
                 pReac * 100, Ut6Plan.estado(pReac));
 
+        // Paso 4: aspectos materiales que nadie está atendiendo
         String[] materiales = {"Consumo energético", "Privacidad de datos",
                                "Uso de agua", "Residuos electrónicos"};
         String[] conAccion = {"CONSUMO ENERGÉTICO", "Residuos electrónicos"};
@@ -301,7 +331,7 @@ public class DemoUt6 {
 }
 ```
 
-**Salida:**
+### La salida
 
 ```text
 ASPECTO                 TIPO           PRIORIDAD
@@ -318,6 +348,8 @@ SIN ACCIÓN:
   - Uso de agua
 ```
 
+Ordenados por prioridad:
+
 ```text
 Privacidad de datos     ████████████████████████████████████████  5,0  ← SIN ACCIÓN
 Consumo energético      ██████████████████████████████████████░░  4,8
@@ -326,13 +358,13 @@ Residuos electrónicos   ██████████████████�
 Patrocinio local        ████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░  1,5  (no material)
 ```
 
-**La lectura que importa.** Tres hallazgos que el código saca a la luz y una portada bonita taparía:
+### Qué significa este resultado
 
-**El aspecto más prioritario de todo el plan (5,0) no tiene ninguna acción.** Las dos acciones en marcha atacan el segundo y el cuarto. Un informe que no diga esto en la primera página no vale nada.
+**El aspecto más prioritario de todo el plan no tiene ninguna acción.** La privacidad de datos saca un 5,0, y las dos acciones en marcha atacan el segundo y el cuarto de la lista. Un informe que no diga esto en la primera página no vale nada.
 
-**El agua es material solo por impacto.** Le afecta poco al negocio pero mucho al entorno. Con `&&` habría desaparecido del análisis, y con ella toda la responsabilidad de la empresa sobre el acuífero de su comarca.
+**El agua es material solo por su impacto.** Le afecta poco al negocio (financiero 2) pero mucho al entorno (impacto 4). Si `esMaterial` usara `&&` en vez de `||`, habría desaparecido del análisis, y con ella la responsabilidad de la empresa sobre el agua de su comarca.
 
-**El umbral decide de qué responde la empresa.** Si lo subes a 4,0, el agua y los residuos salen del informe sin que nadie haya hecho nada. Por eso el umbral se justifica, no se elige.
+**El umbral decide de qué responde la empresa.** Si se sube de 3,5 a **4,5**, el agua y los residuos salen del informe sin que la empresa haya hecho nada: solo quedan los dos asuntos que también le afectan económicamente. Por eso el umbral se justifica, no se elige.
 
 ---
 
@@ -360,7 +392,7 @@ Con los tests en verde, aplica tu programa al plan de **Códex Cloud S.L.**, con
 
 | Aspecto | Impacto | Financiero | Importancia grupos |
 |---|:-:|:-:|:-:|
-| Consumo energético del CPD | 5 | 4 | 5 |
+| Consumo energético del centro de datos | 5 | 4 | 5 |
 | Seguridad de los datos de clientes | 3 | 5 | 5 |
 | Residuos electrónicos | 4 | 2 | 3 |
 | Formación y retención del talento | 3 | 4 | 4 |
@@ -379,7 +411,7 @@ Acciones en marcha:
 
 | Acción | Responde al aspecto | Indicador | Base | Meta | Actual | Meses / plazo |
 |---|---|---|---:|---:|---:|---|
-| Contratar electricidad renovable | Consumo energético del CPD | % renovable | 30 | 100 | 65 | 24 / 48 |
+| Contratar electricidad renovable | Consumo energético del centro de datos | % renovable | 30 | 100 | 65 | 24 / 48 |
 | Certificación de seguridad | Seguridad de los datos de clientes | % controles implantados | 20 | 100 | 65 | 30 / 36 |
 
 **Entrega un documento de una página con:**
@@ -550,7 +582,7 @@ a) ya estaba resuelto · b) no tenía ninguna acción asignada · c) no era mate
 
     **b**
 
-**16.** Subir el umbral de 3,5 a 4,0 haría que…
+**16.** En el reto ejemplo, subir el umbral de 3,5 a 4,5 haría que…
 
 a) no cambiara nada · b) el agua y los residuos salieran del informe sin hacer nada · c) mejorara la cobertura · d) fuera obligatorio
 

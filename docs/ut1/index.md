@@ -27,7 +27,7 @@ La dimensión económica se convierte en **gobernanza**: cómo se dirige y contr
 
 | Dimensión | Qué mide | Ejemplo real |
 |---|---|---|
-| **A**mbiental | Emisiones, energía, agua, residuos | % de electricidad renovable del CPD |
+| **A**mbiental | Emisiones, energía, agua, residuos | % de electricidad renovable del centro de datos |
 | **S**ocial | Empleo, igualdad, formación, accesibilidad | Brecha salarial de género |
 | **G**obernanza | Ética, transparencia, cumplimiento | Plantilla formada en el código ético |
 
@@ -72,7 +72,7 @@ La dimensión económica se convierte en **gobernanza**: cómo se dirige y contr
     | Horas de formación | **mayor es mejor** | 24 → 28 (sube) | **Sí** |
     | Brecha salarial | **menor es mejor** | 11 → 9 (baja) | **Sí** |
 
-    **Lo importante:** en tres de los cuatro el número sube, pero solo en dos eso es una buena noticia. Un programa que no sepa la dirección de cada indicador dará resultados al revés. Por eso todos los métodos de esta unidad llevan el parámetro `mayorEsMejor`.
+    **Lo importante:** en tres de los cuatro el número sube, pero solo en dos eso es una buena noticia. Un programa que no sepa la dirección de cada indicador dará resultados al revés. Por eso los métodos que comparan con una meta llevan el parámetro `mayorEsMejor`.
 
 
 ---
@@ -125,23 +125,27 @@ cumplimiento = meta / valor
 
 **¿Por qué se divide al revés?** Porque aquí, cuanto **más** emites, **peor**. Si el valor va abajo, cuanto más grande es, más pequeño sale el resultado: emitir el doble de lo permitido da 0,5; el triple, 0,33. Si dividieras `valor / meta` saldría 2,0, y parecería que emitir el doble es **mejor**.
 
-#### Caso especial · la meta es 0
+#### ¿Y si la meta es 0?
 
-A veces la meta es cero: «cero accidentes», «cero residuos a vertedero». Se trata aparte porque **no se puede dividir entre cero**:
+Pasa con metas como «cero accidentes» o «cero residuos al vertedero», que siempre son de **menor es mejor**. No hace falta ninguna regla nueva: se aplica la del caso 2.
 
-- **Mayor es mejor con meta 0:** cualquier valor ya llega a 0, así que **1,0**. Es un caso rarísimo; está para que el programa no falle.
-- **Menor es mejor con meta 0:** si el valor es 10, te has pasado, y `meta / valor = 0 / 10 = 0,0`. Correcto: de «cero residuos» no has conseguido nada.
+| Meta | Valor | Cuenta | Cumplimiento |
+|---:|---:|---|---:|
+| 0 | 0 | no te has pasado → cumplida | **1,00** |
+| 0 | 1 | te has pasado → 0 / 1 | **0,00** |
+| 0 | 9 | te has pasado → 0 / 9 | **0,00** |
 
-#### Todo junto, en un diagrama
+!!! warning "Con meta 0 es todo o nada"
+    Da igual 9 accidentes que 1: los dos dan **0,00**. Pasar de 10 accidentes a 1 es una mejora enorme y el cumplimiento no la ve. No es un error del código: es una **limitación** de esta forma de medir. En la **UT6** aprenderás la forma buena para estos casos: comparar con el valor del que partías.
+
+#### Todo junto
 
 ```mermaid
 flowchart TD
-    A{"¿Mayor es mejor?"} -->|Sí| B{"¿La meta es 0?"}
-    B -->|Sí| R1["1,0"]
-    B -->|No| R2["valor / meta<br/>como mucho 1,0"]
+    A{"¿Mayor es mejor?"} -->|Sí| R1["valor / meta<br/>como mucho 1,0"]
     A -->|No| C{"¿valor ≤ meta?"}
-    C -->|Sí| R3["1,0<br/>meta cumplida"]
-    C -->|No| R4["meta / valor"]
+    C -->|Sí| R2["1,0<br/>meta cumplida"]
+    C -->|No| R3["meta / valor"]
 ```
 
 **Qué tienes que hacer.** Calcula el cumplimiento de estos cuatro casos, con dos decimales.
@@ -164,7 +168,7 @@ flowchart TD
 
     **El caso b** se acota porque no existe el 119 % de cumplimiento: si no, una empresa taparía tres indicadores malos con uno espectacular.
 
-    **El caso d** es una meta de «cero residuos a vertedero» y se enviaron 10 t: el cumplimiento es 0, correcto. Ojo con hacerlo al revés (`valor / meta = 10/0`): en Java eso no lanza excepción, devuelve `Infinity` y se propaga por todo el informe sin avisar.
+    **El caso d** es una meta de «cero residuos al vertedero» y se enviaron 10 t: te has pasado, así que el cumplimiento es 0. Con meta 0, cualquier valor por encima da 0 (recuerda el aviso de «todo o nada»).
 
 
 ---
@@ -184,18 +188,16 @@ Debe devolver exactamente los resultados del ejercicio 2. Es el **método 2 del 
     ```java
     double cumplimiento(double valor, double meta, boolean mayorEsMejor) {
         if (mayorEsMejor) {
-            if (meta == 0) return 1.0;              // (1) caso límite ANTES de dividir
-            return Math.min(1.0, valor / meta);     // (2) tope en 1
+            return Math.min(1.0, valor / meta);     // (1) caso 1
         }
-        if (valor <= meta) return 1.0;              // (3) ya se ha alcanzado
-        return meta / valor;                        // (4) se ha pasado
+        if (valor <= meta) return 1.0;              // (2) caso 2, no te has pasado
+        return meta / valor;                        // (3) caso 2, te has pasado
     }
     ```
 
-    1. Si no compruebas la meta 0 aquí, la línea 2 divide entre cero.
-    2. `Math.min` es más limpio que un `if` para poner el tope.
-    3. Con «menor es mejor», estar **por debajo** de la meta es cumplir del todo.
-    4. Aquí `valor` siempre es mayor que 0 (porque es mayor que `meta`, que es ≥ 0), así que esta división es segura.
+    1. Lo que tienes entre lo que quieres. `Math.min(1.0, …)` pone el tope: si sale 1,19, devuelve 1,0.
+    2. Con «menor es mejor», estar por debajo de la meta o justo en ella es cumplirla del todo.
+    3. Te has pasado: se divide al revés. Aquí nunca se divide entre 0, porque si llegas a esta línea es que `valor` es mayor que `meta`.
 
     **Compruébalo** con los cuatro casos del ejercicio 2 antes de seguir.
 
@@ -209,7 +211,7 @@ La dirección no quiere ver decimales, quiere colores:
 | Cumplimiento | Color |
 |---|---|
 | Desde 0,90 | VERDE |
-| Desde 0,70 hasta 0,89 | AMBAR |
+| Desde 0,70 hasta menos de 0,90 | AMBAR |
 | Por debajo de 0,70 | ROJO |
 
 **Qué tienes que hacer.** Escribe `String semaforo(double cumplimiento)`. Si el valor no está entre 0 y 1, lanza `IllegalArgumentException`. Después aplícalo a los cuatro resultados del ejercicio 2.
@@ -262,7 +264,7 @@ Si el array llega vacío, el método debe devolver `0.0` (no lanzar excepción).
     ```
 
     1. Sin esto, dividirías entre cero. Devolver 0 es lo correcto: una dimensión sin indicadores no ha demostrado nada.
-    2. El truco del redondeo a un decimal: multiplicas por 10, redondeas al entero y divides entre 10,0. El `.0` es imprescindible, o Java haría una división entera.
+    2. Dos pasos en una línea. `media * 100` pasa de la escala 0-1 a la escala 0-100. Después viene el truco del redondeo a un decimal: multiplicas por 10, redondeas al entero y divides entre 10,0. El `.0` es imprescindible, o Java haría una división entera.
 
     **Resultado:** `(0,720 + 0,854 + 0,633) / 3 = 0,736` → **73,6**
 
@@ -319,7 +321,7 @@ Una consultora te pasa los indicadores de **NubeVerde Hosting S.L.** y te pide s
 
 | Indicador | Dim. | Valor | Meta | Dirección |
 |---|:-:|---:|---:|---|
-| Electricidad renovable en el CPD (%) | A | 72 | 100 | mayor |
+| Electricidad renovable en el centro de datos (%) | A | 72 | 100 | mayor |
 | Emisiones alcance 1 y 2 (t CO₂e) | A | 410 | 350 | menor |
 | Residuos electrónicos reutilizados (%) | A | 38 | 60 | mayor |
 | Horas de formación por persona | S | 28 | 40 | mayor |
@@ -340,11 +342,15 @@ flowchart LR
 2. **Los de cada dimensión** se agrupan en un array y se resumen con `puntuacionDimension`.
 3. **Las tres notas** se combinan con `puntuacionAsg`, que aplica los pesos.
 4. **La nota global** se traduce a letras con `rating`.
-5. **El punto débil** se busca aplicando `semaforo` al peor indicador.
+5. **El punto débil**: miramos la tabla de cumplimientos, elegimos el más bajo y le aplicamos `semaforo`.
 
 ### El programa
 
+Crea el fichero `src/main/java/sostenibilidad/DemoUt1.java` y ejecútalo con el botón de *play* del IDE:
+
 ```java
+package sostenibilidad;
+
 public class DemoUt1 {
     public static void main(String[] args) {
         // Paso 1 y 2: cumplimientos agrupados por dimensión
@@ -368,7 +374,7 @@ public class DemoUt1 {
         System.out.printf("A=%.1f  S=%.1f  G=%.1f%n", a, s, g);
         System.out.printf("ASG=%.1f  rating=%s%n", total, Ut1Asg.rating(total));
 
-        // Paso 5: el punto débil
+        // Paso 5: el punto débil (el cumplimiento más bajo de la tabla)
         double peor = Ut1Asg.cumplimiento(9, 5, false);
         System.out.printf("Peor indicador: brecha salarial (%.3f) -> %s%n",
                 peor, Ut1Asg.semaforo(peor));
@@ -398,7 +404,6 @@ GLOBAL                                                          75,6 → AA
 
 - La **gobernanza va 28 puntos por encima** de lo social. Es lo más barato de cumplir: formar a la plantilla en un código ético cuesta una tarde.
 - Lo **social es la dimensión más débil** (62,8), y dentro de ella la **brecha salarial está en rojo**: 0,556 de cumplimiento, el peor indicador de la empresa con diferencia.
-- La **ponderación ayuda a la empresa**: lo ambiental, que pesa un 40 %, va mejor que lo social, que pesa un 30 %. Con pesos iguales la nota bajaría.
 
 **La conclusión profesional:** la acción prioritaria de esta empresa no es la que sale en su portada. Es la brecha salarial. Y eso solo se ve bajando del rating global al indicador concreto, que es exactamente lo que hace un analista ASG y lo que acabas de programar.
 
@@ -410,7 +415,7 @@ GLOBAL                                                          75,6 → AA
 
 ### Parte 1 · Completa la clase `Ut1Asg.java`
 
-Escribe los 8 métodos hasta que pasen los 16 tests:
+Escribe los 8 métodos hasta que pasen los **24 tests**:
 
 ```bash
 mvn test -Dtest=Ut1AsgTest
@@ -426,7 +431,7 @@ Cuatro de los ocho ya los has hecho en la batería. Estos son los otros cuatro:
 | 8 | `odsCubiertos` | Devuelve los ODS válidos (1-17), ordenados y sin repetir | `TreeSet<Integer>` ordena y quita duplicados solo; después vuélcalo a `int[]` con un bucle y un contador |
 
 !!! tip "No te atasques"
-    Lanza los tests **antes** de escribir nada: verás 16 fallos, cada uno con el nombre del ejercicio al que corresponde (`E2 · cumplimiento cuando mayor es mejor`). Ve resolviéndolos de uno en uno.
+    Lanza los tests **antes** de escribir nada: verás 24 fallos. Cada test empieza por el número del método que comprueba (`M2 · cumplimiento cuando mayor es mejor` es del método 2). Ve resolviéndolos de uno en uno.
 
 ### Parte 2 · Calcula el radar de esta empresa
 
@@ -555,19 +560,19 @@ a) 1,25 · b) 0,8 · c) 1,0 · d) 0,0
 
 **9.** Meta 0, valor 10, menor es mejor. El cumplimiento es…
 
-a) 1,0 · b) 0,0 · c) Infinity · d) excepción
+a) 1,0 · b) 0,0 · c) 0,1 · d) excepción
 
 ??? success "Respuesta"
 
     **b**
 
-**10.** Dividir dos `double` entre cero en Java…
+**10.** Una empresa tiene la meta de «cero accidentes» y pasa de 10 accidentes a 2. Su cumplimiento…
 
-a) lanza ArithmeticException · b) devuelve Infinity o NaN sin avisar · c) devuelve 0 · d) no compila
+a) sube a 0,8 · b) sigue en 0,0 · c) pasa a 0,2 · d) da error
 
 ??? success "Respuesta"
 
-    **b**. Por eso hay que tratar el caso antes.
+    **b**. Con meta 0, cualquier valor por encima da 0: es todo o nada. La mejora existe, pero esta fórmula no la ve. Para medirla hace falta la línea base (UT6).
 
 **11.** Cumplimientos 0,72 · 0,854 · 0,633 dan una puntuación de dimensión de…
 

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("UT4 · Economía circular y ecodiseño")
 class Ut4CircularTest {
 
-    @ParameterizedTest(name = "E1 · {0} -> {1} = {2}")
+    @ParameterizedTest(name = "M1 · {0} -> {1} = {2}")
     @CsvSource({
             "EN_USO,EN_REPARACION,true", "EN_USO,REACONDICIONADO,true",
             "EN_USO,DONADO,true", "EN_USO,RECICLADO,true", "EN_USO,EN_USO,false",
@@ -22,13 +22,13 @@ class Ut4CircularTest {
     }
 
     @Test
-    @DisplayName("E2 · cambia el estado si la transición es válida")
+    @DisplayName("M2 · cambia el estado si la transición es válida")
     void cambioValido() {
         assertEquals("EN_REPARACION", Ut4Circular.cambiarEstado("EN_USO", "EN_REPARACION"));
     }
 
     @Test
-    @DisplayName("E2 · transición no permitida lanza IllegalStateException con los dos estados")
+    @DisplayName("M2 · transición no permitida lanza IllegalStateException con los dos estados")
     void cambioInvalido() {
         IllegalStateException e = assertThrows(IllegalStateException.class,
                 () -> Ut4Circular.cambiarEstado("RECICLADO", "EN_USO"));
@@ -37,7 +37,7 @@ class Ut4CircularTest {
     }
 
     @Test
-    @DisplayName("E3 · huella anual del equipo")
+    @DisplayName("M3 · huella anual del equipo")
     void huellaAnual() {
         assertEquals(87.0, Ut4Circular.huellaAnual(300, 12, 4), 1e-9);
         assertEquals(161.7, Ut4Circular.huellaAnual(350, 45, 3), 1e-9);
@@ -45,7 +45,7 @@ class Ut4CircularTest {
     }
 
     @Test
-    @DisplayName("E4 · ahorro anual al alargar la vida")
+    @DisplayName("M4 · ahorro anual al alargar la vida")
     void ahorroAlargarVida() {
         assertEquals(25.0, Ut4Circular.ahorroAlargarVida(300, 4, 2), 1e-9);
         assertEquals(37.3, Ut4Circular.ahorroAlargarVida(280, 3, 2), 1e-9);
@@ -55,14 +55,14 @@ class Ut4CircularTest {
     }
 
     @Test
-    @DisplayName("E5 · qué parte de la huella es la fabricación")
+    @DisplayName("M5 · qué parte de la huella es la fabricación")
     void porcentajeFabricacion() {
         assertEquals(86.2, Ut4Circular.porcentajeFabricacion(300, 12, 4), 1e-9);
         assertEquals(56.5, Ut4Circular.porcentajeFabricacion(350, 45, 6), 1e-9);
     }
 
     @Test
-    @DisplayName("E6 · mejor opción de la jerarquía de las R")
+    @DisplayName("M6 · mejor opción de la jerarquía de las R")
     void mejorOpcionR() {
         assertEquals("REPARAR", Ut4Circular.mejorOpcionR(new String[]{"RECICLAR", "REPARAR", "VALORIZAR"}));
         assertEquals("REUTILIZAR", Ut4Circular.mejorOpcionR(new String[]{"REACONDICIONAR", "REUTILIZAR"}));
@@ -71,7 +71,7 @@ class Ut4CircularTest {
     }
 
     @Test
-    @DisplayName("E7 · tasa de circularidad")
+    @DisplayName("M7 · tasa de circularidad")
     void tasaCircularidad() {
         assertEquals(66.7, Ut4Circular.tasaCircularidad(
                 new String[]{"DONADO", "REACONDICIONADO", "RECICLADO", "EN_USO"}), 1e-9);
@@ -81,7 +81,7 @@ class Ut4CircularTest {
     }
 
     @Test
-    @DisplayName("E8 · años en amortizar un equipo nuevo")
+    @DisplayName("M8 · años en amortizar un equipo nuevo")
     void aniosParaAmortizar() {
         assertEquals(3, Ut4Circular.aniosParaAmortizar(900, 300));
         assertEquals(70, Ut4Circular.aniosParaAmortizar(280, 4));

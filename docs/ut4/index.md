@@ -289,7 +289,11 @@ flowchart LR
 
 ### El programa
 
+Crea el fichero `src/main/java/sostenibilidad/DemoUt4.java` y ejecútalo con el botón de *play* del IDE:
+
 ```java
+package sostenibilidad;
+
 public class DemoUt4 {
     public static void main(String[] args) {
         String[] estados = {"EN_USO", "EN_REPARACION", "EN_USO",

@@ -12,7 +12,7 @@ public class SimulacroRa1 {
 
     /**
      * 1. Grado de cumplimiento de un indicador, entre 0.0 y 1.0.
-     * Si mayorEsMejor: valor / meta, con tope 1.0 (meta 0 -> 1.0).
+     * Si mayorEsMejor: valor / meta, con tope 1.0.
      * Si no: 1.0 cuando valor <= meta; en otro caso meta / valor.
      */
     public static double cumplimiento(double valor, double meta, boolean mayorEsMejor) {

@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("UT6 · Plan de sostenibilidad de una empresa")
 class Ut6PlanTest {
 
-    @ParameterizedTest(name = "E1 · influencia {0}, interés {1} -> {2}")
+    @ParameterizedTest(name = "M1 · influencia {0}, interés {1} -> {2}")
     @CsvSource(delimiter = '|', value = {
             "5|4|GESTIONAR DE CERCA", "3|3|GESTIONAR DE CERCA",
             "5|2|MANTENER SATISFECHO", "2|4|MANTENER INFORMADO", "1|2|MONITORIZAR"})
@@ -19,14 +19,14 @@ class Ut6PlanTest {
     }
 
     @Test
-    @DisplayName("E1 · valores fuera de la escala 1-5 lanzan excepción")
+    @DisplayName("M1 · valores fuera de la escala 1-5 lanzan excepción")
     void grupoInvalido() {
         assertThrows(IllegalArgumentException.class, () -> Ut6Plan.estrategiaGrupo(0, 3));
         assertThrows(IllegalArgumentException.class, () -> Ut6Plan.estrategiaGrupo(3, 6));
     }
 
     @Test
-    @DisplayName("E2 · doble materialidad: basta con una de las dos")
+    @DisplayName("M2 · doble materialidad: basta con una de las dos")
     void esMaterial() {
         assertTrue(Ut6Plan.esMaterial(4, 1, 3.5));
         assertTrue(Ut6Plan.esMaterial(1, 4, 3.5));
@@ -34,14 +34,14 @@ class Ut6PlanTest {
         assertFalse(Ut6Plan.esMaterial(3, 3, 3.5));
     }
 
-    @ParameterizedTest(name = "E3 · impacto {0}, financiero {1} -> {2}")
+    @ParameterizedTest(name = "M3 · impacto {0}, financiero {1} -> {2}")
     @CsvSource({"5,5,AMBAS", "4,2,IMPACTO", "2,4,FINANCIERA", "1,1,NO MATERIAL"})
     void tipoMaterialidad(double impacto, double financiero, String esperado) {
         assertEquals(esperado, Ut6Plan.tipoMaterialidad(impacto, financiero, 3.5));
     }
 
     @Test
-    @DisplayName("E4 · prioridad de un aspecto")
+    @DisplayName("M4 · prioridad de un aspecto")
     void prioridad() {
         assertEquals(4.8, Ut6Plan.prioridad(4, 5, 4.5), 1e-9);
         assertEquals(2.5, Ut6Plan.prioridad(3, 2, 2), 1e-9);
@@ -49,7 +49,7 @@ class Ut6PlanTest {
     }
 
     @Test
-    @DisplayName("E5 · progreso cuando la meta es subir")
+    @DisplayName("M5 · progreso cuando la meta es subir")
     void progresoSube() {
         assertEquals(0.53, Ut6Plan.progreso(40, 100, 72), 1e-9);
         assertEquals(1.0, Ut6Plan.progreso(10, 60, 75), 1e-9);
@@ -57,21 +57,21 @@ class Ut6PlanTest {
     }
 
     @Test
-    @DisplayName("E5 · progreso cuando la meta es bajar")
+    @DisplayName("M5 · progreso cuando la meta es bajar")
     void progresoBaja() {
         assertEquals(0.5, Ut6Plan.progreso(1.8, 1.4, 1.6), 1e-9);
         assertEquals(1.0, Ut6Plan.progreso(1.8, 1.4, 1.3), 1e-9);
         assertThrows(IllegalArgumentException.class, () -> Ut6Plan.progreso(50, 50, 50));
     }
 
-    @ParameterizedTest(name = "E6 · progreso {0} -> {1}")
+    @ParameterizedTest(name = "M6 · progreso {0} -> {1}")
     @CsvSource({"1.0,COMPLETADA", "0.5,AVANZADA", "0.99,AVANZADA", "0.01,INICIADA", "0.0,SIN EMPEZAR"})
     void estado(double progreso, String esperado) {
         assertEquals(esperado, Ut6Plan.estado(progreso));
     }
 
     @Test
-    @DisplayName("E7 · comprueba si una acción va en plazo")
+    @DisplayName("M7 · comprueba si una acción va en plazo")
     void vaEnPlazo() {
         assertTrue(Ut6Plan.vaEnPlazo(0.53, 18, 36));     // 0.53 >= 0.50
         assertFalse(Ut6Plan.vaEnPlazo(0.30, 18, 36));
@@ -80,7 +80,7 @@ class Ut6PlanTest {
     }
 
     @Test
-    @DisplayName("E8 · aspectos materiales que no tienen acción")
+    @DisplayName("M8 · aspectos materiales que no tienen acción")
     void aspectosSinAccion() {
         String[] aspectos = {"Consumo energético", "Agua de refrigeración", "Privacidad de datos"};
         String[] conAccion = {"CONSUMO ENERGÉTICO"};

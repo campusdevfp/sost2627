@@ -301,7 +301,11 @@ flowchart LR
 
 ### El programa
 
+Crea el fichero `src/main/java/sostenibilidad/DemoUt3.java` y ejecútalo con el botón de *play* del IDE:
+
 ```java
+package sostenibilidad;
+
 public class DemoUt3 {
     public static void main(String[] args) {
         String[] urls  = {"/", "/estilo.css", "/api/catalogo", "/cabecera.png"};

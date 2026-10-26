@@ -492,251 +492,255 @@ nota práctica = (tests superados ÷ 13) × 8
 
 En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
 
-#### A · Teoría y cálculo
+Son preguntas **sencillas**: si has entendido la teoría y has hecho la batería, salen solas. Los cálculos llevan números redondos y se hacen de cabeza.
 
-**1.** El desarrollo sostenible atiende las necesidades actuales…
+#### A · Conceptos
 
-a) eliminando toda emisión · b) sin comprometer las de las generaciones futuras · c) priorizando lo ambiental · d) solo en países ricos
+**1.** El desarrollo sostenible (Informe Brundtland, 1987) atiende las necesidades actuales…
 
-??? success "Respuesta"
-
-    **b**
-
-**2.** La Agenda 2030 tiene…
-
-a) 15 ODS · b) 17 ODS y 169 metas · c) 20 ODS · d) 17 metas
+a) reduciendo a cero las emisiones · b) sin comprometer las de las generaciones futuras · c) dando prioridad a la economía · d) solo en los países desarrollados
 
 ??? success "Respuesta"
 
-    **b**
+    **b**. Es la definición de la unidad.
 
-**3.** En ASG, la «G» es…
+**2.** Las tres dimensiones del desarrollo sostenible son…
 
-a) gestión · b) globalización · c) gobernanza · d) garantía
-
-??? success "Respuesta"
-
-    **c**
-
-**4.** «Brecha salarial de género» pertenece a la dimensión…
-
-a) ambiental · b) social · c) gobernanza · d) financiera
+a) ambiental, social y económica · b) energía, agua y residuos · c) local, nacional y global · d) pública, privada y mixta
 
 ??? success "Respuesta"
 
-    **b**
+    **a**. En una empresa se miden como A, S y G.
 
-**5.** «Plantilla formada en el código ético» pertenece a…
+**3.** Cuando se mide la sostenibilidad de una **empresa**, esas tres dimensiones se llaman…
 
-a) ambiental · b) social · c) gobernanza · d) no es ASG
-
-??? success "Respuesta"
-
-    **c**. Mide cumplimiento y ética.
-
-**6.** Las emisiones pasan de 380 a 410 t. Han…
-
-a) mejorado · b) empeorado · c) no se sabe · d) da igual
+a) ODS · b) PIB · c) ASG · d) ISO
 
 ??? success "Respuesta"
 
-    **b**
+    **c**. Ambiental, Social y Gobernanza.
 
-**7.** `cumplimiento(95, 80, true)` devuelve…
+**4.** En ASG, la letra **G** significa…
 
-a) 1,19 · b) 1,0 · c) 0,84 · d) 0,0
-
-??? success "Respuesta"
-
-    **b**. Se acota a 1,0.
-
-**8.** `cumplimiento(125, 100, false)` devuelve…
-
-a) 1,25 · b) 0,8 · c) 1,0 · d) 0,0
+a) Gestión · b) Gasto · c) Garantía · d) Gobernanza
 
 ??? success "Respuesta"
 
-    **b**. meta/valor.
+    **d**. Cómo se dirige y controla la empresa.
 
-**9.** Meta 0, valor 10, menor es mejor. El cumplimiento es…
+**5.** La gobernanza mide…
 
-a) 1,0 · b) 0,0 · c) 0,1 · d) excepción
-
-??? success "Respuesta"
-
-    **b**
-
-**10.** Una empresa tiene la meta de «cero accidentes» y pasa de 10 accidentes a 2. Su cumplimiento…
-
-a) sube a 0,8 · b) sigue en 0,0 · c) pasa a 0,2 · d) da error
+a) cómo se dirige y controla la empresa: ética, transparencia y cumplimiento · b) cuánto factura la empresa · c) cuánta energía consume · d) cuántas personas tiene en plantilla
 
 ??? success "Respuesta"
 
-    **b**. Con meta 0, cualquier valor por encima da 0: es todo o nada. La mejora existe, pero esta fórmula no la ve. Para medirla hace falta la línea base (UT6).
+    **a**. Es la dimensión económica del desarrollo sostenible vista desde dentro de la empresa.
 
-**11.** Cumplimientos 0,72 · 0,854 · 0,633 dan una puntuación de dimensión de…
+**6.** La Agenda 2030 de la ONU fija…
 
-a) 63,3 · b) 73,6 · c) 85,4 · d) 220,7
-
-??? success "Respuesta"
-
-    **b**
-
-**12.** A=50, S=80, G=90 con pesos 0,4/0,3/0,3 dan…
-
-a) 73,3 · b) 71,0 · c) 80,0 · d) 66,7
+a) 10 ODS · b) 17 ODS · c) 169 ODS · d) 30 ODS
 
 ??? success "Respuesta"
 
-    **b**. La a) es la media simple.
+    **b**. 17 objetivos y 169 metas. 169 son las metas, no los objetivos.
 
-**13.** En el reto ejemplo, la puntuación global fue 75,6. El rating es…
+**7.** ¿Qué ODS trata la **acción por el clima**?
+
+a) ODS 7 · b) ODS 10 · c) ODS 16 · d) ODS 13
+
+??? success "Respuesta"
+
+    **d**. El 7 es energía, el 10 desigualdades y el 16 transparencia e instituciones.
+
+**8.** ¿Qué ODS trata la **energía**?
+
+a) ODS 7 · b) ODS 12 · c) ODS 13 · d) ODS 16
+
+??? success "Respuesta"
+
+    **a**. Energía asequible y no contaminante.
+
+**9.** Hacer una web accesible para personas con discapacidad conecta sobre todo con el…
+
+a) ODS 13 · b) ODS 7 · c) ODS 10 · d) ODS 16
+
+??? success "Respuesta"
+
+    **c**. Reducción de las desigualdades, que incluye la accesibilidad.
+
+**10.** Una empresa se anuncia como «empresa verde» sin aportar ningún dato. Eso es…
+
+a) un indicador ASG · b) greenwashing · c) un rating · d) una meta
+
+??? success "Respuesta"
+
+    **b**. Toda cifra lleva su fuente; sin datos, es greenwashing.
+
+#### B · Indicadores: dimensión y dirección
+
+**11.** «Porcentaje de electricidad renovable del centro de datos» es un indicador…
+
+a) social · b) de gobernanza · c) ambiental · d) que no es ASG
+
+??? success "Respuesta"
+
+    **c**. Mide energía.
+
+**12.** «Brecha salarial de género» es un indicador…
+
+a) social · b) ambiental · c) de gobernanza · d) que no es ASG
+
+??? success "Respuesta"
+
+    **a**. Mide igualdad entre personas de la plantilla.
+
+**13.** «Porcentaje de la plantilla formada en el código ético» es un indicador…
+
+a) ambiental · b) social · c) que no es ASG · d) de gobernanza
+
+??? success "Respuesta"
+
+    **d**. Mide ética y cumplimiento.
+
+**14.** «Porcentaje de consejeros independientes» es un indicador…
+
+a) ambiental · b) de gobernanza · c) social · d) que no es ASG
+
+??? success "Respuesta"
+
+    **b**. Mide cómo se dirige y controla la empresa.
+
+**15.** ¿En cuál de estos indicadores conviene que el número **baje**?
+
+a) % de electricidad renovable · b) horas de formación por persona · c) % de plantilla formada · d) toneladas de CO₂ emitidas
+
+??? success "Respuesta"
+
+    **d**. Es un indicador de «menor es mejor».
+
+**16.** Las emisiones de una empresa pasan de 380 t a 410 t. El indicador…
+
+a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
+
+??? success "Respuesta"
+
+    **b**. Sube un indicador de «menor es mejor».
+
+**17.** La brecha salarial pasa del 11 % al 9 %. El indicador…
+
+a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
+
+??? success "Respuesta"
+
+    **a**. Baja un indicador de «menor es mejor».
+
+**18.** Que el número de un indicador suba, ¿es siempre una buena noticia?
+
+a) sí, siempre · b) solo en la dimensión social · c) no: depende de si en ese indicador mayor o menor es mejor · d) solo si tiene meta
+
+??? success "Respuesta"
+
+    **c**. Por eso el método `cumplimiento` lleva el parámetro `mayorEsMejor`.
+
+#### C · Cálculos sencillos
+
+**19.** Mayor es mejor. Meta 100 %, valor 50 %. El cumplimiento es…
+
+a) 0,5 · b) 2,0 · c) 50 · d) 1,0
+
+??? success "Respuesta"
+
+    **a**. valor / meta = 50 / 100.
+
+**20.** Mayor es mejor. Meta 80, valor 100. El cumplimiento es…
+
+a) 1,25 · b) 0,8 · c) 0,2 · d) 1,0
+
+??? success "Respuesta"
+
+    **d**. 100 / 80 = 1,25, pero se corta en 1,0: la meta está conseguida.
+
+**21.** Menor es mejor. Meta 400 t y se emiten 300 t. El cumplimiento es…
+
+a) 0,75 · b) 1,0 · c) 1,33 · d) 0,0
+
+??? success "Respuesta"
+
+    **b**. Está por debajo de la meta: cumplida.
+
+**22.** Menor es mejor. Meta 200 t y se emiten 400 t. El cumplimiento es…
+
+a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
+
+??? success "Respuesta"
+
+    **c**. Se ha pasado, así que se divide al revés: meta / valor = 200 / 400.
+
+**23.** Meta «cero accidentes» y ha habido 3. El cumplimiento es…
+
+a) 0,33 · b) 1,0 · c) excepción · d) 0,0
+
+??? success "Respuesta"
+
+    **d**. Con meta 0 es todo o nada: cualquier valor por encima da 0.
+
+**24.** Los indicadores de una dimensión tienen cumplimientos 1,0 · 0,8 · 0,6. Su puntuación es…
+
+a) 80,0 · b) 0,8 · c) 2,4 · d) 240
+
+??? success "Respuesta"
+
+    **a**. Media 0,8, multiplicada por 100.
+
+**25.** A = 100, S = 50, G = 50, con pesos 0,4 / 0,3 / 0,3. La nota global es…
+
+a) 66,7 · b) 60,0 · c) 70,0 · d) 75,0
+
+??? success "Respuesta"
+
+    **c**. 40 + 15 + 15. La a) sería la media simple.
+
+**26.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A, una nota global de 70 tiene rating…
 
 a) AAA · b) AA · c) A · d) BBB
 
 ??? success "Respuesta"
 
-    **b**
+    **b**. AA empieza justo en 70.
 
-**14.** En ese mismo reto, la dimensión más débil era…
+#### D · Interpretar el resultado
 
-a) ambiental · b) social · c) gobernanza · d) todas iguales
+**27.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de 0,75 es…
 
-??? success "Respuesta"
-
-    **b**, con 62,8.
-
-**15.** Y el indicador peor parado era…
-
-a) los residuos electrónicos · b) la brecha salarial · c) las emisiones · d) el código ético
+a) VERDE · b) ROJO · c) ÁMBAR · d) depende de la dimensión
 
 ??? success "Respuesta"
 
-    **b**, con 0,556 de cumplimiento (semáforo rojo).
+    **c**. Está entre 0,70 y 0,90.
 
-**16.** Que una empresa tenga rating AA significa que…
+**28.** ¿Por qué el cumplimiento tiene un tope de 1,0?
 
-a) todo va bien · b) la nota global es alta, pero puede esconder dimensiones muy débiles · c) cumple la ley · d) no emite CO₂
-
-??? success "Respuesta"
-
-    **b**
-
-**17.** Dos agencias dan ratings distintos a la misma empresa porque…
-
-a) una miente · b) usan indicadores y ponderaciones distintas · c) es aleatorio · d) no sirven
+a) para no dividir entre cero · b) para que un indicador espectacular no tape a otros malos · c) porque Java no admite valores mayores · d) para redondear
 
 ??? success "Respuesta"
 
-    **b**
+    **b**. No existe el «119 % conseguido».
 
-**18.** «Hosting ecológico», sin datos, es…
+**29.** En el reto ejemplo, NubeVerde saca **AA** pero tiene la brecha salarial en **rojo**. ¿Qué conclusión es correcta?
 
-a) una afirmación válida · b) greenwashing · c) un indicador ASG · d) un ODS
-
-??? success "Respuesta"
-
-    **b**
-
-**19.** Una empresa pasa de emitir 450 t a 480 t con una meta de 400 t. Su cumplimiento pasa de…
-
-a) 0,89 a 0,83 · b) 1,12 a 1,20 · c) 0,83 a 0,89 · d) no cambia
+a) va bien, porque el rating es alto · b) el rating está mal calculado · c) la nota global puede esconder un indicador muy débil: hay que mirar el detalle · d) lo social no cuenta en el rating
 
 ??? success "Respuesta"
 
-    a. Menor es mejor y se ha pasado de la meta: meta/valor. 400/450 = 0,89 y 400/480 = 0,83. Empeora.
+    **c**. La acción prioritaria no es la que sale en la portada.
 
-**20.** Con pesos 0,3 / 0,3 / 0,4, una empresa con A=50, S=80 y G=80 saca…
+**30.** Dos agencias dan ratings distintos a la misma empresa. Lo más probable es que…
 
-a) 70,0 · b) 71,0 · c) 73,3 · d) 68,0
-
-??? success "Respuesta"
-
-    b. 15 + 24 + 32 = 71,0.
-
-**21.** ¿Qué dimensión ASG mide el porcentaje de consejeros independientes?
-
-a) ambiental · b) social · c) gobernanza · d) ninguna
+a) usen indicadores o pesos distintos · b) una de las dos mienta · c) sea aleatorio · d) los ratings no sirvan para nada
 
 ??? success "Respuesta"
 
-    c. Es un asunto de cómo se dirige y controla la empresa.
-
-**22.** Una empresa presume de un rating alto pero tiene la dimensión social en rojo. Lo correcto es…
-
-a) fiarse del rating · b) revisar el detalle por dimensión e indicador · c) pedir otro rating · d) ignorar lo social
-
-??? success "Respuesta"
-
-    b. La nota global puede esconder dimensiones muy débiles.
-
-#### B · ¿Qué devuelve este código?
-
-Sin ejecutarlo. Razona con las reglas de la unidad, no con las del simulacro.
-
-**23.** ¿Qué devuelve `Ut1Asg.clasificar("Consumo de AGUA en oficinas")`?
-
-a) `"SOCIAL"` · b) `"AMBIENTAL"` · c) `"SIN CLASIFICAR"` · d) `"GOBERNANZA"`
-
-??? success "Respuesta"
-
-    **b**. Tras normalizar queda «consumo de agua en oficinas», que contiene la raíz `agua`.
-
-**24.** ¿Qué devuelve `Ut1Asg.clasificar("Política anticorrupción")`?
-
-a) `"GOBERNANZA"` · b) `"SOCIAL"` · c) `"SIN CLASIFICAR"` · d) `"AMBIENTAL"`
-
-??? success "Respuesta"
-
-    **a**. Contiene la raíz `corrupci`. Fíjate en que `contains` la encuentra aunque vaya pegada a «anti».
-
-**25.** ¿Qué devuelve `Ut1Asg.cumplimiento(45, 60, true)`?
-
-a) `1.33` · b) `0.75` · c) `1.0` · d) `0.25`
-
-??? success "Respuesta"
-
-    **b**. Mayor es mejor: 45 / 60. La opción a) es 60 / 45, la división al revés.
-
-**26.** ¿Qué devuelve `Ut1Asg.cumplimiento(500, 400, false)`?
-
-a) `1.25` · b) `1.0` · c) `0.8` · d) `0.2`
-
-??? success "Respuesta"
-
-    **c**. Menor es mejor y se ha pasado de la meta: 400 / 500.
-
-**27.** ¿Qué devuelve `Ut1Asg.semaforo(0.9)`?
-
-a) `"AMBAR"` · b) `"ROJO"` · c) `"VERDE"` · d) excepción
-
-??? success "Respuesta"
-
-    **c**. El tramo verde empieza **en** 0,9: la comparación es `>=`.
-
-**28.** ¿Qué devuelve `Ut1Asg.puntuacionDimension(new double[]{1.0, 0.5, 0.0})`?
-
-a) `1.5` · b) `0.5` · c) `50.0` · d) `150.0`
-
-??? success "Respuesta"
-
-    **c**. Media 0,5, multiplicada por 100.
-
-**29.** ¿Qué devuelve `Ut1Asg.rating(69.9)`?
-
-a) `"AA"` · b) `"A"` · c) `"BBB"` · d) `"AAA"`
-
-??? success "Respuesta"
-
-    **b**. AA empieza en 70: con 69,9 no llega.
-
-**30.** ¿Qué devuelve `Ut1Asg.odsCubiertos(new int[]{3, 3, 18, 1}).length`?
-
-a) `4` · b) `3` · c) `2` · d) `1`
-
-??? success "Respuesta"
-
-    **c**. Se quitan el 3 repetido y el 18, que no es un ODS válido. Quedan {1, 3}.
+    **a**. Por eso las agencias publican su metodología.
 
 ### Tu nota del simulacro
 

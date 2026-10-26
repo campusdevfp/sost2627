@@ -22,8 +22,8 @@ class Ut2EnergiaTest {
     @DisplayName("M1 · factor de emisión de cada tecnología")
     void factorEmision() {
         assertEquals(0.95, Ut2Energia.factorEmision("Carbón"), 1e-9);
-        assertEquals(0.37, Ut2Energia.factorEmision("ciclo combinado"), 1e-9);
-        assertEquals(0.38, Ut2Energia.factorEmision("COGENERACIÓN"), 1e-9);
+        assertEquals(0.37, Ut2Energia.factorEmision("Ciclo combinado"), 1e-9);
+        assertEquals(0.38, Ut2Energia.factorEmision("Cogeneración"), 1e-9);
         assertEquals(0.0, Ut2Energia.factorEmision("Nuclear"), 1e-9);
         assertEquals(0.0, Ut2Energia.factorEmision("Tecnología inventada"), 1e-9);
     }
@@ -32,7 +32,7 @@ class Ut2EnergiaTest {
     @DisplayName("M2 · reconoce las tecnologías renovables")
     void esRenovable() {
         assertTrue(Ut2Energia.esRenovable("Eólica"));
-        assertTrue(Ut2Energia.esRenovable("HIDRÁULICA"));
+        assertTrue(Ut2Energia.esRenovable("Hidráulica"));
         assertFalse(Ut2Energia.esRenovable("Nuclear"));
         assertFalse(Ut2Energia.esRenovable("Carbón"));
     }

@@ -246,7 +246,7 @@ Acciones del plan:    "CONSUMO ENERGÉTICO"
     }
     ```
 
-    Los nombres llegan de sitios distintos (una hoja de cálculo, un informe en PDF, un formulario) y cada uno con sus mayúsculas. **Comparar texto que viene de varias fuentes siempre exige normalizarlo.** Es la misma lección de la UT2 con las tecnologías eléctricas.
+    Los nombres llegan de sitios distintos (una hoja de cálculo, un informe en PDF, un formulario) y cada uno con sus mayúsculas. **Comparar texto que viene de varias fuentes siempre exige normalizarlo.** Es la misma lección de la UT1, cuando clasificabas temas con `normalizar`.
 
 
 ---

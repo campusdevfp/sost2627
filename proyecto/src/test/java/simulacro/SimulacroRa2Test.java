@@ -10,10 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Simulacro RA2")
 class SimulacroRa2Test {
 
-    @Test @DisplayName("1 · factor normalizando el nombre")
+    @Test @DisplayName("1 · factor de cada tecnología de la tabla")
     void factor() {
-        assertEquals(0.90, SimulacroRa2.factorEmision("CARBÓN"), 1e-9);
-        assertEquals(0.60, SimulacroRa2.factorEmision("  Turbina de gas "), 1e-9);
+        assertEquals(0.90, SimulacroRa2.factorEmision("Carbón"), 1e-9);
+        assertEquals(0.60, SimulacroRa2.factorEmision("Turbina de gas"), 1e-9);
         assertEquals(0.40, SimulacroRa2.factorEmision("Ciclo Combinado"), 1e-9);
     }
 

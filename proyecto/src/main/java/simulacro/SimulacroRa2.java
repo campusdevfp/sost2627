@@ -7,13 +7,13 @@ package simulacro;
  */
 public class SimulacroRa2 {
 
-    /** Tecnologías que emiten y su factor en t CO2/MWh (tabla del simulacro). */
-    static final String[] TECNOLOGIAS = {"carbon", "ciclo combinado", "turbina de gas"};
+    /** Tecnologías que emiten y su factor en t CO2/MWh. ¡OJO! LA TABLA NO ES LA DE CLASE. */
+    static final String[] TECNOLOGIAS = {"Carbón", "Ciclo combinado", "Turbina de gas"};
     static final double[] FACTORES = {0.90, 0.40, 0.60};
 
     /**
      * 1. Factor de emisión de una tecnología; 0.0 si no está en la tabla.
-     * Normaliza el nombre (minúsculas, sin tildes, sin espacios en los extremos).
+     * Ejemplos: "Turbina de gas" -> 0.60 · "Cogeneración" -> 0.0 (aquí no está)
      */
     public static double factorEmision(String tecnologia) {
         throw new UnsupportedOperationException("TODO 1");

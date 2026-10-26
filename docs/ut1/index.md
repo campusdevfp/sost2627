@@ -48,7 +48,7 @@ La dimensión económica se convierte en **gobernanza**: cómo se dirige y contr
 
 ## 2. Batería de ejercicios
 
-> Seis ejercicios en orden. Cada uno prepara una pieza del reto final: si los haces todos, el reto lo tendrás medio hecho. Cada ejercicio tiene **enunciado, datos y el resultado que debe salir**, para que puedas comprobarte solo.
+> Seis ejercicios en orden. Cada uno tiene **enunciado, datos y el resultado que debe salir**, para que puedas comprobarte solo.
 
 ---
 
@@ -181,7 +181,7 @@ flowchart TD
 double cumplimiento(double valor, double meta, boolean mayorEsMejor)
 ```
 
-Debe devolver exactamente los resultados del ejercicio 2. Es el **método 2 del reto final**, así que lo que escribas aquí te vale tal cual.
+Debe devolver exactamente los resultados del ejercicio 2. Es el **método 2** de la clase `Ut1Asg.java`.
 
 ??? success "Solución"
 
@@ -311,171 +311,21 @@ Y el rating sale de esa nota: **≥ 85 AAA · ≥ 70 AA · ≥ 55 A · ≥ 40 BB
 
 ---
 
-## 3. Reto ejemplo (resuelto)
-
-> Aquí se juntan los seis ejercicios en un programa que hace el trabajo completo. Léelo entero: el reto que tienes que entregar es exactamente igual, con otra empresa.
-
-### El encargo
-
-Una consultora te pasa los indicadores de **NubeVerde Hosting S.L.** y te pide su **radar ASG**: la nota de cada dimensión, la nota global, el rating y cuál es el punto más débil.
-
-| Indicador | Dim. | Valor | Meta | Dirección |
-|---|:-:|---:|---:|---|
-| Electricidad renovable en el centro de datos (%) | A | 72 | 100 | mayor |
-| Emisiones alcance 1 y 2 (t CO₂e) | A | 410 | 350 | menor |
-| Residuos electrónicos reutilizados (%) | A | 38 | 60 | mayor |
-| Horas de formación por persona | S | 28 | 40 | mayor |
-| Brecha salarial de género (%) | S | 9 | 5 | menor |
-| Plantilla formada en código ético (%) | G | 91 | 100 | mayor |
-
-### Cómo se resuelve, paso a paso
-
-```mermaid
-flowchart LR
-    A["1 · Cumplimiento<br/>de cada indicador"] --> B["2 · Media por<br/>dimensión × 100"]
-    B --> C["3 · Media ponderada<br/>0,4 / 0,3 / 0,3"]
-    C --> D["4 · Rating<br/>por tramos"]
-    B --> E["5 · Buscar el<br/>punto débil"]
-```
-
-1. **Cada indicador** pasa por `cumplimiento(valor, meta, dirección)` y da un número entre 0 y 1.
-2. **Los de cada dimensión** se agrupan en un array y se resumen con `puntuacionDimension`.
-3. **Las tres notas** se combinan con `puntuacionAsg`, que aplica los pesos.
-4. **La nota global** se traduce a letras con `rating`.
-5. **El punto débil**: miramos la tabla de cumplimientos, elegimos el más bajo y le aplicamos `semaforo`.
-
-### El programa
-
-Crea el fichero `src/main/java/sostenibilidad/DemoUt1.java` y ejecútalo con el botón de *play* del IDE:
-
-```java
-package sostenibilidad;
-
-public class DemoUt1 {
-    public static void main(String[] args) {
-        // Paso 1 y 2: cumplimientos agrupados por dimensión
-        double[] amb = {
-            Ut1Asg.cumplimiento(72, 100, true),      // renovables      -> 0,720
-            Ut1Asg.cumplimiento(410, 350, false),    // emisiones       -> 0,854
-            Ut1Asg.cumplimiento(38, 60, true)};      // residuos        -> 0,633
-        double[] soc = {
-            Ut1Asg.cumplimiento(28, 40, true),       // formación       -> 0,700
-            Ut1Asg.cumplimiento(9, 5, false)};       // brecha salarial -> 0,556
-        double[] gob = {
-            Ut1Asg.cumplimiento(91, 100, true)};     // código ético    -> 0,910
-
-        double a = Ut1Asg.puntuacionDimension(amb);
-        double s = Ut1Asg.puntuacionDimension(soc);
-        double g = Ut1Asg.puntuacionDimension(gob);
-
-        // Paso 3 y 4: nota global y rating
-        double total = Ut1Asg.puntuacionAsg(a, s, g);
-
-        System.out.printf("A=%.1f  S=%.1f  G=%.1f%n", a, s, g);
-        System.out.printf("ASG=%.1f  rating=%s%n", total, Ut1Asg.rating(total));
-
-        // Paso 5: el punto débil (el cumplimiento más bajo de la tabla)
-        double peor = Ut1Asg.cumplimiento(9, 5, false);
-        System.out.printf("Peor indicador: brecha salarial (%.3f) -> %s%n",
-                peor, Ut1Asg.semaforo(peor));
-    }
-}
-```
-
-### La salida
-
-```text
-A=73,6  S=62,8  G=91,0
-ASG=75,6  rating=AA
-Peor indicador: brecha salarial (0,556) -> ROJO
-```
-
-```text
-Ambiental    ████████████████████████████████████░░░░░░░░░░░░  73,6
-Social       ███████████████████████████████░░░░░░░░░░░░░░░░░  62,8
-Gobernanza   ████████████████████████████████████████████░░░░  91,0
-──────────────────────────────────────────────────────────────
-GLOBAL                                                          75,6 → AA
-```
-
-### Qué significa este resultado
-
-**La nota que irá en la portada es un AA**, y suena muy bien. Pero mira el detalle:
-
-- La **gobernanza va 28 puntos por encima** de lo social. Es lo más barato de cumplir: formar a la plantilla en un código ético cuesta una tarde.
-- Lo **social es la dimensión más débil** (62,8), y dentro de ella la **brecha salarial está en rojo**: 0,556 de cumplimiento, el peor indicador de la empresa con diferencia.
-
-**La conclusión profesional:** la acción prioritaria de esta empresa no es la que sale en su portada. Es la brecha salarial. Y eso solo se ve bajando del rating global al indicador concreto, que es exactamente lo que hace un analista ASG y lo que acabas de programar.
-
----
-
-## 4. Reto a realizar (entregable)
-
-> Dos partes. La primera es el código; la segunda, aplicarlo a una empresa. Nada más.
-
-### Parte 1 · Completa la clase `Ut1Asg.java`
-
-Escribe los 8 métodos hasta que pasen los **24 tests**:
-
-```bash
-mvn test -Dtest=Ut1AsgTest
-```
-
-Cuatro de los ocho ya los has hecho en la batería. Estos son los otros cuatro:
-
-| # | Método | Qué debe hacer | Pista |
-|:-:|---|---|---|
-| 1 | `clasificar` | Devuelve `"AMBIENTAL"`, `"SOCIAL"`, `"GOBERNANZA"` o `"SIN CLASIFICAR"` según el texto del tema | Llama a `normalizar(tema)`, que ya está escrito, y recorre los tres arrays de palabras **en ese orden** usando `texto.contains(palabra)` |
-| 6 | `rating` | Traduce la nota a letras | Valida el rango 0-100 y después seis `if` de mayor a menor |
-| 7 | `haMejorado` | Compara dos años en la dirección correcta | Una sola línea con un ternario y `mayorEsMejor` |
-| 8 | `odsCubiertos` | Devuelve los ODS válidos (1-17), ordenados y sin repetir | `TreeSet<Integer>` ordena y quita duplicados solo; después vuélcalo a `int[]` con un bucle y un contador |
-
-!!! tip "No te atasques"
-    Lanza los tests **antes** de escribir nada: verás 24 fallos. Cada test empieza por el número del método que comprueba (`M2 · cumplimiento cuando mayor es mejor` es del método 2). Ve resolviéndolos de uno en uno.
-
-### Parte 2 · Calcula el radar de esta empresa
-
-Cuando los tests estén en verde, copia el programa `DemoUt1` del reto ejemplo, cambia los datos por los de **Datalia Software S.L.** y ejecútalo:
-
-| Indicador | Dim. | Valor | Meta | Dirección |
-|---|:-:|---:|---:|---|
-| Electricidad renovable (%) | A | 45 | 100 | mayor |
-| Emisiones alcance 1 y 2 (t CO₂e) | A | 520 | 500 | menor |
-| Agua reciclada en refrigeración (%) | A | 20 | 50 | mayor |
-| Horas de formación por persona | S | 35 | 40 | mayor |
-| Web conforme a WCAG 2.2 AA (%) | S | 60 | 100 | mayor |
-| Consejo con miembros independientes (%) | G | 30 | 50 | mayor |
-| Plantilla formada en código ético (%) | G | 100 | 100 | mayor |
-
-**Entrega un documento de una página con:**
-
-1. La **tabla de cumplimientos** de los siete indicadores, con su semáforo.
-2. Las **tres notas de dimensión**, la **nota global** y el **rating**.
-3. **Tres frases** respondiendo a estas tres preguntas:
-      - ¿Cuál es la dimensión más débil?
-      - ¿Cuál es el peor indicador concreto y qué semáforo tiene?
-      - Si la empresa solo pudiera mejorar **un** indicador el año que viene, ¿cuál elegirías y por qué?
-
-!!! warning "Pista para la tercera pregunta"
-    El peor indicador y el más rentable de mejorar **no tienen por qué ser el mismo**. Piensa qué dimensión pesa más en la nota global y cuánto margen hay hasta la meta en cada caso.
-
----
-
-## 5. Simulacro de examen
+## 3. Simulacro de examen
 
 > **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA1 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA1 preparado.
 
 ```mermaid
 flowchart LR
     S["Simulacro RA1"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
-    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    S --> T["Banco de preguntas<br/>60 preguntas · el examen elige 4"]
     P --> N["Tu nota del RA1<br/>sobre 10"]
     T --> N
 ```
 
 ### Parte práctica · 8 puntos
 
-Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa1.java`, completa los 3 métodos y lanza:
+Hazla **en 40 minutos**, sin mirar la batería. Abre `src/main/java/simulacro/SimulacroRa1.java`, completa los 3 métodos y lanza:
 
 ```bash
 mvn test -Dtest=SimulacroRa1Test
@@ -490,7 +340,7 @@ nota práctica = (tests superados ÷ 13) × 8
 
 ### Banco de preguntas · 2 puntos
 
-En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. El banco tiene **60 preguntas**: tápate las respuestas y hazlas todas. Si las dominas, tienes el test del examen preparado.
 
 Son preguntas **sencillas**: si has entendido la teoría y has hecho la batería, salen solas. Los cálculos llevan números redondos y se hacen de cabeza.
 
@@ -576,9 +426,73 @@ a) un indicador ASG · b) greenwashing · c) un rating · d) una meta
 
     **b**. Toda cifra lleva su fuente; sin datos, es greenwashing.
 
+**11.** El Informe Brundtland, que definió el desarrollo sostenible, es de…
+
+a) 2015 · b) 2000 · c) 1987 · d) 1992
+
+??? success "Respuesta"
+
+    **c**. La Agenda 2030 es de 2015.
+
+**12.** La Agenda 2030 la aprobó…
+
+a) la ONU, en 2015 · b) la Unión Europea, en 2020 · c) el Gobierno de España, en 2030 · d) las agencias de rating
+
+??? success "Respuesta"
+
+    **a**. Naciones Unidas, 2015.
+
+**13.** ¿Cuántas **metas** tiene la Agenda 2030?
+
+a) 17 · b) 30 · c) 2030 · d) 169
+
+??? success "Respuesta"
+
+    **d**. 17 objetivos (ODS) y 169 metas.
+
+**14.** El ODS 12 trata…
+
+a) el clima · b) la producción y el consumo responsables · c) la energía · d) la igualdad de género
+
+??? success "Respuesta"
+
+    **b**. Por ejemplo: alargar la vida de los equipos informáticos.
+
+**15.** El ODS 16 trata…
+
+a) la energía · b) el agua · c) la transparencia y las instituciones · d) el clima
+
+??? success "Respuesta"
+
+    **c**. Paz, justicia e instituciones sólidas: transparencia y datos abiertos.
+
+**16.** Alargar la vida de los ordenadores en lugar de cambiarlos conecta sobre todo con el…
+
+a) ODS 12 · b) ODS 16 · c) ODS 10 · d) ODS 7
+
+??? success "Respuesta"
+
+    **a**. Consumo responsable.
+
+**17.** Toda cifra de sostenibilidad que publique una empresa debe ir acompañada de…
+
+a) un logotipo verde · b) un rating · c) una foto · d) su fuente
+
+??? success "Respuesta"
+
+    **d**. Sin fuente, no se puede comprobar.
+
+**18.** Greenwashing es…
+
+a) reciclar el papel · b) aparentar ser más sostenible de lo que se es · c) un tipo de rating · d) un ODS
+
+??? success "Respuesta"
+
+    **b**. Y la normativa europea lo persigue.
+
 #### B · Indicadores: dimensión y dirección
 
-**11.** «Porcentaje de electricidad renovable del centro de datos» es un indicador…
+**19.** «Porcentaje de electricidad renovable del centro de datos» es un indicador…
 
 a) social · b) de gobernanza · c) ambiental · d) que no es ASG
 
@@ -586,7 +500,7 @@ a) social · b) de gobernanza · c) ambiental · d) que no es ASG
 
     **c**. Mide energía.
 
-**12.** «Brecha salarial de género» es un indicador…
+**20.** «Brecha salarial de género» es un indicador…
 
 a) social · b) ambiental · c) de gobernanza · d) que no es ASG
 
@@ -594,7 +508,7 @@ a) social · b) ambiental · c) de gobernanza · d) que no es ASG
 
     **a**. Mide igualdad entre personas de la plantilla.
 
-**13.** «Porcentaje de la plantilla formada en el código ético» es un indicador…
+**21.** «Porcentaje de la plantilla formada en el código ético» es un indicador…
 
 a) ambiental · b) social · c) que no es ASG · d) de gobernanza
 
@@ -602,7 +516,7 @@ a) ambiental · b) social · c) que no es ASG · d) de gobernanza
 
     **d**. Mide ética y cumplimiento.
 
-**14.** «Porcentaje de consejeros independientes» es un indicador…
+**22.** «Porcentaje de consejeros independientes» es un indicador…
 
 a) ambiental · b) de gobernanza · c) social · d) que no es ASG
 
@@ -610,7 +524,7 @@ a) ambiental · b) de gobernanza · c) social · d) que no es ASG
 
     **b**. Mide cómo se dirige y controla la empresa.
 
-**15.** ¿En cuál de estos indicadores conviene que el número **baje**?
+**23.** ¿En cuál de estos indicadores conviene que el número **baje**?
 
 a) % de electricidad renovable · b) horas de formación por persona · c) % de plantilla formada · d) toneladas de CO₂ emitidas
 
@@ -618,7 +532,7 @@ a) % de electricidad renovable · b) horas de formación por persona · c) % de 
 
     **d**. Es un indicador de «menor es mejor».
 
-**16.** Las emisiones de una empresa pasan de 380 t a 410 t. El indicador…
+**24.** Las emisiones de una empresa pasan de 380 t a 410 t. El indicador…
 
 a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
@@ -626,7 +540,7 @@ a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
     **b**. Sube un indicador de «menor es mejor».
 
-**17.** La brecha salarial pasa del 11 % al 9 %. El indicador…
+**25.** La brecha salarial pasa del 11 % al 9 %. El indicador…
 
 a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
@@ -634,7 +548,7 @@ a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
     **a**. Baja un indicador de «menor es mejor».
 
-**18.** Que el número de un indicador suba, ¿es siempre una buena noticia?
+**26.** Que el número de un indicador suba, ¿es siempre una buena noticia?
 
 a) sí, siempre · b) solo en la dimensión social · c) no: depende de si en ese indicador mayor o menor es mejor · d) solo si tiene meta
 
@@ -642,9 +556,57 @@ a) sí, siempre · b) solo en la dimensión social · c) no: depende de si en es
 
     **c**. Por eso el método `cumplimiento` lleva el parámetro `mayorEsMejor`.
 
+**27.** «Horas de formación por persona» es un indicador…
+
+a) ambiental · b) de gobernanza · c) social · d) que no es ASG
+
+??? success "Respuesta"
+
+    **c**. Mide formación de la plantilla.
+
+**28.** «Agua reciclada en la refrigeración» es un indicador…
+
+a) ambiental · b) social · c) de gobernanza · d) que no es ASG
+
+??? success "Respuesta"
+
+    **a**. Mide uso de agua.
+
+**29.** «Web conforme a las normas de accesibilidad (WCAG)» es un indicador…
+
+a) ambiental · b) de gobernanza · c) que no es ASG · d) social
+
+??? success "Respuesta"
+
+    **d**. La accesibilidad es igualdad de acceso para las personas.
+
+**30.** «Existencia de una política anticorrupción» es un indicador…
+
+a) social · b) de gobernanza · c) ambiental · d) que no es ASG
+
+??? success "Respuesta"
+
+    **b**. Mide ética y cumplimiento.
+
+**31.** Las horas de formación por persona pasan de 24 a 28. El indicador…
+
+a) ha empeorado · b) no ha cambiado · c) ha mejorado · d) no se puede saber
+
+??? success "Respuesta"
+
+    **c**. Sube un indicador de «mayor es mejor».
+
+**32.** Los residuos enviados al vertedero pasan de 50 t a 40 t. El indicador…
+
+a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
+
+??? success "Respuesta"
+
+    **a**. Baja un indicador de «menor es mejor».
+
 #### C · Cálculos sencillos
 
-**19.** Mayor es mejor. Meta 100 %, valor 50 %. El cumplimiento es…
+**33.** Mayor es mejor. Meta 100 %, valor 50 %. El cumplimiento es…
 
 a) 0,5 · b) 2,0 · c) 50 · d) 1,0
 
@@ -652,7 +614,7 @@ a) 0,5 · b) 2,0 · c) 50 · d) 1,0
 
     **a**. valor / meta = 50 / 100.
 
-**20.** Mayor es mejor. Meta 80, valor 100. El cumplimiento es…
+**34.** Mayor es mejor. Meta 80, valor 100. El cumplimiento es…
 
 a) 1,25 · b) 0,8 · c) 0,2 · d) 1,0
 
@@ -660,7 +622,7 @@ a) 1,25 · b) 0,8 · c) 0,2 · d) 1,0
 
     **d**. 100 / 80 = 1,25, pero se corta en 1,0: la meta está conseguida.
 
-**21.** Menor es mejor. Meta 400 t y se emiten 300 t. El cumplimiento es…
+**35.** Menor es mejor. Meta 400 t y se emiten 300 t. El cumplimiento es…
 
 a) 0,75 · b) 1,0 · c) 1,33 · d) 0,0
 
@@ -668,7 +630,7 @@ a) 0,75 · b) 1,0 · c) 1,33 · d) 0,0
 
     **b**. Está por debajo de la meta: cumplida.
 
-**22.** Menor es mejor. Meta 200 t y se emiten 400 t. El cumplimiento es…
+**36.** Menor es mejor. Meta 200 t y se emiten 400 t. El cumplimiento es…
 
 a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
 
@@ -676,7 +638,7 @@ a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
 
     **c**. Se ha pasado, así que se divide al revés: meta / valor = 200 / 400.
 
-**23.** Meta «cero accidentes» y ha habido 3. El cumplimiento es…
+**37.** Meta «cero accidentes» y ha habido 3. El cumplimiento es…
 
 a) 0,33 · b) 1,0 · c) excepción · d) 0,0
 
@@ -684,7 +646,7 @@ a) 0,33 · b) 1,0 · c) excepción · d) 0,0
 
     **d**. Con meta 0 es todo o nada: cualquier valor por encima da 0.
 
-**24.** Los indicadores de una dimensión tienen cumplimientos 1,0 · 0,8 · 0,6. Su puntuación es…
+**38.** Los indicadores de una dimensión tienen cumplimientos 1,0 · 0,8 · 0,6. Su puntuación es…
 
 a) 80,0 · b) 0,8 · c) 2,4 · d) 240
 
@@ -692,7 +654,7 @@ a) 80,0 · b) 0,8 · c) 2,4 · d) 240
 
     **a**. Media 0,8, multiplicada por 100.
 
-**25.** A = 100, S = 50, G = 50, con pesos 0,4 / 0,3 / 0,3. La nota global es…
+**39.** A = 100, S = 50, G = 50, con pesos 0,4 / 0,3 / 0,3. La nota global es…
 
 a) 66,7 · b) 60,0 · c) 70,0 · d) 75,0
 
@@ -700,7 +662,7 @@ a) 66,7 · b) 60,0 · c) 70,0 · d) 75,0
 
     **c**. 40 + 15 + 15. La a) sería la media simple.
 
-**26.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A, una nota global de 70 tiene rating…
+**40.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A, una nota global de 70 tiene rating…
 
 a) AAA · b) AA · c) A · d) BBB
 
@@ -708,9 +670,89 @@ a) AAA · b) AA · c) A · d) BBB
 
     **b**. AA empieza justo en 70.
 
+**41.** Mayor es mejor. Meta 50 y valor 25. El cumplimiento es…
+
+a) 2,0 · b) 25 · c) 1,0 · d) 0,5
+
+??? success "Respuesta"
+
+    **d**. valor / meta = 25 / 50.
+
+**42.** Menor es mejor. Meta 100 t y se emiten exactamente 100 t. El cumplimiento es…
+
+a) 0,0 · b) 1,0 · c) 0,5 · d) 100
+
+??? success "Respuesta"
+
+    **b**. Estar justo en la meta es cumplirla.
+
+**43.** Menor es mejor. Meta 300 t y se emiten 600 t. El cumplimiento es…
+
+a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
+
+??? success "Respuesta"
+
+    **c**. Se ha pasado: meta / valor = 300 / 600. Emitir el doble de lo permitido da 0,5.
+
+**44.** Meta «cero accidentes» y no ha habido ninguno. El cumplimiento es…
+
+a) 1,0 · b) 0,0 · c) excepción · d) no se puede calcular
+
+??? success "Respuesta"
+
+    **a**. Valor ≤ meta: cumplida.
+
+**45.** Una dimensión con un solo indicador de cumplimiento 0,91 tiene una puntuación de…
+
+a) 0,91 · b) 9,1 · c) 100 · d) 91,0
+
+??? success "Respuesta"
+
+    **d**. Media 0,91 × 100.
+
+**46.** Una dimensión **sin indicadores** (array vacío) tiene una puntuación de…
+
+a) 100,0 · b) 0,0 · c) excepción · d) 50,0
+
+??? success "Respuesta"
+
+    **b**. Una dimensión sin indicadores no ha demostrado nada.
+
+**47.** A = 50, S = 80, G = 90, con pesos 0,4 / 0,3 / 0,3. La nota global es…
+
+a) 73,3 · b) 80,0 · c) 71,0 · d) 66,7
+
+??? success "Respuesta"
+
+    **c**. 20 + 24 + 27. 73,3 sería la media simple.
+
+**48.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A · ≥ 40 BBB · ≥ 25 BB · resto B, una nota de 85 tiene rating…
+
+a) AAA · b) AA · c) A · d) BBB
+
+??? success "Respuesta"
+
+    **a**. AAA empieza justo en 85.
+
+**49.** Con los mismos tramos, una nota de 54 tiene rating…
+
+a) A · b) BB · c) AA · d) BBB
+
+??? success "Respuesta"
+
+    **d**. No llega a 55 (A), pero pasa de 40.
+
+**50.** Con los mismos tramos, una nota de 20 tiene rating…
+
+a) BB · b) B · c) BBB · d) no tiene rating
+
+??? success "Respuesta"
+
+    **b**. Está por debajo de 25.
+
 #### D · Interpretar el resultado
 
-**27.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de 0,75 es…
+**51.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de 0,75 es…
 
 a) VERDE · b) ROJO · c) ÁMBAR · d) depende de la dimensión
 
@@ -718,7 +760,7 @@ a) VERDE · b) ROJO · c) ÁMBAR · d) depende de la dimensión
 
     **c**. Está entre 0,70 y 0,90.
 
-**28.** ¿Por qué el cumplimiento tiene un tope de 1,0?
+**52.** ¿Por qué el cumplimiento tiene un tope de 1,0?
 
 a) para no dividir entre cero · b) para que un indicador espectacular no tape a otros malos · c) porque Java no admite valores mayores · d) para redondear
 
@@ -726,7 +768,7 @@ a) para no dividir entre cero · b) para que un indicador espectacular no tape a
 
     **b**. No existe el «119 % conseguido».
 
-**29.** En el reto ejemplo, NubeVerde saca **AA** pero tiene la brecha salarial en **rojo**. ¿Qué conclusión es correcta?
+**53.** Una empresa saca un rating **AA**, pero tiene la brecha salarial en **rojo**. ¿Qué conclusión es correcta?
 
 a) va bien, porque el rating es alto · b) el rating está mal calculado · c) la nota global puede esconder un indicador muy débil: hay que mirar el detalle · d) lo social no cuenta en el rating
 
@@ -734,9 +776,57 @@ a) va bien, porque el rating es alto · b) el rating está mal calculado · c) l
 
     **c**. La acción prioritaria no es la que sale en la portada.
 
-**30.** Dos agencias dan ratings distintos a la misma empresa. Lo más probable es que…
+**54.** Dos agencias dan ratings distintos a la misma empresa. Lo más probable es que…
 
 a) usen indicadores o pesos distintos · b) una de las dos mienta · c) sea aleatorio · d) los ratings no sirvan para nada
+
+??? success "Respuesta"
+
+    **a**. Por eso las agencias publican su metodología.
+
+**55.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de exactamente 0,90 es…
+
+a) ÁMBAR · b) ROJO · c) VERDE · d) depende
+
+??? success "Respuesta"
+
+    **c**. El verde empieza **en** 0,90.
+
+**56.** El método `semaforo` recibe 1,2. ¿Qué debe hacer?
+
+a) lanzar IllegalArgumentException · b) devolver VERDE · c) devolver ROJO · d) devolver 1,0
+
+??? success "Respuesta"
+
+    **a**. El cumplimiento siempre está entre 0 y 1: un valor fuera de rango es un error.
+
+**57.** En `semaforo`, ¿por qué los tramos se comprueban de mayor a menor?
+
+a) por rendimiento · b) porque Java lo exige · c) da igual el orden · d) porque si no, el primer `if` se quedaría con casi todos los casos
+
+??? success "Respuesta"
+
+    **d**. Si preguntas primero `>= 0,70`, un 0,95 entraría en ÁMBAR.
+
+**58.** Con «menor es mejor», ¿por qué se divide meta / valor y no valor / meta?
+
+a) para no dividir entre cero · b) para que cuanto más te pases de la meta, menor salga el cumplimiento · c) para redondear · d) porque así sale más alto
+
+??? success "Respuesta"
+
+    **b**. valor / meta daría 2,0 al emitir el doble, y parecería mejor.
+
+**59.** Una empresa con meta «cero accidentes» pasa de 10 accidentes a 1. Su cumplimiento…
+
+a) sube a 0,9 · b) sube a 1,0 · c) sigue en 0,0: esta medida no ve la mejora · d) da error
+
+??? success "Respuesta"
+
+    **c**. Con meta 0 es todo o nada. Para ver la mejora hay que compararse con el valor de partida (UT6).
+
+**60.** La misma empresa da una nota distinta con la media simple y con la ponderada. ¿Qué conclusión se saca?
+
+a) un rating no se entiende sin saber cómo se pondera · b) la media simple está mal · c) la ponderada está mal · d) no importa
 
 ??? success "Respuesta"
 

@@ -263,7 +263,7 @@ Requisitos:
     ```
 
     1. Las validaciones simples, al principio.
-    2. Otra vez `normalizar`: `"AUTOBÚS"` → `"autobus"`. Tercera unidad que lo reutilizas.
+    2. Otra vez `normalizar`, el de la UT1: `"AUTOBÚS"` → `"autobus"`.
     3. El `× 2` de la vuelta.
     4. Si el bucle termina sin encontrar el medio, es que no existe. La excepción va **fuera** del bucle: si la pones dentro, saltaría en la primera fila que no coincida.
 

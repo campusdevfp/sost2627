@@ -30,7 +30,7 @@ flowchart LR
     T["1 · Teoría<br/>en 5 minutos"] --> B["2 · Batería<br/>6 ejercicios<br/>con solución"]
     B --> RE["3 · Reto ejemplo<br/>resuelto y comentado"]
     RE --> RR["4 · Reto a realizar<br/>8 métodos + tests"]
-    RR --> A["5 · Simulacro de examen<br/>3 métodos + 30 preguntas"]
+    RR --> A["5 · Simulacro de examen<br/>3 métodos + banco de preguntas"]
     style RR fill:#1d7a6c,color:#fff
 ```
 

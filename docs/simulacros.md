@@ -28,7 +28,7 @@ Junta los tres simulacros del trimestre y hazlos **seguidos, en 2 horas**:
 | **1.º** | RA1 + RA2 + RA3 | `mvn test -Dtest="SimulacroRa1Test,SimulacroRa2Test,SimulacroRa3Test"` |
 | **2.º** | RA4 + RA5 + RA6 | `mvn test -Dtest="SimulacroRa4Test,SimulacroRa5Test,SimulacroRa6Test"` |
 
-Las preguntas de test están al final de cada unidad, en el apartado **5. Simulacro de examen**: 30 por unidad, y **las del examen salen de ahí**.
+Las preguntas de test están al final de cada unidad, en el apartado **Simulacro de examen**: 60 en las unidades 1 y 2 y 30 en el resto, y **las del examen salen de ahí**.
 
 ## Reparto del tiempo
 

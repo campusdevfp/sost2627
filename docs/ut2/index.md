@@ -2,45 +2,146 @@
 
 > **RA2** · 4 h · 15 % · Clase `Ut2Energia.java` · `mvn test -Dtest=Ut2EnergiaTest`
 
-Aquí descubrirás algo que casi nadie sabe: **el mismo servidor, consumiendo lo mismo, puede emitir cinco veces más un martes que un jueves**. Y aprenderás a calcularlo.
+**La idea de toda la unidad en una frase:** el mismo servidor, consumiendo lo mismo, emite más o menos CO₂ según **cómo se haya fabricado la electricidad ese día**. Vas a aprender a calcularlo y a usarlo para decidir cuándo ejecutar un proceso.
+
+El camino es siempre el mismo:
+
+```mermaid
+flowchart LR
+    A["1 · Entiendes<br/>el concepto"] --> B["2 · Lo calculas<br/>a mano"] --> C["3 · Lo programas<br/>en un método Java"] --> D["4 · Lo usas<br/>para decidir"]
+```
 
 ---
 
-## 1. Teoría en cinco minutos
+## 1. Teoría paso a paso
 
-**Retos ambientales:** cambio climático, pérdida de biodiversidad, contaminación, escasez de agua, agotamiento de recursos. **Sociales:** desigualdad, brecha digital, trabajo precario, desigualdad de género. Van juntos: una ola de calor golpea más a quien trabaja al aire libre. De ahí la **transición justa**.
+### 1.1 Retos ambientales y sociales
 
-**El sector digital no es inmaterial:**
+Un **reto** es un problema grande que afecta a todos y que hay que ir resolviendo.
+
+| Retos **ambientales** (afectan al planeta) | Retos **sociales** (afectan a las personas) |
+|---|---|
+| Cambio climático | Desigualdad |
+| Pérdida de biodiversidad | Brecha digital |
+| Contaminación | Trabajo precario |
+| Escasez de agua | Desigualdad de género |
+| Agotamiento de recursos | |
+
+**Van juntos.** Una ola de calor (ambiental) golpea más a quien trabaja al aire libre (social). Por eso se habla de **transición justa**: reducir emisiones **sin dejar atrás** a los trabajadores y territorios que viven de las industrias que contaminan.
+
+### 1.2 Lo digital también contamina
+
+Una web parece no pesar nada, pero detrás hay máquinas que gastan electricidad, agua para refrigerarlas y aparatos que acaban en la basura.
 
 | Impacto | Dato de referencia |
 |---|---|
 | Electricidad | Los centros de datos rondaban el **1,5 %** de la electricidad mundial en 2024 (IEA, *Energy and AI*, 2025) |
-| Residuos electrónicos | **62 Mt** generadas en 2022, solo el **22,3 %** recogido formalmente (Global E-waste Monitor 2024) |
-| Agua | Refrigeración de centros de datos, crítica en zonas con sequía |
+| Residuos electrónicos | **62 Mt** generadas en 2022; solo el **22,3 %** se recogió formalmente (Global E-waste Monitor 2024) |
+| Agua | Refrigeración de los centros de datos, un problema en zonas con sequía |
 
-**La clave técnica:** un kWh no siempre emite lo mismo.
+### 1.3 El mix eléctrico: con qué se fabrica la electricidad
 
-```mermaid
-flowchart LR
-    subgraph MIX["Mix eléctrico de un día"]
-        E[Eólica<br/>factor 0] 
-        N[Nuclear<br/>factor 0]
-        C[Ciclo combinado<br/>0,37 t/MWh]
-        K[Carbón<br/>0,95 t/MWh]
-    end
-    MIX --> I["Intensidad de carbono<br/>g CO₂ / kWh"]
-    I --> D["Decisión:<br/>¿cuándo ejecuto?"]
-```
+Cada día, la electricidad del país se produce con **varias tecnologías a la vez**: un poco de eólica, un poco de nuclear, algo de gas… Esa mezcla se llama **mix eléctrico** y **cambia cada día**: si sopla viento hay mucha eólica; si no, hay que tirar de gas o de carbón.
+
+Un día cualquiera, en **MWh** (megavatios hora, la unidad de energía que se usa para la red):
+
+| Tecnología | MWh generados |
+|---|---:|
+| Eólica | 300 |
+| Ciclo combinado (gas) | 200 |
+| Nuclear | 500 |
+| **Total** | **1000** |
+
+!!! info "Las unidades que vas a usar"
+    | | | |
+    |---|---|---|
+    | **1 MWh** = 1000 kWh | El kWh es lo que pone tu factura de la luz | Un servidor pequeño gasta unos 250 kWh al mes |
+    | **1 t** = 1000 kg = 1 000 000 g | Las emisiones del país van en toneladas | Las de un proceso, en kilos |
+
+### 1.4 El factor de emisión: cuánto ensucia cada tecnología
+
+El **factor de emisión** dice cuántas **toneladas de CO₂** se emiten por cada MWh fabricado con esa tecnología.
+
+| Tecnología | Factor (t CO₂/MWh) | ¿Emite CO₂? | ¿Es renovable? |
+|---|---:|:-:|:-:|
+| Carbón | 0,95 | Sí, mucho | No |
+| Motores diésel | 0,77 | Sí | No |
+| Cogeneración | 0,38 | Sí | No |
+| Ciclo combinado | 0,37 | Sí | No |
+| Eólica, solar, hidráulica | 0 | No | **Sí** |
+| Nuclear | 0 | No | **No** |
+
+**Fíjate en la nuclear:** no emite CO₂, pero **no es renovable** (el uranio se acaba). «Emitir» y «ser renovable» son **dos preguntas distintas**; por eso en Java habrá dos métodos distintos.
+
+### 1.5 Las toneladas de un día
+
+Se multiplica lo generado por su factor y se suma todo:
 
 ```text
-            Σ (MWh × factor t/MWh)
-intensidad = ──────────────────────── × 1000   → g CO₂/kWh
-                  Σ MWh totales
+toneladas = MWh₁ × factor₁ + MWh₂ × factor₂ + …
 ```
 
-El `× 1000` sale de que **1 t/MWh = 1 000 000 g ÷ 1000 kWh = 1000 g/kWh**.
+Con el día del apartado 1.3:
 
-**Para reducir impactos, en este orden:**
+| Tecnología | MWh | × factor | = toneladas |
+|---|---:|---:|---:|
+| Eólica | 300 | 0 | 0 |
+| Ciclo combinado | 200 | 0,37 | 74 |
+| Nuclear | 500 | 0 | 0 |
+| **Total** | **1000** | | **74 t** |
+
+### 1.6 La intensidad de carbono: el número clave
+
+Las 74 t solas no dicen mucho: un día con el doble de consumo emitiría más aunque fuera más limpio. Lo que interesa es **cuánto CO₂ hay detrás de cada kWh**. Eso es la **intensidad de carbono**, y se mide en **gramos de CO₂ por kWh (g/kWh)**.
+
+```text
+intensidad = toneladas ÷ MWh totales × 1000
+```
+
+¿Por qué `× 1000`? Porque toneladas ÷ MWh da **t/MWh**, y queremos **g/kWh**:
+**1 t/MWh = 1 000 000 g ÷ 1000 kWh = 1000 g/kWh**.
+
+Con nuestro día: `74 ÷ 1000 × 1000 =` **74 g/kWh**.
+
+!!! warning "Los MWh que no emiten también cuentan"
+    La eólica y la nuclear no suman toneladas, pero **sí suman en el total de MWh**. Son las que bajan la media.
+
+### 1.7 El porcentaje renovable
+
+Qué parte de la electricidad viene de fuentes renovables:
+
+```text
+% renovable = MWh renovables ÷ MWh totales × 100
+```
+
+Nuestro día: solo la eólica es renovable (la nuclear no) → `300 ÷ 1000 × 100 =` **30 %**.
+
+### 1.8 El semáforo de la red
+
+Para decidir rápido, la intensidad se traduce a un color:
+
+| Intensidad | Color | Qué significa |
+|---|---|---|
+| Menos de 100 g/kWh | **VERDE** | Buen momento para tareas pesadas |
+| De 100 a menos de 200 | **ÁMBAR** | Normal |
+| 200 o más | **ROJO** | Si puedes, espera |
+
+### 1.9 Los kilos de CO₂ de un consumo
+
+Si sabes cuántos kWh gasta algo y la intensidad de ese día:
+
+```text
+kg de CO₂ = kWh × g/kWh ÷ 1000
+```
+
+Un servidor que gasta **250 kWh** con la red a **74 g/kWh**: `250 × 74 = 18 500 g =` **18,5 kg**.
+El mismo servidor con la red a **412 g/kWh**: `250 × 412 = 103 000 g =` **103 kg**.
+
+**Misma máquina, mismo código y más de cinco veces el CO₂.** Solo cambia el día.
+
+### 1.10 Qué hacer para reducir el impacto
+
+Siempre en este orden: primero lo que más reduce, al final lo que menos.
 
 ```mermaid
 flowchart LR
@@ -54,205 +155,357 @@ flowchart LR
 | **Sustituir** | Usar una fuente más limpia | Contratar electricidad renovable; lanzar los procesos cuando la red está más limpia |
 | **Compensar** | Pagar para que otro reduzca | Comprar créditos de carbono |
 
-Compensar es **el último** paso. Anunciarse como «neutro en carbono» solo comprando créditos, sin reducir, es greenwashing.
+Anunciarse como «neutro en carbono» **solo** comprando créditos, sin reducir nada, es **greenwashing**.
+
+### Resumen: de cada concepto sale un método
+
+| Concepto | Fórmula | Método Java |
+|---|---|---|
+| Factor de emisión | se busca en la tabla | `factorEmision` |
+| ¿Es renovable? | se busca en la lista | `esRenovable` |
+| Toneladas del día | Σ MWh × factor | `toneladas` |
+| Intensidad | toneladas ÷ MWh × 1000 | `intensidad` |
+| % renovable | MWh renovables ÷ MWh × 100 | `porcentajeRenovable` |
+| Semáforo | < 100 · < 200 · resto | `semaforoRed` |
+| Kilos de un consumo | kWh × g/kWh ÷ 1000 | `kgCo2` |
+| Mejor día | el de menor intensidad | `diaMasLimpio` |
 
 ---
 
-## 2. Batería de ejercicios
+## 2. Batería de ejercicios · de la idea al método Java
 
-> Seis ejercicios en orden. Cada uno prepara una pieza del reto final. Todos traen **enunciado, datos y el resultado que debe salir**.
+> Ocho ejercicios, **uno por método** de `Ut2Energia.java`. En cada uno: qué hace, un ejemplo a mano, cómo pensarlo y la solución explicada línea a línea. Intenta escribirlo tú antes de abrir la solución y compruébalo con su test.
+>
+> **Cuando acabes los ocho, la clase está terminada** y tienes hecha la Parte 1 del reto.
 
----
+### Antes de empezar: los arrays paralelos
 
-### Ejercicio 1 · El nombre que no coincide
+Abre `src/main/java/sostenibilidad/Ut2Energia.java`. Arriba ya tienes la tabla de factores, guardada en **dos arrays que van emparejados por posición**:
 
-**Qué tienes que hacer.** La API de Red Eléctrica devuelve los nombres así, y tu tabla de factores los tiene en minúsculas y sin tildes. Di, para cada uno, si `equals` los encontraría y qué factor saldría.
+| Posición `i` | `TECNOLOGIAS[i]` | `FACTORES[i]` |
+|:-:|---|---:|
+| 0 | `"Carbón"` | 0.95 |
+| 1 | `"Ciclo combinado"` | 0.37 |
+| 2 | `"Cogeneración"` | 0.38 |
+| 3 | `"Motores diésel"` | 0.77 |
 
-| Viene de la API | Está en la tabla como | ¿`equals` los encuentra? | Factor que saldría |
-|---|---|:-:|---|
-| `"Carbón"` | `"carbon"` | ? | ? |
-| `"COGENERACIÓN"` | `"cogeneracion"` | ? | ? |
-| `"ciclo combinado"` | `"ciclo combinado"` | ? | ? |
+El factor del carbón está en la **misma posición** que la palabra «Carbón». Lo mismo pasará con los datos de un día: `tecnologias[i]` y `mwh[i]` van juntos.
 
-??? success "Solución"
-
-    | Viene de la API | ¿Coincide? | Factor que saldría | Factor correcto |
-    |---|:-:|---:|---:|
-    | `"Carbón"` | **No** (tilde y mayúscula) | 0,00 | 0,95 |
-    | `"COGENERACIÓN"` | **No** | 0,00 | 0,38 |
-    | `"ciclo combinado"` | Sí | 0,37 | 0,37 |
-
-    **Lo importante:** el fallo **no rompe el programa**. Devuelve un número perfectamente creíble, solo que el carbón habría emitido cero. En un cálculo de emisiones, un error silencioso es peor que una excepción.
-
-    La solución es `Ut1Asg.normalizar(...)`, que ya escribiste en la UT1:
-
-    ```java
-    String t = Ut1Asg.normalizar(tecnologia);   // "Carbón" -> "carbon"
-    ```
-
-
----
-
-### Ejercicio 2 · Toneladas emitidas en un día
-
-Cada tecnología tiene un **factor de emisión** en toneladas de CO₂ por MWh generado:
-
-| Tecnología | Factor (t/MWh) |
-|---|---:|
-| Carbón | 0,95 |
-| Motores diésel | 0,77 |
-| Cogeneración | 0,38 |
-| Ciclo combinado | 0,37 |
-| Eólica, solar, hidráulica, nuclear | 0,00 |
-
-**Qué tienes que hacer.** Calcula las toneladas emitidas en este día:
-
-| Tecnología | MWh |
-|---|---:|
-| Eólica | 300 |
-| Ciclo combinado | 200 |
-| Nuclear | 500 |
-
-??? success "Solución"
-
-    ```text
-    300 × 0,00  =    0 t   (eólica)
-    200 × 0,37  =   74 t   (ciclo combinado)
-    500 × 0,00  =    0 t   (nuclear)
-                    ─────
-                     74 t
-    ```
-
-    **Cuidado con un error frecuente:** los 800 MWh que no emiten **no se descartan**. Siguen contando, y mucho, en el ejercicio siguiente: son los que bajan la media.
-
-
----
-
-### Ejercicio 3 · De toneladas por MWh a gramos por kWh
-
-La **intensidad de carbono** es la media: cuánto CO₂ hay detrás de **cada kWh** consumido.
-
-```text
-            toneladas totales
-intensidad = ───────────────── × 1000     → g CO₂/kWh
-              MWh totales
+```java
+String[] tecnologias = {"Eólica", "Ciclo combinado", "Nuclear"};
+double[] mwh         = {   300,              200,       500   };
+//                        [0]               [1]        [2]
 ```
 
-El `× 1000` sale de que **1 t/MWh = 1 000 000 g ÷ 1 000 kWh = 1 000 g/kWh**.
+!!! tip "Redondear en Java"
+    Varios métodos piden redondear. Siempre es el mismo truco:
 
-**Qué tienes que hacer.**
+    | Para redondear a… | Se escribe | Ejemplo |
+    |---|---|---|
+    | 1 decimal | `Math.round(x * 10) / 10.0` | 74.04 → 74.0 |
+    | 2 decimales | `Math.round(x * 100) / 100.0` | 0.40722 → 0.41 |
 
-1. Calcula la intensidad del día del ejercicio 2.
-2. Escribe `double intensidad(String[] tecnologias, double[] mwh)`, que es el **método 4 del reto final**.
-3. Explica qué debe devolver si el total de MWh es 0.
-
-??? success "Solución"
-
-    1. `74 t / 1000 MWh = 0,074 t/MWh → ` **74,0 g/kWh**
-
-    2. ```java
-       double intensidad(String[] tecnologias, double[] mwh) {
-           double totalMwh = 0;
-           for (double m : mwh) totalMwh += m;
-           if (totalMwh == 0) return 0.0;                     // (1)
-           double t = toneladas(tecnologias, mwh);            // (2)
-           return Math.round(t / totalMwh * 1000 * 10) / 10.0;
-       }
-       ```
-
-          1. Sin esta línea, dividirías entre cero y obtendrías `NaN`. Y `NaN` es contagioso: cualquier cuenta posterior también da `NaN`.
-          2. Reutiliza el método del ejercicio 2 en lugar de repetir el bucle.
-
-    3. **0.0**. No hay generación, así que no hay intensidad que calcular.
-
+    El `.0` del final es imprescindible: sin él, Java haría una división entera y perderías los decimales.
 
 ---
 
-### Ejercicio 4 · El día sucio
+### Ejercicio 1 · `factorEmision`: buscar en la tabla
 
-**Qué tienes que hacer.** Calcula la intensidad y el porcentaje renovable de este día, y compáralo con el del ejercicio 3.
+**Qué hace.** Recibe el nombre de una tecnología y devuelve su factor. Si no está en la tabla (porque no emite), devuelve 0.
 
-| Tecnología | MWh | ¿Renovable? |
-|---|---:|:-:|
-| Carbón | 100 | No |
-| Ciclo combinado | 300 | No |
-| Solar fotovoltaica | 100 | Sí |
+| Llamada | Devuelve | Por qué |
+|---|---:|---|
+| `factorEmision("Carbón")` | 0.95 | Está en la posición 0 |
+| `factorEmision("Ciclo combinado")` | 0.37 | Está en la posición 1 |
+| `factorEmision("Nuclear")` | 0.0 | No está: no emite |
 
-??? success "Solución"
+**Cómo pensarlo.**
 
-    **Toneladas:** `100 × 0,95 + 300 × 0,37 = 95 + 111 = 206 t`
-    **Intensidad:** `206 / 500 × 1000 = ` **412,0 g/kWh** → semáforo **ROJO**
-    **Renovable:** `100 / 500 = ` **20,0 %**
-
-    ```text
-    Día con viento  ████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   74,0 g/kWh  VERDE
-    Día sin viento  ████████████████████████████████████████████████  412,0 g/kWh  ROJO
-    ```
-
-    **5,6 veces más CO₂ por cada kWh.** Y fíjate: el día sucio genera **menos** MWh en total (500 frente a 1000). No se trata de cuánta electricidad hay, sino de **con qué se ha fabricado**.
-
-
----
-
-### Ejercicio 5 · Nuclear: dos preguntas distintas
-
-**Qué tienes que hacer.** Responde para la energía nuclear:
-
-1. ¿Emite CO₂ al generar electricidad?
-2. ¿Es renovable?
-3. ¿Por qué el código tiene dos métodos separados, `factorEmision` y `esRenovable`, en lugar de uno solo?
+1. Recorre las posiciones de `TECNOLOGIAS`.
+2. Si en la posición `i` está el nombre que buscas, devuelve `FACTORES[i]`.
+3. Si terminas el bucle sin encontrarlo, devuelve `0.0`.
 
 ??? success "Solución"
-
-    1. **No emite CO₂ al generar.** Por eso no está en la tabla de factores y `factorEmision("Nuclear")` devuelve 0,0.
-    2. **No es renovable.** El uranio es un recurso finito, así que no está en `RENOVABLES`.
-    3. Porque son **dos propiedades independientes**. Si las juntaras en un método tipo `esLimpia()`, tendrías que decidir qué responder con la nuclear y **cualquier respuesta sería incorrecta** en uno de los dos sentidos. Dos preguntas, dos métodos.
-
-    | Tecnología | ¿Emite? | ¿Renovable? |
-    |---|:-:|:-:|
-    | Eólica | No | Sí |
-    | Nuclear | No | **No** |
-    | Ciclo combinado | Sí | No |
-
-
----
-
-### Ejercicio 6 · Lo que emite tu servidor
-
-**Qué tienes que hacer.** Un servidor del instituto consume **250 kWh al mes**. Calcula los kilos de CO₂ que emite si todo ese consumo ocurriera:
-
-- un mes con la red a **74 g/kWh** (como el día limpio),
-- un mes con la red a **412 g/kWh** (como el día sucio).
-
-Escribe también `double kgCo2(double kwh, double gramosPorKwh)`, redondeando a 2 decimales.
-
-??? success "Solución"
-
-    ```text
-    250 kWh × 74 g/kWh  = 18 500 g = 18,5 kg
-    250 kWh × 412 g/kWh = 103 000 g = 103,0 kg
-    ```
 
     ```java
-    double kgCo2(double kwh, double gramosPorKwh) {
+    public static double factorEmision(String tecnologia) {
+        for (int i = 0; i < TECNOLOGIAS.length; i++) {
+            if (TECNOLOGIAS[i].equals(tecnologia)) {   // (1)
+                return FACTORES[i];                     // (2)
+            }
+        }
+        return 0.0;                                     // (3)
+    }
+    ```
+
+    1. Los textos se comparan con `equals`, **nunca** con `==`.
+    2. Misma posición en el otro array: ahí está su factor.
+    3. Esta línea solo se alcanza si el bucle no ha encontrado nada. Si la pusieras dentro del bucle, devolvería 0 en cuanto la primera posición no coincidiera.
+
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#factorEmision`
+
+---
+
+### Ejercicio 2 · `esRenovable`: ¿está en la lista?
+
+**Qué hace.** Devuelve `true` si la tecnología está en `RENOVABLES`.
+
+| Llamada | Devuelve |
+|---|:-:|
+| `esRenovable("Eólica")` | `true` |
+| `esRenovable("Hidráulica")` | `true` |
+| `esRenovable("Nuclear")` | `false` |
+| `esRenovable("Carbón")` | `false` |
+
+**Cómo pensarlo.** Igual que el ejercicio 1, pero solo hay que contestar sí o no.
+
+??? success "Solución"
+
+    ```java
+    public static boolean esRenovable(String tecnologia) {
+        for (String r : RENOVABLES) {        // (1)
+            if (r.equals(tecnologia)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    ```
+
+    1. Aquí no hace falta la posición, así que basta un `for` mejorado: «para cada `r` de `RENOVABLES`».
+
+    **¿Por qué no un solo método `esLimpia()`?** Porque con la nuclear no sabrías qué contestar: no emite (sería «limpia») pero no es renovable. Dos preguntas, dos métodos.
+
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#esRenovable`
+
+---
+
+### Ejercicio 3 · `toneladas`: el CO₂ de un día
+
+**Qué hace.** Es el apartado 1.5 de la teoría en código: suma `mwh[i] × factor` de cada tecnología.
+
+| Datos | Cuenta | Devuelve |
+|---|---|---:|
+| Eólica 300 · Ciclo combinado 200 · Nuclear 500 | 0 + 200 × 0,37 + 0 | 74.0 |
+| Carbón 100 · Ciclo combinado 300 · Solar fotovoltaica 100 | 95 + 111 + 0 | 206.0 |
+
+**Cómo pensarlo.**
+
+1. Empieza con `suma = 0`.
+2. Para cada posición `i`: busca el factor de `tecnologias[i]` con el método 1 y súmale `mwh[i] × factor`.
+3. Devuelve la suma.
+
+??? success "Solución"
+
+    ```java
+    public static double toneladas(String[] tecnologias, double[] mwh) {
+        double suma = 0;
+        for (int i = 0; i < tecnologias.length; i++) {
+            suma += mwh[i] * factorEmision(tecnologias[i]);   // (1)
+        }
+        return suma;
+    }
+    ```
+
+    1. Reutilizas el método 1: no repites la búsqueda en la tabla. Con la eólica, `factorEmision` devuelve 0 y se suma 0.
+
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#toneladas`
+
+---
+
+### Ejercicio 4 · `intensidad`: los gramos por kWh
+
+**Qué hace.** Es el apartado 1.6: `toneladas ÷ MWh totales × 1000`, redondeado a 1 decimal. Si no hay MWh, devuelve 0.
+
+| Datos | Cuenta | Devuelve |
+|---|---|---:|
+| Día 1 del ejercicio 3 | 74 ÷ 1000 × 1000 | 74.0 |
+| Día 2 del ejercicio 3 | 206 ÷ 500 × 1000 | 412.0 |
+| Sin datos | — | 0.0 |
+
+**Cómo pensarlo.**
+
+1. Suma todos los MWh.
+2. Si el total es 0, devuelve 0.0 (no se puede dividir entre 0).
+3. Calcula las toneladas con el método 3.
+4. Aplica la fórmula y redondea a 1 decimal.
+
+??? success "Solución"
+
+    ```java
+    public static double intensidad(String[] tecnologias, double[] mwh) {
+        double totalMwh = 0;
+        for (double m : mwh) {
+            totalMwh += m;                                   // (1)
+        }
+        if (totalMwh == 0) {
+            return 0.0;                                      // (2)
+        }
+        double t = toneladas(tecnologias, mwh);              // (3)
+        return Math.round(t / totalMwh * 1000 * 10) / 10.0;  // (4)
+    }
+    ```
+
+    1. **Todos** los MWh, también los que no emiten.
+    2. Sin esta línea dividirías entre 0 y Java devolvería `NaN` («no es un número»), que estropea cualquier cuenta que se haga después.
+    3. Otra vez reutilizas un método anterior.
+    4. La fórmula (`t / totalMwh * 1000`) y el redondeo a 1 decimal (`* 10 … / 10.0`) en una línea.
+
+**Fíjate en el día 2:** genera **la mitad** de electricidad que el día 1 y tiene **más de cinco veces** su intensidad. No importa cuánta electricidad hay, sino **con qué se ha fabricado**.
+
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#intensidad`
+
+---
+
+### Ejercicio 5 · `porcentajeRenovable`
+
+**Qué hace.** Es el apartado 1.7: qué parte de los MWh es renovable, redondeado a 1 decimal.
+
+| Datos | Renovables | Devuelve |
+|---|---|---:|
+| Eólica 300 · Ciclo combinado 200 · Nuclear 500 | solo la eólica: 300 de 1000 | 30.0 |
+| Carbón 100 · Ciclo combinado 300 · Solar fotovoltaica 100 | solo la solar: 100 de 500 | 20.0 |
+
+**Cómo pensarlo.** Un bucle con **dos sumas a la vez**: el total de MWh y los MWh renovables (usando el método 2).
+
+??? success "Solución"
+
+    ```java
+    public static double porcentajeRenovable(String[] tecnologias, double[] mwh) {
+        double total = 0;
+        double renovable = 0;
+        for (int i = 0; i < tecnologias.length; i++) {
+            total += mwh[i];                          // (1)
+            if (esRenovable(tecnologias[i])) {
+                renovable += mwh[i];                  // (2)
+            }
+        }
+        if (total == 0) {
+            return 0.0;
+        }
+        return Math.round(renovable / total * 100 * 10) / 10.0;
+    }
+    ```
+
+    1. Todos suman al total.
+    2. Solo los renovables suman aquí. La nuclear no entra.
+
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#porcentajeRenovable`
+
+---
+
+### Ejercicio 6 · `semaforoRed`
+
+**Qué hace.** Es el apartado 1.8: traduce la intensidad a un color. Si es negativa, lanza `IllegalArgumentException`.
+
+| Intensidad | Devuelve |
+|---:|---|
+| 74 | `"VERDE"` |
+| 100 | `"AMBAR"` |
+| 199.9 | `"AMBAR"` |
+| 200 | `"ROJO"` |
+| −5 | excepción |
+
+**Cómo pensarlo.** Primero el error; después los tramos **de menor a mayor**.
+
+??? success "Solución"
+
+    ```java
+    public static String semaforoRed(double gramosPorKwh) {
+        if (gramosPorKwh < 0) {
+            throw new IllegalArgumentException("Intensidad negativa: " + gramosPorKwh);
+        }
+        if (gramosPorKwh < 100) return "VERDE";     // (1)
+        if (gramosPorKwh < 200) return "AMBAR";     // (2)
+        return "ROJO";
+    }
+    ```
+
+    1. Si es menor que 100, ya has terminado.
+    2. Si llegas aquí, ya sabes que es 100 o más; solo falta ver si es menor que 200.
+
+    Con exactamente 200 devuelve `"ROJO"`: ámbar es «**menos** de 200».
+
+**Compruébalo:** `mvn test -Dtest="Ut2EnergiaTest#semaforo*"`
+
+---
+
+### Ejercicio 7 · `kgCo2`: lo que emite un consumo
+
+**Qué hace.** Es el apartado 1.9: `kWh × g/kWh ÷ 1000`, redondeado a 2 decimales.
+
+| Llamada | Cuenta | Devuelve |
+|---|---|---:|
+| `kgCo2(250, 120)` | 30 000 g ÷ 1000 | 30.0 |
+| `kgCo2(50, 74)` | 3700 g ÷ 1000 | 3.7 |
+| `kgCo2(3.3, 123.4)` | 0,40722 → redondeo | 0.41 |
+
+??? success "Solución"
+
+    ```java
+    public static double kgCo2(double kwh, double gramosPorKwh) {
         return Math.round(kwh * gramosPorKwh / 1000 * 100) / 100.0;   // (1)
     }
     ```
 
-    1. Se divide entre 1000 para pasar de gramos a kilos. El `* 100 … / 100.0` es el redondeo a dos decimales.
+    1. `kwh * gramosPorKwh` da gramos; `/ 1000` los pasa a kilos; `* 100 … / 100.0` redondea a 2 decimales.
 
-    **84,5 kg de diferencia** por el mismo consumo, la misma máquina y el mismo código. Lo único que cambia es **cuándo**. Ese es el dato que justifica toda la unidad.
-
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#kgCo2`
 
 ---
 
-## 3. Reto ejemplo (resuelto)
+### Ejercicio 8 · `diaMasLimpio`: la posición del mínimo
 
-> Los seis ejercicios juntos en un programa que toma una decisión de verdad. Léelo entero: el reto que tienes que entregar es **exactamente igual, con otros datos**.
+**Qué hace.** Recibe las intensidades de varios días y devuelve la **posición** del más bajo (no su valor). Si hay empate, el primero. Si el array está vacío, −1.
+
+| Llamada | Devuelve | Por qué |
+|---|---:|---|
+| `diaMasLimpio({90, 60, 120})` | 1 | 60 está en la posición 1 |
+| `diaMasLimpio({50, 50, 90})` | 0 | Empate: gana el primero |
+| `diaMasLimpio({})` | −1 | No hay días |
+
+**Cómo pensarlo.**
+
+1. Si está vacío, devuelve −1.
+2. Supón que el mejor es el día 0.
+3. Recorre los demás: si uno es **estrictamente menor** que el mejor que llevas, ese pasa a ser el mejor.
+4. Devuelve la posición.
+
+??? success "Solución"
+
+    ```java
+    public static int diaMasLimpio(double[] intensidades) {
+        if (intensidades.length == 0) {
+            return -1;
+        }
+        int mejor = 0;                                    // (1)
+        for (int i = 1; i < intensidades.length; i++) {
+            if (intensidades[i] < intensidades[mejor]) {  // (2)
+                mejor = i;
+            }
+        }
+        return mejor;                                     // (3)
+    }
+    ```
+
+    1. Guardas la **posición**, no el valor.
+    2. Con `<` (y no `<=`), en un empate no cambias: se queda el primero.
+    3. Con la posición puedes sacar después el nombre del día y su intensidad.
+
+**Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#diaMasLimpio`
+
+!!! success "Comprueba la clase entera"
+    `mvn test -Dtest=Ut2EnergiaTest` → todos los tests en verde. **Ya tienes la Parte 1 del reto.**
+
+---
+
+## 3. Reto ejemplo (resuelto paso a paso)
+
+> Aquí juntas los ocho métodos para tomar una decisión real. Primero lo resolvemos **a mano**, para que veas de dónde sale cada número, y después **con el programa**. El reto que entregas es **exactamente igual con otros datos**.
 
 ### El encargo
 
-El departamento de sistemas lanza una vez por semana un **proceso de copias de seguridad** que consume **50 kWh**. Puede ejecutarse el lunes, el martes o el miércoles. Te pasan cómo se generó la electricidad esos tres días (en MWh) y te preguntan: **¿qué día conviene lanzarlo y cuánto se ahorra al año?**
+El departamento de sistemas lanza **una vez por semana** un proceso de **copias de seguridad** que consume **50 kWh**. Puede hacerse el lunes, el martes o el miércoles. Te pasan cómo se fabricó la electricidad esos tres días (en MWh):
 
 | Tecnología | Lunes | Martes | Miércoles |
 |---|---:|---:|---:|
@@ -263,29 +516,57 @@ El departamento de sistemas lanza una vez por semana un **proceso de copias de s
 | Carbón | 0 | 100 | 0 |
 | **Total** | **1000** | **1000** | **1000** |
 
-### Cómo se resuelve, paso a paso
+**La pregunta:** ¿qué día conviene lanzarlo y cuánto CO₂ se ahorra al año?
 
-```mermaid
-flowchart LR
-    A["1 · Intensidad<br/>de cada día"] --> B["2 · Día más limpio<br/>y más sucio"]
-    B --> C["3 · Kilos del proceso<br/>en cada uno"]
-    C --> D["4 · Ahorro<br/>semanal y anual"]
-```
+### Paso 1 · Las toneladas de cada día
 
-1. Para cada día, `intensidad`, `porcentajeRenovable` y `semaforoRed`.
-2. `diaMasLimpio` devuelve la **posición** del mejor día. El peor se busca con el mismo bucle, comparando al revés.
-3. `kgCo2(50, intensidad)` da los kilos del proceso cada uno de esos dos días.
-4. La diferencia es el ahorro de una semana; por 52, el de un año.
+Solo emiten el ciclo combinado (0,37) y el carbón (0,95). El resto suma 0.
 
-### El programa
+| Día | Ciclo combinado | Carbón | **Toneladas** |
+|---|---|---|---:|
+| Lunes | 200 × 0,37 = 74 | 0 | **74** |
+| Martes | 300 × 0,37 = 111 | 100 × 0,95 = 95 | **206** |
+| Miércoles | 400 × 0,37 = 148 | 0 | **148** |
 
-Crea el fichero `src/main/java/sostenibilidad/DemoUt2.java` y ejecútalo con el botón de *play* del IDE:
+### Paso 2 · Intensidad, % renovable y semáforo
+
+Como los tres días tienen 1000 MWh, la intensidad es `toneladas ÷ 1000 × 1000`, es decir, **el mismo número que las toneladas**. Renovables son la eólica y la solar.
+
+| Día | Intensidad | Renovable | Semáforo |
+|---|---:|---:|---|
+| Lunes | 74,0 g/kWh | (400 + 100) ÷ 1000 = **50 %** | VERDE |
+| Martes | 206,0 g/kWh | (200 + 100) ÷ 1000 = **30 %** | ROJO |
+| Miércoles | 148,0 g/kWh | (100 + 200) ÷ 1000 = **30 %** | ÁMBAR |
+
+### Paso 3 · El mejor y el peor día
+
+- **Mejor:** el lunes (74,0). Es lo que devuelve `diaMasLimpio`: la posición **0**.
+- **Peor:** el martes (206,0).
+
+### Paso 4 · Los kilos del proceso cada día
+
+`kg = 50 kWh × intensidad ÷ 1000`
+
+| Día | Cuenta | kg de CO₂ |
+|---|---|---:|
+| Lunes | 50 × 74 ÷ 1000 | **3,70** |
+| Martes | 50 × 206 ÷ 1000 | **10,30** |
+
+### Paso 5 · El ahorro
+
+- Por semana: `10,30 − 3,70 =` **6,60 kg**
+- Al año: `6,60 × 52 semanas =` **343,2 kg**
+
+### El mismo cálculo, con el programa
+
+Crea el fichero `src/main/java/sostenibilidad/DemoUt2.java`, pega esto y ejecútalo con el botón de *play* del IDE. Cada bloque es uno de los pasos anteriores:
 
 ```java
 package sostenibilidad;
 
 public class DemoUt2 {
     public static void main(String[] args) {
+        // DATOS: lo único que cambiarás en tu reto
         String[] tecnologias = {"Eólica", "Solar fotovoltaica", "Nuclear", "Ciclo combinado", "Carbón"};
         String[] dias = {"lunes", "martes", "miércoles"};
         double[][] mwh = {
@@ -294,7 +575,7 @@ public class DemoUt2 {
             {100, 200, 300, 400,   0}};    // miércoles
         double kwhProceso = 50;
 
-        // Paso 1: intensidad, % renovable y semáforo de cada día
+        // PASOS 1 y 2: intensidad, % renovable y semáforo de cada día
         double[] intensidades = new double[dias.length];
         for (int d = 0; d < dias.length; d++) {
             intensidades[d] = Ut2Energia.intensidad(tecnologias, mwh[d]);
@@ -303,25 +584,35 @@ public class DemoUt2 {
                     dias[d], intensidades[d], renovable, Ut2Energia.semaforoRed(intensidades[d]));
         }
 
-        // Paso 2: el día más limpio y el más sucio
+        // PASO 3: el día más limpio y el más sucio
         int mejor = Ut2Energia.diaMasLimpio(intensidades);
         int peor = 0;
         for (int i = 1; i < intensidades.length; i++) {
             if (intensidades[i] > intensidades[peor]) peor = i;
         }
 
-        // Paso 3: kilos que emite el proceso cada uno de esos dos días
+        // PASO 4: kilos que emite el proceso esos dos días
         double kgMejor = Ut2Energia.kgCo2(kwhProceso, intensidades[mejor]);
         double kgPeor = Ut2Energia.kgCo2(kwhProceso, intensidades[peor]);
         System.out.printf("Mejor día: %s -> %.2f kg%n", dias[mejor], kgMejor);
         System.out.printf("Peor día:  %s -> %.2f kg%n", dias[peor], kgPeor);
 
-        // Paso 4: el ahorro, por semana y en un año
+        // PASO 5: el ahorro, por semana y en un año
         double ahorro = kgPeor - kgMejor;
         System.out.printf("Ahorro: %.2f kg por semana, %.1f kg al año%n", ahorro, ahorro * 52);
     }
 }
 ```
+
+**Lo que hay que entender del código:**
+
+| Línea | Qué es |
+|---|---|
+| `double[][] mwh` | Una **tabla**: cada fila es un día y cada columna una tecnología, en el mismo orden que `tecnologias`. `mwh[1]` es la fila del martes |
+| `Ut2Energia.intensidad(tecnologias, mwh[d])` | Le pasas las tecnologías y los MWh **de un día** y te devuelve su intensidad |
+| `intensidades[d] = …` | Guardas la intensidad de cada día para usarla después |
+| El `for` del peor día | El mismo bucle que `diaMasLimpio`, pero con `>`: busca el mayor |
+| `printf("%.1f", …)` | Escribe el número con 1 decimal |
 
 ### La salida
 
@@ -334,46 +625,33 @@ Peor día:  martes -> 10,30 kg
 Ahorro: 6,60 kg por semana, 343,2 kg al año
 ```
 
-```text
-Lunes      ███████░░░░░░░░░░░░░░░   74,0 g/kWh  VERDE
-Martes     ████████████████████░░  206,0 g/kWh  ROJO
-Miércoles  ██████████████░░░░░░░░  148,0 g/kWh  ÁMBAR
-```
+Son **los mismos números que a mano**. Si alguna vez no coinciden, el fallo está en uno de los métodos.
 
 ### Qué significa este resultado
 
-- **Lanzarlo el lunes en vez del martes ahorra 343 kg de CO₂ al año**, sin comprar nada: basta con cambiar una línea del `cron`.
-- **Martes y miércoles tienen el mismo 30 % renovable**, pero el martes emite bastante más. ¿Por qué? Por los 100 MWh de **carbón**: ellos solos son 95 de las 206 t del día. El porcentaje renovable no lo cuenta todo; importa **con qué se cubre el resto**.
-- **La nuclear es igual los tres días** y no explica ninguna diferencia: no emite, pero tampoco es renovable.
+- **La recomendación:** lanzar las copias **el lunes**. Ahorra **343 kg de CO₂ al año** sin comprar nada: solo cambiando el día en el programador de tareas.
+- **Martes y miércoles tienen el mismo 30 % renovable**, pero el martes emite bastante más. La culpa es de los **100 MWh de carbón**: ellos solos son 95 de las 206 t del día. El porcentaje renovable no lo dice todo; importa **con qué se cubre el resto**.
+- **La nuclear es igual los tres días**, así que no explica ninguna diferencia.
 
-Un matiz honesto: los datos de una semana no garantizan los de la siguiente. Esto sirve para fijar una **política** («los procesos pesados, el día con más viento»), no para adivinar el futuro.
+Esto es una acción del tipo **sustituir** (apartado 1.10): se gasta lo mismo, pero con electricidad más limpia.
 
 ---
 
 ## 4. Reto a realizar (entregable)
 
-> Dos partes: el código y aplicarlo a otros datos. Nada más.
+> Si has hecho la batería, ya tienes media tarea. Son tres pasos.
 
-### Parte 1 · Completa la clase `Ut2Energia.java`
+### Paso 1 · La clase en verde
 
 ```bash
 mvn test -Dtest=Ut2EnergiaTest
 ```
 
-Tres de los ocho ya los has hecho en la batería (`intensidad`, `kgCo2` y la idea de `factorEmision`). Estos son los demás:
+Todos los tests tienen que pasar. Si alguno falla, vuelve a su ejercicio de la batería.
 
-| # | Método | Qué debe hacer | Pista |
-|:-:|---|---|---|
-| 1 | `factorEmision` | Factor de una tecnología; 0,0 si no está en la tabla | Normaliza y recorre `TECNOLOGIAS`; cuando `TECNOLOGIAS[i]` coincida, devuelve `FACTORES[i]` |
-| 2 | `esRenovable` | Si la tecnología está en `RENOVABLES` | Mismo patrón, pero solo hace falta `true` o `false` |
-| 3 | `toneladas` | Suma de `mwh[i] × factor` | Un bucle; los dos arrays van en paralelo |
-| 5 | `porcentajeRenovable` | Qué parte de la generación es renovable | **Un solo bucle** acumulando dos sumas: el total y la parte renovable |
-| 6 | `semaforoRed` | VERDE < 100, AMBAR < 200, ROJO desde 200 | Valida el negativo primero |
-| 8 | `diaMasLimpio` | **Posición** del menor; −1 si el array está vacío | Guarda el índice del mínimo y cambia solo si encuentras uno **estrictamente menor** |
+### Paso 2 · Ejecuta el programa con estos datos
 
-### Parte 2 · Decide qué día lanzar el proceso
-
-Con los tests en verde, copia el programa `DemoUt2` del reto ejemplo y cambia **solo los datos**. Ahora el proceso consume **80 kWh**, se lanza una vez por semana y puede ir el jueves, el viernes o el sábado:
+Copia `DemoUt2` del reto ejemplo y cambia **solo el bloque de DATOS**. Ahora el proceso consume **80 kWh**, se lanza una vez por semana y puede ir el jueves, el viernes o el sábado:
 
 | Tecnología | Jueves | Viernes | Sábado |
 |---|---:|---:|---:|
@@ -383,30 +661,35 @@ Con los tests en verde, copia el programa `DemoUt2` del reto ejemplo y cambia **
 | Ciclo combinado | 400 | 300 | 100 |
 | Carbón | 100 | 0 | 0 |
 
-**Entrega media página con:**
+Hay que cambiar cuatro cosas: `tecnologias` (ahora hay hidráulica en lugar de solar), `dias`, las tres filas de `mwh` y `kwhProceso`.
+
+!!! tip "Para saber que vas bien"
+    El jueves debe salirte **243,0 g/kWh**. Hazlo también a mano, como en el reto ejemplo: 400 × 0,37 + 100 × 0,95.
+
+### Paso 3 · Entrega media página con
 
 1. La **salida del programa**.
 2. **Dos frases** respondiendo a:
       - ¿Qué día recomiendas lanzar el proceso y cuánto CO₂ se ahorra al año frente al peor día?
-      - Viernes y sábado tienen la misma nuclear y no tienen carbón. ¿Qué explica que el sábado sea mucho más limpio?
+      - Viernes y sábado tienen la misma nuclear y ninguno tiene carbón. ¿Qué explica que el sábado sea mucho más limpio?
 
 ---
 
 ## 5. Simulacro de examen
 
-> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA2 del examen del trimestre, y **las preguntas de test del examen salen de este banco**. Si dominas esta sección, tienes el RA2 preparado.
+> **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA2 del examen del trimestre, y **las preguntas de test del examen salen de este banco**.
 
 ```mermaid
 flowchart LR
     S["Simulacro RA2"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
-    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
+    S --> T["Banco de preguntas<br/>60 preguntas · el examen elige 4"]
     P --> N["Tu nota del RA2<br/>sobre 10"]
     T --> N
 ```
 
 ### Parte práctica · 8 puntos
 
-Hazla **en 40 minutos**, sin mirar la batería ni tu reto. Abre `src/main/java/simulacro/SimulacroRa2.java`, completa los 3 métodos y lanza:
+Hazla **en 40 minutos**, sin mirar la batería. Abre `src/main/java/simulacro/SimulacroRa2.java`, completa los 3 métodos y lanza:
 
 ```bash
 mvn test -Dtest=SimulacroRa2Test
@@ -416,12 +699,20 @@ mvn test -Dtest=SimulacroRa2Test
 nota práctica = (tests superados ÷ 7) × 8
 ```
 
-!!! warning "Las reglas no son las de clase"
-    Cambian pesos, umbrales o redondeos, y el Javadoc lo avisa en mayúsculas. Es el fallo número uno del examen: código correcto con las constantes de clase.
+Son tres métodos que ya conoces (`factorEmision`, `intensidad` y `kgCo2`), con **tres cambios** respecto a clase:
+
+| Qué cambia | En clase | En el simulacro |
+|---|---|---|
+| La tabla de factores | Carbón 0,95 · Ciclo combinado 0,37 · … | Carbón 0,90 · Ciclo combinado 0,40 · Turbina de gas 0,60 |
+| Redondeo de `kgCo2` | 2 decimales | **1 decimal** |
+| Datos negativos en `kgCo2` | No se comprueban | Lanzan `IllegalArgumentException` |
+
+!!! warning "Lee el Javadoc antes de escribir"
+    El fallo número uno del examen es escribir código correcto con las reglas de clase.
 
 ### Banco de preguntas · 2 puntos
 
-En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Para practicar, tápate las respuestas y hazlas todas.
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. El banco tiene **60 preguntas**: tápate las respuestas y hazlas todas. Si las dominas, tienes el test del examen preparado.
 
 Son preguntas **sencillas**: si has entendido la teoría y has hecho la batería, salen solas. Los cálculos llevan números redondos y se hacen de cabeza.
 
@@ -483,9 +774,49 @@ a) porque consume electricidad y agua y genera residuos electrónicos · b) porq
 
     **a**. Detrás de cada servicio web hay máquinas, refrigeración y aparatos que acaban como residuo.
 
+**8.** La brecha digital es un reto…
+
+a) ambiental · b) económico, no social · c) social · d) que no afecta a la informática
+
+??? success "Respuesta"
+
+    **c**. Afecta a las personas: quién tiene acceso a la tecnología y quién no.
+
+**9.** La escasez de agua es un reto…
+
+a) ambiental · b) social · c) de gobernanza · d) que no afecta a la informática
+
+??? success "Respuesta"
+
+    **a**. Y toca a lo digital: los centros de datos usan agua.
+
+**10.** ¿Para qué usan agua los centros de datos?
+
+a) para fabricar electricidad · b) para limpiar los discos · c) no usan agua · d) para refrigerar las máquinas
+
+??? success "Respuesta"
+
+    **d**. Es un problema en zonas con sequía.
+
+**11.** ¿Cuántos residuos electrónicos se generaron en el mundo en 2022?
+
+a) 62 t · b) 62 Mt · c) 6 Mt · d) 620 Mt
+
+??? success "Respuesta"
+
+    **b**. Millones de toneladas; solo el 22,3 % se recogió formalmente.
+
+**12.** La transición justa se preocupa sobre todo por…
+
+a) el precio de la luz · b) los centros de datos · c) los trabajadores y territorios que viven de las industrias contaminantes · d) las agencias de rating
+
+??? success "Respuesta"
+
+    **c**. Descarbonizar sin dejarlos atrás.
+
 #### B · La intensidad de carbono
 
-**8.** La intensidad de carbono de la red eléctrica indica…
+**13.** La intensidad de carbono de la red eléctrica indica…
 
 a) cuánta electricidad se genera en un día · b) el precio del kWh · c) cuánto CO₂ hay detrás de cada kWh consumido · d) el porcentaje renovable
 
@@ -493,7 +824,7 @@ a) cuánta electricidad se genera en un día · b) el precio del kWh · c) cuán
 
     **c**. Es una media: CO₂ emitido entre electricidad generada.
 
-**9.** La intensidad de carbono se mide en…
+**14.** La intensidad de carbono se mide en…
 
 a) kWh · b) €/MWh · c) t/año · d) g CO₂/kWh
 
@@ -501,7 +832,7 @@ a) kWh · b) €/MWh · c) t/año · d) g CO₂/kWh
 
     **d**. Gramos de CO₂ por cada kWh.
 
-**10.** ¿Cuál es la fórmula de la intensidad?
+**15.** ¿Cuál es la fórmula de la intensidad?
 
 a) toneladas totales ÷ MWh totales × 1000 · b) MWh totales ÷ toneladas totales × 1000 · c) toneladas totales × MWh totales · d) MWh renovables ÷ MWh totales
 
@@ -509,7 +840,7 @@ a) toneladas totales ÷ MWh totales × 1000 · b) MWh totales ÷ toneladas total
 
     **a**. La d) es el porcentaje renovable (sin el × 100).
 
-**11.** En esa fórmula, ¿por qué se multiplica por 1000?
+**16.** En esa fórmula, ¿por qué se multiplica por 1000?
 
 a) para redondear · b) porque 1 t/MWh equivale a 1000 g/kWh · c) para pasarlo a porcentaje · d) para quitar los decimales
 
@@ -517,7 +848,7 @@ a) para redondear · b) porque 1 t/MWh equivale a 1000 g/kWh · c) para pasarlo 
 
     **b**. 1 000 000 g ÷ 1000 kWh = 1000 g/kWh.
 
-**12.** ¿Qué tecnología tiene el factor de emisión **más alto** de la tabla?
+**17.** ¿Qué tecnología tiene el factor de emisión **más alto** de la tabla?
 
 a) ciclo combinado · b) carbón · c) cogeneración · d) nuclear
 
@@ -525,7 +856,7 @@ a) ciclo combinado · b) carbón · c) cogeneración · d) nuclear
 
     **b**. 0,95 t/MWh, casi el triple que el ciclo combinado.
 
-**13.** Sobre la energía nuclear, ¿qué es correcto?
+**18.** Sobre la energía nuclear, ¿qué es correcto?
 
 a) emite mucho CO₂ y es renovable · b) no emite CO₂ al generar y es renovable · c) emite CO₂ y no es renovable · d) no emite CO₂ al generar y no es renovable
 
@@ -533,17 +864,89 @@ a) emite mucho CO₂ y es renovable · b) no emite CO₂ al generar y es renovab
 
     **d**. Son dos preguntas distintas: no emite, pero el uranio es un recurso finito.
 
-**14.** Un día se generan **menos** MWh que otro, pero con más carbón. Su intensidad…
+**19.** Un día se generan **menos** MWh que otro, pero con más carbón. Su intensidad…
 
 a) puede ser mayor: importa con qué se genera, no cuánto · b) es seguro menor, porque hay menos electricidad · c) es igual · d) no se puede calcular
 
 ??? success "Respuesta"
 
-    **a**. Es lo que pasa en el ejercicio 4: 500 MWh y 412 g/kWh.
+    **a**. Es el día 2 de la batería: la mitad de MWh y cinco veces más intensidad.
+
+**20.** El mix eléctrico es…
+
+a) la mezcla de tecnologías con que se fabrica la electricidad de un día · b) la factura de la luz · c) un tipo de central · d) el porcentaje renovable
+
+??? success "Respuesta"
+
+    **a**. Un poco de eólica, un poco de nuclear, algo de gas…
+
+**21.** ¿Por qué el mix eléctrico cambia de un día a otro?
+
+a) porque lo decide cada empresa · b) no cambia nunca · c) porque cambia el precio · d) porque depende del viento, del sol, del agua disponible…
+
+??? success "Respuesta"
+
+    **d**. Si no sopla viento, hay que tirar de gas o de carbón.
+
+**22.** 1 MWh son…
+
+a) 100 kWh · b) 1000 kWh · c) 10 kWh · d) 1 000 000 kWh
+
+??? success "Respuesta"
+
+    **b**. Mega = mil veces kilo.
+
+**23.** 1 tonelada son…
+
+a) 1000 g · b) 100 000 g · c) 1 000 000 g · d) 10 000 g
+
+??? success "Respuesta"
+
+    **c**. 1 t = 1000 kg y 1 kg = 1000 g.
+
+**24.** El factor de emisión de una tecnología indica…
+
+a) las toneladas de CO₂ por cada MWh que fabrica · b) cuánta electricidad fabrica · c) si es renovable · d) su precio
+
+??? success "Respuesta"
+
+    **a**. Cuánto ensucia cada MWh.
+
+**25.** ¿Cuál es el factor de emisión de la eólica?
+
+a) 0,37 · b) 0,95 · c) 1 · d) 0
+
+??? success "Respuesta"
+
+    **d**. No emite CO₂ al generar.
+
+**26.** ¿Cuál de estas tecnologías es **renovable**?
+
+a) nuclear · b) hidráulica · c) carbón · d) ciclo combinado
+
+??? success "Respuesta"
+
+    **b**. La nuclear no emite, pero no es renovable.
+
+**27.** ¿Qué tecnología **no emite** CO₂ al generar y **no es renovable**?
+
+a) eólica · b) carbón · c) nuclear · d) solar
+
+??? success "Respuesta"
+
+    **c**. El uranio es un recurso que se acaba.
+
+**28.** Al calcular la intensidad, los MWh de la eólica…
+
+a) no suman toneladas, pero sí cuentan en el total de MWh · b) no se tienen en cuenta · c) suman toneladas · d) se restan
+
+??? success "Respuesta"
+
+    **a**. Son los que bajan la media.
 
 #### C · Cálculos sencillos
 
-**15.** 0,37 t/MWh equivalen a…
+**29.** 0,37 t/MWh equivalen a…
 
 a) 3,7 g/kWh · b) 37 g/kWh · c) 370 g/kWh · d) 3700 g/kWh
 
@@ -551,7 +954,7 @@ a) 3,7 g/kWh · b) 37 g/kWh · c) 370 g/kWh · d) 3700 g/kWh
 
     **c**. Se multiplica por 1000.
 
-**16.** Un día se generan 1000 MWh: 100 de carbón (0,95 t/MWh) y el resto eólica y nuclear. La intensidad es…
+**30.** Un día se generan 1000 MWh: 100 de carbón (0,95 t/MWh) y el resto eólica y nuclear. La intensidad es…
 
 a) 95 g/kWh · b) 950 g/kWh · c) 9,5 g/kWh · d) 0 g/kWh
 
@@ -559,7 +962,7 @@ a) 95 g/kWh · b) 950 g/kWh · c) 9,5 g/kWh · d) 0 g/kWh
 
     **a**. 100 × 0,95 = 95 t; 95 / 1000 × 1000 = 95. La eólica y la nuclear no emiten, pero sí cuentan en el total de MWh.
 
-**17.** Con el semáforo de la red (VERDE < 100 · ÁMBAR < 200 · ROJO desde 200), una red a 150 g/kWh está en…
+**31.** Con el semáforo de la red (VERDE < 100 · ÁMBAR < 200 · ROJO desde 200), una red a 150 g/kWh está en…
 
 a) VERDE · b) ROJO · c) ÁMBAR · d) depende del día
 
@@ -567,7 +970,7 @@ a) VERDE · b) ROJO · c) ÁMBAR · d) depende del día
 
     **c**. Está entre 100 y 200.
 
-**18.** De 1000 MWh, 400 son eólicos, 300 nucleares y 300 de ciclo combinado. El porcentaje renovable es…
+**32.** De 1000 MWh, 400 son eólicos, 300 nucleares y 300 de ciclo combinado. El porcentaje renovable es…
 
 a) 70 % · b) 40 % · c) 30 % · d) 100 %
 
@@ -575,7 +978,7 @@ a) 70 % · b) 40 % · c) 30 % · d) 100 %
 
     **b**. Solo cuenta la eólica: la nuclear no es renovable.
 
-**19.** Un proceso consume 100 kWh con la red a 200 g/kWh. Emite…
+**33.** Un proceso consume 100 kWh con la red a 200 g/kWh. Emite…
 
 a) 2 kg · b) 200 kg · c) 20 000 kg · d) 20 kg
 
@@ -583,7 +986,7 @@ a) 2 kg · b) 200 kg · c) 20 000 kg · d) 20 kg
 
     **d**. 100 × 200 = 20 000 g = 20 kg.
 
-**20.** Un proceso emite 5 kg si se lanza el lunes y 15 kg si se lanza el martes. Lanzándolo el lunes se ahorran…
+**34.** Un proceso emite 5 kg si se lanza el lunes y 15 kg si se lanza el martes. Lanzándolo el lunes se ahorran…
 
 a) 10 kg · b) 5 kg · c) 15 kg · d) 20 kg
 
@@ -591,7 +994,7 @@ a) 10 kg · b) 5 kg · c) 15 kg · d) 20 kg
 
     **a**. 15 − 5.
 
-**21.** Cambiar un proceso de día ahorra 2 kg cada semana. En un año (52 semanas) son…
+**35.** Cambiar un proceso de día ahorra 2 kg cada semana. En un año (52 semanas) son…
 
 a) 26 kg · b) 52 kg · c) 104 kg · d) 1040 kg
 
@@ -599,9 +1002,89 @@ a) 26 kg · b) 52 kg · c) 104 kg · d) 1040 kg
 
     **c**. 2 × 52. La escala convierte lo pequeño en relevante.
 
+**36.** 200 MWh de ciclo combinado (0,37 t/MWh) emiten…
+
+a) 37 t · b) 200 t · c) 740 t · d) 74 t
+
+??? success "Respuesta"
+
+    **d**. 200 × 0,37.
+
+**37.** 100 MWh de carbón (0,95 t/MWh) emiten…
+
+a) 9,5 t · b) 95 t · c) 950 t · d) 0,95 t
+
+??? success "Respuesta"
+
+    **b**. 100 × 0,95.
+
+**38.** Un día emite 74 t y genera 1000 MWh. Su intensidad es…
+
+a) 7,4 g/kWh · b) 740 g/kWh · c) 74 g/kWh · d) 0,074 g/kWh
+
+??? success "Respuesta"
+
+    **c**. 74 ÷ 1000 × 1000.
+
+**39.** Un día emite 206 t y genera 500 MWh. Su intensidad es…
+
+a) 412 g/kWh · b) 206 g/kWh · c) 103 g/kWh · d) 41,2 g/kWh
+
+??? success "Respuesta"
+
+    **a**. 206 ÷ 500 × 1000.
+
+**40.** Con el semáforo VERDE < 100 · ÁMBAR < 200 · ROJO desde 200, una red a 74 g/kWh está en…
+
+a) ÁMBAR · b) ROJO · c) depende del día · d) VERDE
+
+??? success "Respuesta"
+
+    **d**. Está por debajo de 100.
+
+**41.** Con el mismo semáforo, una red a exactamente 200 g/kWh está en…
+
+a) ÁMBAR · b) ROJO · c) VERDE · d) depende del día
+
+??? success "Respuesta"
+
+    **b**. Ámbar es «menos de 200».
+
+**42.** De 1000 MWh, 300 son eólicos y 200 solares. El porcentaje renovable es…
+
+a) 30 % · b) 20 % · c) 50 % · d) 500 %
+
+??? success "Respuesta"
+
+    **c**. (300 + 200) ÷ 1000 × 100.
+
+**43.** Un proceso de 50 kWh con la red a 74 g/kWh emite…
+
+a) 3,7 kg · b) 37 kg · c) 0,37 kg · d) 3700 kg
+
+??? success "Respuesta"
+
+    **a**. 50 × 74 = 3700 g = 3,7 kg.
+
+**44.** Un proceso de 10 kWh con la red a 300 g/kWh emite…
+
+a) 30 kg · b) 0,3 kg · c) 3000 kg · d) 3 kg
+
+??? success "Respuesta"
+
+    **d**. 10 × 300 = 3000 g = 3 kg.
+
+**45.** En el reto ejemplo se ahorraban 6,6 kg por semana. En un año (52 semanas) son unos…
+
+a) 34 kg · b) 343 kg · c) 66 kg · d) 3430 kg
+
+??? success "Respuesta"
+
+    **b**. 6,6 × 52 = 343,2.
+
 #### D · Actuar con criterio
 
-**22.** ¿Cuál es el orden correcto para reducir impactos?
+**46.** ¿Cuál es el orden correcto para reducir impactos?
 
 a) compensar, sustituir, reducir, evitar · b) reducir, evitar, compensar, sustituir · c) sustituir, compensar, evitar, reducir · d) evitar, reducir, sustituir, compensar
 
@@ -609,7 +1092,7 @@ a) compensar, sustituir, reducir, evitar · b) reducir, evitar, compensar, susti
 
     **d**. Compensar siempre es lo último.
 
-**23.** Eliminar un informe nocturno que nadie lee es un ejemplo de…
+**47.** Eliminar un informe nocturno que nadie lee es un ejemplo de…
 
 a) evitar · b) reducir · c) sustituir · d) compensar
 
@@ -617,7 +1100,7 @@ a) evitar · b) reducir · c) sustituir · d) compensar
 
     **a**. Ese consumo deja de existir.
 
-**24.** Contratar electricidad 100 % renovable para los servidores es un ejemplo de…
+**48.** Contratar electricidad 100 % renovable para los servidores es un ejemplo de…
 
 a) evitar · b) compensar · c) sustituir · d) reducir
 
@@ -625,7 +1108,7 @@ a) evitar · b) compensar · c) sustituir · d) reducir
 
     **c**. Se sigue consumiendo lo mismo, pero de una fuente limpia.
 
-**25.** Una empresa compra créditos de carbono sin reducir nada y se anuncia «neutra en carbono». Es…
+**49.** Una empresa compra créditos de carbono sin reducir nada y se anuncia «neutra en carbono». Es…
 
 a) lo correcto · b) greenwashing · c) transición justa · d) obligatorio por ley
 
@@ -633,7 +1116,7 @@ a) lo correcto · b) greenwashing · c) transición justa · d) obligatorio por 
 
     **b**. Compensar sin reducir antes.
 
-**26.** Lanzar un proceso por lotes el día con la red más limpia…
+**50.** Lanzar un proceso por lotes el día con la red más limpia…
 
 a) reduce sus emisiones aunque consuma los mismos kWh · b) reduce los kWh que consume · c) no cambia nada · d) aumenta sus emisiones
 
@@ -641,15 +1124,15 @@ a) reduce sus emisiones aunque consuma los mismos kWh · b) reduce los kWh que c
 
     **a**. Es la idea del reto: misma máquina, mismo código, distinto momento.
 
-**27.** Si el código no normaliza «Carbón» antes de buscarlo en la tabla (que lo tiene como «carbon»)…
+**51.** `factorEmision("Nuclear")` devuelve 0.0 porque…
 
-a) no compila · b) lanza una excepción · c) el factor sale 0 y el resultado es falso pero creíble · d) Java lo corrige solo
+a) el código tiene un error · b) la nuclear es renovable · c) la nuclear no está en la tabla de tecnologías que emiten · d) lanza una excepción
 
 ??? success "Respuesta"
 
-    **c**. Un error silencioso es peor que una excepción.
+    **c**. Solo están en la tabla las que emiten CO₂. Si el bucle no la encuentra, devuelve 0.
 
-**28.** ¿Por qué `factorEmision` y `esRenovable` son dos métodos separados?
+**52.** ¿Por qué `factorEmision` y `esRenovable` son dos métodos separados?
 
 a) por rendimiento · b) porque emitir y ser renovable son propiedades distintas · c) porque Java lo exige · d) para tener más tests
 
@@ -657,7 +1140,7 @@ a) por rendimiento · b) porque emitir y ser renovable son propiedades distintas
 
     **b**. La nuclear no emite y tampoco es renovable: un único método no podría responder bien.
 
-**29.** Si el total de MWh es 0, `intensidad` devuelve 0.0 en lugar de dividir. ¿Por qué?
+**53.** Si el total de MWh es 0, `intensidad` devuelve 0.0 en lugar de dividir. ¿Por qué?
 
 a) para redondear · b) porque 0 es VERDE · c) da igual lo que devuelva · d) porque dividir entre 0 da NaN y estropea las cuentas siguientes
 
@@ -665,13 +1148,61 @@ a) para redondear · b) porque 0 es VERDE · c) da igual lo que devuelva · d) p
 
     **d**. NaN es contagioso: todo lo que se calcule con él también da NaN.
 
-**30.** En el reto ejemplo, martes y miércoles tienen el mismo porcentaje renovable (30 %), pero el martes emite más. ¿Por qué?
+**54.** En el reto ejemplo, martes y miércoles tienen el mismo porcentaje renovable (30 %), pero el martes emite más. ¿Por qué?
 
 a) porque el martes se generan más MWh · b) por la nuclear · c) es un error de cálculo · d) porque el martes hay carbón
 
 ??? success "Respuesta"
 
     **d**. Los dos generan 1000 MWh y la misma nuclear; lo que cambia es con qué se cubre el resto.
+
+**55.** `diaMasLimpio(new double[]{90, 60, 120})` devuelve…
+
+a) 60 · b) 0 · c) 1 · d) 2
+
+??? success "Respuesta"
+
+    **c**. La **posición** del menor, no su valor.
+
+**56.** `diaMasLimpio` con un array vacío devuelve…
+
+a) −1 · b) 0 · c) una excepción · d) null
+
+??? success "Respuesta"
+
+    **a**. No hay ningún día que elegir.
+
+**57.** Optimizar una consulta lenta para que gaste menos es un ejemplo de…
+
+a) evitar · b) sustituir · c) compensar · d) reducir
+
+??? success "Respuesta"
+
+    **d**. Se sigue haciendo, pero consumiendo menos.
+
+**58.** Comprar créditos de carbono es un ejemplo de…
+
+a) reducir · b) compensar · c) evitar · d) sustituir
+
+??? success "Respuesta"
+
+    **b**. Es el último paso de la jerarquía.
+
+**59.** En Java, para redondear `x` a 1 decimal se escribe…
+
+a) Math.round(x) / 10 · b) Math.round(x / 10) · c) Math.round(x * 10) / 10.0 · d) (int) x * 10
+
+??? success "Respuesta"
+
+    **c**. El `.0` evita la división entera.
+
+**60.** En Java, para comparar dos textos se usa…
+
+a) equals · b) == · c) = · d) compare
+
+??? success "Respuesta"
+
+    **a**. `==` compara si son el mismo objeto, no si dicen lo mismo.
 
 ### Tu nota del simulacro
 

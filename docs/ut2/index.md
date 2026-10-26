@@ -8,7 +8,7 @@ El camino es siempre el mismo:
 
 ```mermaid
 flowchart LR
-    A["1 · Entiendes<br/>el concepto"] --> B["2 · Lo calculas<br/>a mano"] --> C["3 · Lo programas<br/>en un método Java"] --> D["4 · Lo usas<br/>para decidir"]
+    A["1 · Entiendes<br/>el concepto"] --> B["2 · Lo calculas<br/>a mano"] --> C["3 · Lo programas<br/>en un método Java"] --> D["4 · Lo practicas<br/>con el test"]
 ```
 
 ---
@@ -176,7 +176,7 @@ Anunciarse como «neutro en carbono» **solo** comprando créditos, sin reducir 
 
 > Ocho ejercicios, **uno por método** de `Ut2Energia.java`. En cada uno: qué hace, un ejemplo a mano, cómo pensarlo y la solución explicada línea a línea. Intenta escribirlo tú antes de abrir la solución y compruébalo con su test.
 >
-> **Cuando acabes los ocho, la clase está terminada** y tienes hecha la Parte 1 del reto.
+> **Cuando acabes los ocho, la clase `Ut2Energia.java` está terminada.**
 
 ### Antes de empezar: los arrays paralelos
 
@@ -495,187 +495,11 @@ double[] mwh         = {   300,              200,       500   };
 **Compruébalo:** `mvn test -Dtest=Ut2EnergiaTest#diaMasLimpio`
 
 !!! success "Comprueba la clase entera"
-    `mvn test -Dtest=Ut2EnergiaTest` → todos los tests en verde. **Ya tienes la Parte 1 del reto.**
+    `mvn test -Dtest=Ut2EnergiaTest` → todos los tests en verde.
 
 ---
 
-## 3. Reto ejemplo (resuelto paso a paso)
-
-> Aquí juntas los ocho métodos para tomar una decisión real. Primero lo resolvemos **a mano**, para que veas de dónde sale cada número, y después **con el programa**. El reto que entregas es **exactamente igual con otros datos**.
-
-### El encargo
-
-El departamento de sistemas lanza **una vez por semana** un proceso de **copias de seguridad** que consume **50 kWh**. Puede hacerse el lunes, el martes o el miércoles. Te pasan cómo se fabricó la electricidad esos tres días (en MWh):
-
-| Tecnología | Lunes | Martes | Miércoles |
-|---|---:|---:|---:|
-| Eólica | 400 | 200 | 100 |
-| Solar fotovoltaica | 100 | 100 | 200 |
-| Nuclear | 300 | 300 | 300 |
-| Ciclo combinado | 200 | 300 | 400 |
-| Carbón | 0 | 100 | 0 |
-| **Total** | **1000** | **1000** | **1000** |
-
-**La pregunta:** ¿qué día conviene lanzarlo y cuánto CO₂ se ahorra al año?
-
-### Paso 1 · Las toneladas de cada día
-
-Solo emiten el ciclo combinado (0,37) y el carbón (0,95). El resto suma 0.
-
-| Día | Ciclo combinado | Carbón | **Toneladas** |
-|---|---|---|---:|
-| Lunes | 200 × 0,37 = 74 | 0 | **74** |
-| Martes | 300 × 0,37 = 111 | 100 × 0,95 = 95 | **206** |
-| Miércoles | 400 × 0,37 = 148 | 0 | **148** |
-
-### Paso 2 · Intensidad, % renovable y semáforo
-
-Como los tres días tienen 1000 MWh, la intensidad es `toneladas ÷ 1000 × 1000`, es decir, **el mismo número que las toneladas**. Renovables son la eólica y la solar.
-
-| Día | Intensidad | Renovable | Semáforo |
-|---|---:|---:|---|
-| Lunes | 74,0 g/kWh | (400 + 100) ÷ 1000 = **50 %** | VERDE |
-| Martes | 206,0 g/kWh | (200 + 100) ÷ 1000 = **30 %** | ROJO |
-| Miércoles | 148,0 g/kWh | (100 + 200) ÷ 1000 = **30 %** | ÁMBAR |
-
-### Paso 3 · El mejor y el peor día
-
-- **Mejor:** el lunes (74,0). Es lo que devuelve `diaMasLimpio`: la posición **0**.
-- **Peor:** el martes (206,0).
-
-### Paso 4 · Los kilos del proceso cada día
-
-`kg = 50 kWh × intensidad ÷ 1000`
-
-| Día | Cuenta | kg de CO₂ |
-|---|---|---:|
-| Lunes | 50 × 74 ÷ 1000 | **3,70** |
-| Martes | 50 × 206 ÷ 1000 | **10,30** |
-
-### Paso 5 · El ahorro
-
-- Por semana: `10,30 − 3,70 =` **6,60 kg**
-- Al año: `6,60 × 52 semanas =` **343,2 kg**
-
-### El mismo cálculo, con el programa
-
-Crea el fichero `src/main/java/sostenibilidad/DemoUt2.java`, pega esto y ejecútalo con el botón de *play* del IDE. Cada bloque es uno de los pasos anteriores:
-
-```java
-package sostenibilidad;
-
-public class DemoUt2 {
-    public static void main(String[] args) {
-        // DATOS: lo único que cambiarás en tu reto
-        String[] tecnologias = {"Eólica", "Solar fotovoltaica", "Nuclear", "Ciclo combinado", "Carbón"};
-        String[] dias = {"lunes", "martes", "miércoles"};
-        double[][] mwh = {
-            {400, 100, 300, 200,   0},     // lunes
-            {200, 100, 300, 300, 100},     // martes
-            {100, 200, 300, 400,   0}};    // miércoles
-        double kwhProceso = 50;
-
-        // PASOS 1 y 2: intensidad, % renovable y semáforo de cada día
-        double[] intensidades = new double[dias.length];
-        for (int d = 0; d < dias.length; d++) {
-            intensidades[d] = Ut2Energia.intensidad(tecnologias, mwh[d]);
-            double renovable = Ut2Energia.porcentajeRenovable(tecnologias, mwh[d]);
-            System.out.printf("%-10s %6.1f g/kWh  %5.1f %% renovable  %s%n",
-                    dias[d], intensidades[d], renovable, Ut2Energia.semaforoRed(intensidades[d]));
-        }
-
-        // PASO 3: el día más limpio y el más sucio
-        int mejor = Ut2Energia.diaMasLimpio(intensidades);
-        int peor = 0;
-        for (int i = 1; i < intensidades.length; i++) {
-            if (intensidades[i] > intensidades[peor]) peor = i;
-        }
-
-        // PASO 4: kilos que emite el proceso esos dos días
-        double kgMejor = Ut2Energia.kgCo2(kwhProceso, intensidades[mejor]);
-        double kgPeor = Ut2Energia.kgCo2(kwhProceso, intensidades[peor]);
-        System.out.printf("Mejor día: %s -> %.2f kg%n", dias[mejor], kgMejor);
-        System.out.printf("Peor día:  %s -> %.2f kg%n", dias[peor], kgPeor);
-
-        // PASO 5: el ahorro, por semana y en un año
-        double ahorro = kgPeor - kgMejor;
-        System.out.printf("Ahorro: %.2f kg por semana, %.1f kg al año%n", ahorro, ahorro * 52);
-    }
-}
-```
-
-**Lo que hay que entender del código:**
-
-| Línea | Qué es |
-|---|---|
-| `double[][] mwh` | Una **tabla**: cada fila es un día y cada columna una tecnología, en el mismo orden que `tecnologias`. `mwh[1]` es la fila del martes |
-| `Ut2Energia.intensidad(tecnologias, mwh[d])` | Le pasas las tecnologías y los MWh **de un día** y te devuelve su intensidad |
-| `intensidades[d] = …` | Guardas la intensidad de cada día para usarla después |
-| El `for` del peor día | El mismo bucle que `diaMasLimpio`, pero con `>`: busca el mayor |
-| `printf("%.1f", …)` | Escribe el número con 1 decimal |
-
-### La salida
-
-```text
-lunes        74,0 g/kWh   50,0 % renovable  VERDE
-martes      206,0 g/kWh   30,0 % renovable  ROJO
-miércoles   148,0 g/kWh   30,0 % renovable  AMBAR
-Mejor día: lunes -> 3,70 kg
-Peor día:  martes -> 10,30 kg
-Ahorro: 6,60 kg por semana, 343,2 kg al año
-```
-
-Son **los mismos números que a mano**. Si alguna vez no coinciden, el fallo está en uno de los métodos.
-
-### Qué significa este resultado
-
-- **La recomendación:** lanzar las copias **el lunes**. Ahorra **343 kg de CO₂ al año** sin comprar nada: solo cambiando el día en el programador de tareas.
-- **Martes y miércoles tienen el mismo 30 % renovable**, pero el martes emite bastante más. La culpa es de los **100 MWh de carbón**: ellos solos son 95 de las 206 t del día. El porcentaje renovable no lo dice todo; importa **con qué se cubre el resto**.
-- **La nuclear es igual los tres días**, así que no explica ninguna diferencia.
-
-Esto es una acción del tipo **sustituir** (apartado 1.10): se gasta lo mismo, pero con electricidad más limpia.
-
----
-
-## 4. Reto a realizar (entregable)
-
-> Si has hecho la batería, ya tienes media tarea. Son tres pasos.
-
-### Paso 1 · La clase en verde
-
-```bash
-mvn test -Dtest=Ut2EnergiaTest
-```
-
-Todos los tests tienen que pasar. Si alguno falla, vuelve a su ejercicio de la batería.
-
-### Paso 2 · Ejecuta el programa con estos datos
-
-Copia `DemoUt2` del reto ejemplo y cambia **solo el bloque de DATOS**. Ahora el proceso consume **80 kWh**, se lanza una vez por semana y puede ir el jueves, el viernes o el sábado:
-
-| Tecnología | Jueves | Viernes | Sábado |
-|---|---:|---:|---:|
-| Eólica | 100 | 300 | 500 |
-| Hidráulica | 100 | 100 | 100 |
-| Nuclear | 300 | 300 | 300 |
-| Ciclo combinado | 400 | 300 | 100 |
-| Carbón | 100 | 0 | 0 |
-
-Hay que cambiar cuatro cosas: `tecnologias` (ahora hay hidráulica en lugar de solar), `dias`, las tres filas de `mwh` y `kwhProceso`.
-
-!!! tip "Para saber que vas bien"
-    El jueves debe salirte **243,0 g/kWh**. Hazlo también a mano, como en el reto ejemplo: 400 × 0,37 + 100 × 0,95.
-
-### Paso 3 · Entrega media página con
-
-1. La **salida del programa**.
-2. **Dos frases** respondiendo a:
-      - ¿Qué día recomiendas lanzar el proceso y cuánto CO₂ se ahorra al año frente al peor día?
-      - Viernes y sábado tienen la misma nuclear y ninguno tiene carbón. ¿Qué explica que el sábado sea mucho más limpio?
-
----
-
-## 5. Simulacro de examen
+## 3. Simulacro de examen
 
 > **Esta es la evaluación de la unidad.** Tiene el mismo formato que la parte de RA2 del examen del trimestre, y **las preguntas de test del examen salen de este banco**.
 
@@ -1074,7 +898,7 @@ a) 30 kg · b) 0,3 kg · c) 3000 kg · d) 3 kg
 
     **d**. 10 × 300 = 3000 g = 3 kg.
 
-**45.** En el reto ejemplo se ahorraban 6,6 kg por semana. En un año (52 semanas) son unos…
+**45.** Cambiar un proceso de día ahorra 6,6 kg por semana. En un año (52 semanas) son unos…
 
 a) 34 kg · b) 343 kg · c) 66 kg · d) 3430 kg
 
@@ -1122,7 +946,7 @@ a) reduce sus emisiones aunque consuma los mismos kWh · b) reduce los kWh que c
 
 ??? success "Respuesta"
 
-    **a**. Es la idea del reto: misma máquina, mismo código, distinto momento.
+    **a**. Misma máquina, mismo código, distinto momento: es una acción de sustituir.
 
 **51.** `factorEmision("Nuclear")` devuelve 0.0 porque…
 
@@ -1148,13 +972,13 @@ a) para redondear · b) porque 0 es VERDE · c) da igual lo que devuelva · d) p
 
     **d**. NaN es contagioso: todo lo que se calcule con él también da NaN.
 
-**54.** En el reto ejemplo, martes y miércoles tienen el mismo porcentaje renovable (30 %), pero el martes emite más. ¿Por qué?
+**54.** Dos días generan los mismos MWh y tienen el mismo porcentaje renovable (30 %), pero uno emite bastante más. ¿Qué lo explica?
 
-a) porque el martes se generan más MWh · b) por la nuclear · c) es un error de cálculo · d) porque el martes hay carbón
+a) que uno genera más electricidad · b) la nuclear · c) es imposible: tendrían que emitir lo mismo · d) que uno cubre el resto con carbón y el otro con gas
 
 ??? success "Respuesta"
 
-    **d**. Los dos generan 1000 MWh y la misma nuclear; lo que cambia es con qué se cubre el resto.
+    **d**. El porcentaje renovable no lo dice todo: importa con qué se cubre el resto. El carbón (0,95) emite casi el triple que el gas (0,37).
 
 **55.** `diaMasLimpio(new double[]{90, 60, 120})` devuelve…
 

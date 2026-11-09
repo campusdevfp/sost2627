@@ -16,7 +16,7 @@ mvn test -Dtest=Ut1AsgTest      # solo los de la unidad 1
 |:-:|---|---|:-:|:-:|
 | [**1**](ut1/index.md) | Sostenibilidad, ODS y criterios ASG | `Ut1Asg` | 4 h | 12 % |
 | [**2**](ut2/index.md) | Retos ambientales y huella de la electricidad | `Ut2Energia` | 4 h | 15 % |
-| [**3**](ut3/index.md) | Sostenibilidad en tu trabajo y en tu vida | Sin Java: F12 y terminal | 4 h | 15 % |
+| [**3**](ut3/index.md) | Sostenibilidad en el desempeño profesional y personal | Sin Java: lectura con actividades autocorregibles | 4 h | 15 % |
 | [**4**](ut4/index.md) | Economía circular y ecodiseño | `Ut4Circular` | 4 h | 16 % |
 | [**5**](ut5/index.md) | La huella de carbono del software | `Ut5Huella` | 5 h | 22 % |
 | [**6**](ut6/index.md) | El plan de sostenibilidad de una empresa | `Ut6Plan` | 4 h | 20 % |

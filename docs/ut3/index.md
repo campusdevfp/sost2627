@@ -1,775 +1,799 @@
-# UT3 · Sostenibilidad en tu trabajo y en tu vida
+# UT3 · Sostenibilidad en el desempeño profesional y personal
 
-> **RA3** · 4 h · 15 % · **Sin Java**: solo el navegador (F12) y la terminal (`curl`, `gzip`, `wc`, `bc`)
+> **RA3** · 4 h · 15 % · **Sin Java**: es una unidad de **lectura con actividades autocorregibles**
 
-Esta unidad va de ti: de las decisiones que tomarás cada día como desarrollador web y de cómo vas a trabajar. Vas a **medir** una web de verdad con las herramientas que ya tienes y a ver que una sola línea de configuración puede ahorrar más que muchas buenas intenciones.
+!!! info "Cómo trabajar esta unidad tú solo"
+    1. **Lee** cada apartado. Son textos cortos, con esquemas y tablas.
+    2. Al final de cada apartado hay una **actividad**: pulsa la respuesta que creas correcta y verás al momento si aciertas y **por qué**.
+    3. Cuando acabes los cuatro apartados, haz el **simulacro**: 30 preguntas con tu nota al final. **Las preguntas de RA3 del examen salen de ahí.**
+
+    Todo lo que se pregunta está en el texto. Si fallas, vuelve a leer el apartado.
 
 ```mermaid
 flowchart LR
-    A["1 · Entiendes<br/>el concepto"] --> B["2 · Lo mides<br/>con F12 o curl"] --> C["3 · Interpretas<br/>los números"] --> D["4 · Practicas<br/>con el test"]
+    I["📖 1<br/>Introducción"] --> D["👩‍💻 2<br/>Desempeño profesional<br/>y personal"] --> R["⚖️ 3<br/>Riesgos y<br/>oportunidades de los ODS"] --> P["🏡 4<br/>Prácticas sostenibles<br/>personales"] --> S["📝 5<br/>Simulacro<br/>30 preguntas"]
+    style S fill:#1d7a6c,color:#fff
 ```
 
-!!! tip "La terminal en Windows"
-    Los comandos son de Linux. En Windows, ábrelos en **Git Bash** (viene con Git) o en **WSL**. En Linux y macOS, en la terminal normal.
+| Apartado | Tiempo aproximado | Actividad |
+|---|:-:|---|
+| 1 · Introducción | 25 min | 4 preguntas |
+| 2 · Desempeño profesional y personal | 75 min | 8 preguntas |
+| 3 · Riesgos y oportunidades de los ODS | 60 min | 6 preguntas |
+| 4 · Prácticas sostenibles personales | 40 min | 4 preguntas y autodiagnóstico |
+| 5 · Simulacro | 40 min | 30 preguntas con nota |
 
 ---
 
-## 1. Teoría paso a paso
+## 1. Introducción
 
-### 1.1 Tus ODS como desarrollador
+### 1.1 ¿Qué es trabajar de forma sostenible?
+
+Trabajar de forma sostenible es **tener en cuenta en cada decisión su impacto ambiental, social y económico**: las tres dimensiones que viste en la UT1.
 
 ```mermaid
 flowchart TB
-    T(("Tu trabajo como<br/>desarrollador web"))
-    T --> O7["⚡ ODS 7 · Energía<br/>cada petición hace trabajar servidores y redes"]
-    T --> O12["♻️ ODS 12 · Consumo responsable<br/>una web pesada obliga a renovar móviles"]
-    T --> O10["🤝 ODS 10 · Desigualdades<br/>una web inaccesible deja fuera a personas"]
-    T --> O16["🔒 ODS 16 · Instituciones<br/>proteger los datos de quien usa tu web"]
+    D(("🧑‍💻 Una decisión<br/>en tu trabajo"))
+    D --> A["🌍 Ambiental<br/>¿Cuánta energía y recursos gasta?"]
+    D --> S["🤝 Social<br/>¿Puede usarlo todo el mundo?<br/>¿Respeta a las personas?"]
+    D --> E["💶 Económica<br/>¿Es eficiente?<br/>¿Se hace de forma ética y legal?"]
 ```
 
-### 1.2 Qué pasa cuando abres una web
+### 1.2 Lo digital no es «inmaterial»
 
-Una página no es un fichero: son **muchas peticiones**. Cada una viaja por la red, hace trabajar a un servidor y gasta batería en el móvil.
-
-```mermaid
-sequenceDiagram
-    participant N as 🧑 Navegador
-    participant S as 🖥️ Servidor
-    N->>S: GET /  (la página)
-    S-->>N: HTML
-    N->>S: GET /estilo.css
-    S-->>N: CSS
-    N->>S: GET /api/catalogo
-    S-->>N: JSON
-    N->>S: GET /cabecera.png
-    S-->>N: imagen
-    Note over N,S: Cada flecha son bytes por la red<br/>y trabajo del servidor
-```
-
-**Menos bytes = menos energía**: menos red, menos servidor, menos batería y móviles que duran más.
-
-### 1.3 ¿Qué pesa en una página?
-
-Esta es una tienda online real medida con F12. Casi todo el peso está en **dos** recursos:
-
-```mermaid
-pie showData title Peso de la página de la tienda (kB)
-    "cabecera.png" : 780
-    "api/catalogo (JSON)" : 366
-    "HTML + CSS" : 2
-```
-
-La lección: **antes de optimizar, mide**. Arreglar el HTML y el CSS (2 kB) no cambia nada si la imagen pesa 780 kB.
-
-### 1.4 Las cuatro palancas de una web sostenible
+Solemos decir que las cosas están «en la nube», como si no ocuparan nada. Pero la nube es **física**:
 
 ```mermaid
 flowchart LR
-    W["🌐 Web más ligera"]
-    W --- C["🗜️ Comprimir<br/>gzip / Brotli<br/>solo texto"]
-    W --- K["📦 Cachear<br/>Cache-Control<br/>no repetir descargas"]
-    W --- I["🖼️ Aligerar imágenes<br/>WebP / AVIF<br/>y tamaño justo"]
-    W --- D["✂️ Enviar solo lo necesario<br/>solo los campos<br/>que usa la vista"]
+    U["📱 Dispositivo<br/>hay que fabricarlo<br/>y acaba siendo residuo"] <--> R["📡 Red<br/>antenas, cables y routers<br/>que gastan electricidad"] <--> C["🏭 Centro de datos<br/>servidores que gastan<br/>electricidad y agua"]
 ```
 
-| Palanca | Qué ahorra | Cómo se activa |
-|---|---|---|
-| **Comprimir** | Bytes de texto: HTML, CSS, JS, JSON. En JSON, a menudo más del 90 % | Una línea de configuración del servidor |
-| **Cachear** | Descargas repetidas del mismo fichero | Cabecera `Cache-Control: max-age=…` |
-| **Aligerar imágenes** | Suelen ser lo que más pesa | Formatos WebP o AVIF y no servir una foto de 4000 px para un hueco de 400 |
-| **Enviar solo lo necesario** | Bytes **y** datos personales que no hacían falta | Que la API devuelva solo lo que la pantalla usa |
+Un dato clave: **en un móvil o un portátil, fabricar el aparato suele contaminar más que todos sus años de uso**. Por eso alargar la vida de los dispositivos es una de las medidas más eficaces.
 
-### 1.5 Comprimir: solo funciona con texto
+### 1.3 ¿Por qué te toca a ti, que desarrollas aplicaciones?
 
-```mermaid
-flowchart LR
-    A["📄 Texto<br/>HTML · CSS · JS · JSON · SVG"] -->|gzip| B["✅ Se reduce mucho<br/>porque repite palabras"]
-    C["🖼️ Ya comprimido<br/>JPEG · PNG · WebP · MP4 · ZIP"] -->|gzip| D["❌ No baja nada<br/>y gasta CPU"]
-```
-
-Un texto repite muchísimo (las mismas etiquetas, las mismas claves de JSON), y la compresión se aprovecha de eso. Una foto JPEG **ya viene comprimida**: volver a comprimirla no ahorra nada.
-
-**Las cabeceras que lo cuentan:**
-
-| Cabecera | Quién la envía | Qué dice |
-|---|---|---|
-| `Accept-Encoding: gzip, br` | El **navegador** | «Entiendo estos formatos comprimidos» |
-| `Content-Encoding: gzip` | El **servidor** | «Te lo envío comprimido con gzip» |
-| `Content-Type: text/css` | El **servidor** | «Esto es un CSS» |
-
-### 1.6 Cachear: no descargar dos veces lo mismo
-
-```mermaid
-sequenceDiagram
-    participant N as 🧑 Navegador
-    participant S as 🖥️ Servidor
-    Note over N: 1.ª visita
-    N->>S: GET /estilo.css
-    S-->>N: CSS + Cache-Control: max-age=31536000
-    Note over N: Lo guarda un año
-    Note over N: 2.ª visita (al día siguiente)
-    N->>N: ¿Lo tengo y no ha caducado? Sí
-    Note over N,S: ✅ No hay petición: 0 bytes por la red
-```
-
-| `Cache-Control` | Qué significa |
+| Razón | Qué significa |
 |---|---|
-| `max-age=31536000` | Puede reutilizarse durante **un año** (31 536 000 segundos) |
-| `max-age=3600` | Durante **una hora** |
-| `no-store` | **Prohibido** guardarlo. Gana a cualquier `max-age` que venga con él |
-| `no-cache` | Hay que preguntar al servidor antes de reutilizarlo |
-| *(no viene)* | El navegador no tiene instrucciones: a efectos prácticos, sin caché |
+| **Tú decides cómo se construye** | El peso de una web, los datos que pide o si es accesible dependen de tus decisiones |
+| **El efecto multiplicador** | Lo que haces se repite en cada visita. Una mejora pequeña, multiplicada por millones de usos, es enorme |
+| **La ley y los clientes lo piden** | Accesibilidad, protección de datos, información sobre sostenibilidad… |
 
-### 1.7 Accesibilidad y privacidad también son sostenibilidad
+!!! example "El efecto multiplicador en números"
+    Quitas **1 MB** innecesario de una página que se visita **1 millón de veces al mes**:
+
+    `1 MB × 1 000 000 = 1 000 000 MB =` **1 TB menos al mes** viajando por la red.
+
+### ✍️ Actividad 1 · Comprueba lo que has leído
+
+<div class="quiz" data-correcta="a" data-grupo="act1">
+<p class="quiz-enunciado">Lo digital es «inmaterial»: una app no gasta recursos porque está en la nube.</p>
+<button class="quiz-op" data-op="a">a) Falso</button>
+<button class="quiz-op" data-op="b">b) Verdadero</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. La nube son centros de datos que gastan electricidad y agua, redes y dispositivos que hay que fabricar.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="act1">
+<p class="quiz-enunciado">En un móvil o un portátil, fabricar el aparato suele contaminar más que todos sus años de uso.</p>
+<button class="quiz-op" data-op="a">a) Verdadero</button>
+<button class="quiz-op" data-op="b">b) Falso</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Por eso alargar la vida de los dispositivos es de lo más eficaz.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="act1">
+<p class="quiz-enunciado">Ahorras 1 MB en una página que se visita 1 millón de veces al mes. ¿Cuánto se deja de transmitir al mes?</p>
+<button class="quiz-op" data-op="a">a) 1 MB</button>
+<button class="quiz-op" data-op="b">b) 1 GB</button>
+<button class="quiz-op" data-op="c">c) 1 kB</button>
+<button class="quiz-op" data-op="d">d) 1 TB</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. 1 MB × 1 000 000 = 1 000 000 MB = 1 TB. Es el efecto multiplicador.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="act1">
+<p class="quiz-enunciado">Actuar de forma sostenible en el trabajo significa tener en cuenta en cada decisión…</p>
+<button class="quiz-op" data-op="a">a) solo el ahorro de dinero</button>
+<button class="quiz-op" data-op="b">b) el impacto ambiental, social y económico</button>
+<button class="quiz-op" data-op="c">c) solo el medio ambiente</button>
+<button class="quiz-op" data-op="d">d) solo lo que diga el jefe</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Son las tres dimensiones que viste en la UT1.</p>
+</div>
+
+---
+
+## 2. Desempeño profesional y personal
+
+Tu desempeño tiene **dos caras**: lo que haces **en tu trabajo** (profesional) y lo que haces **en tu vida** (personal). Este apartado va de la primera; el apartado 4, de la segunda.
+
+### 2.1 La sostenibilidad en cada fase del desarrollo de una aplicación
+
+Una aplicación pasa por varias fases. **En todas** se pueden tomar decisiones sostenibles:
 
 ```mermaid
-mindmap
-  root((Web sostenible))
-    Ambiental
-      Menos bytes
-      Menos energía
-      Móviles que duran más
-    Social
-      Accesibilidad WCAG 2.2
-      Ley 11/2023
-      Nadie se queda fuera
-    Gobernanza
-      RGPD
-      Minimización de datos
-      Menos datos, menos riesgo
+flowchart LR
+    R["📋 Requisitos"] --> D["🎨 Diseño"] --> P["⌨️ Programación"] --> T["🚀 Pruebas<br/>y despliegue"] --> U["👥 Uso"] --> X["🗑️ Retirada"]
 ```
 
-- **Accesibilidad:** las pautas **WCAG 2.2** del W3C dicen cómo hacer una web usable por todas las personas. Desde el **28 de junio de 2025** son exigibles a muchos servicios digitales dirigidos a consumidores (**Ley 11/2023**).
-- **Privacidad:** el RGPD pide **minimización de datos**: tratar solo los datos necesarios. Menos datos es menos riesgo **y** menos bytes.
+| Fase | La pregunta sostenible | Ejemplo de buena práctica |
+|---|---|---|
+| 📋 **Requisitos** | ¿Hace falta esta función? ¿Qué datos necesito **de verdad**? | No pedir el DNI ni la fecha de nacimiento si no se van a usar |
+| 🎨 **Diseño** | ¿Puede usarla todo el mundo? ¿Funciona en móviles antiguos y con mala conexión? | Diseño accesible y ligero |
+| ⌨️ **Programación** | ¿Envío solo lo necesario? ¿Pesa lo mínimo? | Imágenes en WebP, comprimir el texto, usar la caché |
+| 🚀 **Pruebas y despliegue** | ¿Hay algo encendido que nadie usa? | **Apagar los entornos de pruebas** cuando no se usan |
+| 👥 **Uso** | ¿Sé cuánto pesa y cuánto consume? | Medir y mejorar con cada versión |
+| 🗑️ **Retirada** | ¿Qué queda cuando la app se cierra? | **Borrar los datos** que ya no se necesitan y **apagar sus servidores** |
 
-### 1.8 Y tu vida cuenta: ir a trabajar
+### 2.2 Cuatro formas de que una web pese menos
 
-Ir a trabajar es una de las mayores fuentes de emisiones directas de mucha gente.
+Pulsa en cada pestaña:
 
-| Medio | kg CO₂ por km y persona |
+=== "🗜️ Comprimir"
+
+    El servidor envía el **texto** comprimido y el navegador lo descomprime. Se ahorra muchísimo, sobre todo en JSON.
+
+    | Se comprime bien | No merece la pena |
+    |---|---|
+    | HTML, CSS, JavaScript, JSON | Fotos JPEG, vídeos MP4, ficheros ZIP: **ya vienen comprimidos** |
+
+=== "📦 Cachear"
+
+    La **caché** permite que el navegador **guarde un fichero y no lo descargue otra vez** en la siguiente visita. El logo o la hoja de estilos se bajan una vez y se reutilizan.
+
+=== "🖼️ Aligerar imágenes"
+
+    Las imágenes suelen ser **lo que más pesa**. Dos reglas:
+
+    - Usar formatos modernos como **WebP**, que pesan menos con la misma calidad visible.
+    - No enviar una foto de 4000 píxeles para mostrarla en un hueco de 400.
+
+=== "✂️ Enviar solo lo necesario"
+
+    Si una pantalla solo muestra el nombre del cliente, la aplicación no debería enviar también su DNI, teléfono y dirección. Se ahorran bytes **y** se protegen datos personales.
+
+### 2.3 Lo social y la gobernanza también son tu trabajo
+
+| Tema | Qué es | Qué norma o idea |
+|---|---|---|
+| ♿ **Accesibilidad** | Que la app la pueda usar **todo el mundo**, también personas con discapacidad (por ejemplo, solo con teclado o con lector de pantalla) | Pautas **WCAG**. En España, la **Ley 11/2023** la exige a muchos servicios digitales desde el **28 de junio de 2025** |
+| 🔒 **Privacidad** | Tratar los datos personales con cuidado | El RGPD pide **minimización de datos**: solo los imprescindibles |
+| ⚖️ **Ética** | No engañar a quien usa tu app | Evitar los **patrones oscuros**: diseños que empujan al usuario a hacer algo que no quiere (casillas ya marcadas, botón de «cancelar» escondido…) |
+| 🔍 **Transparencia** | No presumir de lo que no se hace | Nada de **greenwashing**: cada afirmación, con datos |
+
+### 2.4 El uso de la tecnología en la empresa
+
+No solo importa lo que programas: también **cómo se usa la tecnología cada día** en la oficina.
+
+| Situación | ✅ Práctica sostenible | ❌ Práctica poco sostenible |
+|---|---|---|
+| 💻 Ordenadores y móviles | Alargar su vida, **repararlos**, comprar **reacondicionados** | Renovarlos todos cada año aunque funcionen |
+| 📧 Ficheros por correo | Enviar un **enlace** al fichero compartido | Mandar un adjunto de 20 MB a 50 personas: **50 copias** guardadas |
+| 🗄️ Almacenamiento | Borrar duplicados y lo que ya no sirve | Guardarlo todo «por si acaso» |
+| 🤝 Reuniones | **Videollamada** cuando no hace falta viajar | Viajar a cada reunión |
+| 🖥️ Servidores | Apagar los de pruebas fuera de horario | Dejarlos encendidos el fin de semana |
+| 🏠 Teletrabajo | Algunos días en casa ahorran desplazamientos | — |
+
+### 2.5 Tu desempeño personal dentro del trabajo
+
+Ser un buen profesional sostenible también es cuidarte y cuidar al equipo:
+
+- **Aprender siempre**: la tecnología cambia y la formación continua evita quedarse atrás.
+- **Trabajar en equipo** y respetar la diversidad.
+- **Cuidar tu salud**: pausas, postura y descanso.
+- **Desconexión digital**: la **Ley Orgánica 3/2018 (artículo 88)** reconoce el derecho a **no responder mensajes de trabajo fuera de tu horario**.
+
+### ✍️ Actividad 2 · Comprueba lo que has leído
+
+<div class="quiz" data-correcta="c" data-grupo="act2">
+<p class="quiz-enunciado">«Antes de pedir el DNI en un formulario, pregúntate si de verdad lo necesitas.» ¿En qué fase del desarrollo se decide?</p>
+<button class="quiz-op" data-op="a">a) Pruebas y despliegue</button>
+<button class="quiz-op" data-op="b">b) Retirada</button>
+<button class="quiz-op" data-op="c">c) Requisitos</button>
+<button class="quiz-op" data-op="d">d) Uso</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. En los requisitos se decide qué datos hacen falta: minimización de datos.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="act2">
+<p class="quiz-enunciado">Apagar por la noche los servidores de pruebas que nadie usa es una buena práctica de la fase de…</p>
+<button class="quiz-op" data-op="a">a) pruebas y despliegue</button>
+<button class="quiz-op" data-op="b">b) requisitos</button>
+<button class="quiz-op" data-op="c">c) diseño</button>
+<button class="quiz-op" data-op="d">d) retirada</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Los entornos de pruebas encendidos sin uso gastan energía y dinero.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="act2">
+<p class="quiz-enunciado">Convertir las imágenes a WebP y comprimir el texto se hace sobre todo al…</p>
+<button class="quiz-op" data-op="a">a) retirar la app</button>
+<button class="quiz-op" data-op="b">b) definir requisitos</button>
+<button class="quiz-op" data-op="c">c) hacer la reunión de equipo</button>
+<button class="quiz-op" data-op="d">d) programar</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Son decisiones de programación que aligeran la web.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="act2">
+<p class="quiz-enunciado">Borrar los datos de los usuarios de una app que se va a cerrar corresponde a la fase de…</p>
+<button class="quiz-op" data-op="a">a) diseño</button>
+<button class="quiz-op" data-op="b">b) retirada</button>
+<button class="quiz-op" data-op="c">c) programación</button>
+<button class="quiz-op" data-op="d">d) requisitos</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Al retirar una app hay que borrar lo que ya no se necesita y apagar sus servidores.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="act2">
+<p class="quiz-enunciado">Diseñar una web que se pueda usar solo con teclado es una decisión de…</p>
+<button class="quiz-op" data-op="a">a) caché</button>
+<button class="quiz-op" data-op="b">b) compresión</button>
+<button class="quiz-op" data-op="c">c) accesibilidad</button>
+<button class="quiz-op" data-op="d">d) gobernanza económica</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Accesibilidad: que nadie se quede fuera (ODS 10).</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="act2">
+<p class="quiz-enunciado">Mandar el mismo adjunto de 20 MB a 50 personas, en lugar de un enlace al fichero compartido, es…</p>
+<button class="quiz-op" data-op="a">a) poco sostenible: se guardan 50 copias</button>
+<button class="quiz-op" data-op="b">b) lo más sostenible</button>
+<button class="quiz-op" data-op="c">c) obligatorio por ley</button>
+<button class="quiz-op" data-op="d">d) igual de sostenible</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Un enlace evita copias repetidas en los buzones y servidores.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="act2">
+<p class="quiz-enunciado">Un diseño que engaña al usuario para que acepte algo que no quiere (un «patrón oscuro») es un problema ético.</p>
+<button class="quiz-op" data-op="a">a) Falso</button>
+<button class="quiz-op" data-op="b">b) Verdadero</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. La ética y la transparencia forman parte de la gobernanza.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="act2">
+<p class="quiz-enunciado">El derecho a la desconexión digital significa que la empresa puede escribirte a cualquier hora y debes contestar.</p>
+<button class="quiz-op" data-op="a">a) Verdadero</button>
+<button class="quiz-op" data-op="b">b) Falso</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Es al revés: tienes derecho a no responder fuera de tu horario (Ley Orgánica 3/2018, art. 88).</p>
+</div>
+
+---
+
+## 3. Riesgos y oportunidades que representan los ODS
+
+### 3.1 Riesgo y oportunidad
+
+Los ODS (UT1) no son solo una lista de buenas intenciones: para una empresa pueden ser un **riesgo** o una **oportunidad**.
+
+```mermaid
+flowchart LR
+    O["🎯 Un ODS"] --> N{"¿La empresa<br/>actúa?"}
+    N -->|No| R["⚠️ RIESGO<br/>algo que puede dañarla"]
+    N -->|Sí| P["🚀 OPORTUNIDAD<br/>algo que puede beneficiarla"]
+```
+
+- Un **riesgo** es algo que **puede dañar a la empresa si no actúa**: multas, mala imagen, más costes, perder clientes.
+- Una **oportunidad** es algo que **puede beneficiar a la empresa si actúa**: ahorrar, conseguir clientes, atraer talento, crear productos nuevos.
+
+### 3.2 Tipos de riesgo
+
+=== "⚖️ Legal"
+
+    Incumplir una norma: multas por no proteger los datos (RGPD) o por no hacer accesible un servicio (Ley 11/2023).
+
+=== "📰 Reputacional"
+
+    Perder la confianza de clientes y sociedad: que se descubra un caso de **greenwashing** o que se filtren datos personales.
+
+=== "💶 Económico"
+
+    Más costes: si sube el precio de la electricidad, sube la factura de los servidores.
+
+=== "⚙️ Operativo"
+
+    Que el servicio deje de funcionar bien: por ejemplo, una **ola de calor** que obliga a apagar parte de un centro de datos.
+
+=== "👥 Talento"
+
+    Que los buenos profesionales no quieran trabajar allí o se vayan: muchas personas eligen empresa también por sus valores y condiciones.
+
+### 3.3 Tipos de oportunidad
+
+| Oportunidad | Ejemplo en una empresa de software |
+|---|---|
+| 💰 **Ahorro** | Código más eficiente → menos servidores → menos energía y menos factura |
+| 🛒 **Mercado** | Concursos públicos y clientes que **exigen** apps accesibles o criterios ambientales: si ya los cumples, puedes ganar el contrato |
+| 📱 **Producto** | Crear apps que ayuden a otros a ser sostenibles: controlar el consumo de luz, compartir coche, comprar y vender **de segunda mano**… |
+| 🌟 **Talento y reputación** | Teletrabajo, horarios flexibles y valores claros atraen a buenos profesionales |
+
+### 3.4 Los ODS en una empresa de desarrollo de software
+
+| ODS | ⚠️ Riesgo si no actúa | 🚀 Oportunidad si actúa |
+|---|---|---|
+| **4** · Educación de calidad | La plantilla sin formación se queda atrás | Formación continua; apps educativas |
+| **5** · Igualdad de género | Brecha salarial, equipos poco diversos | Equipos diversos que diseñan mejores productos |
+| **7** · Energía asequible y no contaminante | Factura eléctrica cada vez más alta | Eficiencia y renovables; apps de control energético |
+| **8** · Trabajo decente | Horarios abusivos, gente que se va | Teletrabajo y conciliación que atraen talento |
+| **9** · Industria, innovación e infraestructura | Quedarse obsoleta | Digitalizar a otros sectores |
+| **10** · Reducción de las desigualdades | Web inaccesible: sanciones y usuarios perdidos | Llegar a más personas |
+| **12** · Producción y consumo responsables | Apps que obligan a cambiar de móvil; residuos electrónicos | Apps ligeras; plataformas de segunda mano y reparación |
+| **13** · Acción por el clima | Olas de calor que afectan a los centros de datos; clientes que exigen datos de emisiones | Medir y reducir la huella; ofrecer servicios más limpios |
+| **16** · Paz, justicia e instituciones sólidas | Filtraciones de datos, sanciones del RGPD | Confianza y transparencia |
+
+### ✍️ Actividad 3 · ¿Riesgo u oportunidad?
+
+<div class="quiz" data-correcta="c" data-grupo="act3">
+<p class="quiz-enunciado">Una empresa de software no hace accesible su web y una ley se lo exige. Para ella eso es…</p>
+<button class="quiz-op" data-op="a">a) una oportunidad de mercado</button>
+<button class="quiz-op" data-op="b">b) un riesgo operativo</button>
+<button class="quiz-op" data-op="c">c) un riesgo legal</button>
+<button class="quiz-op" data-op="d">d) no tiene relación con los ODS</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Puede recibir sanciones y perder clientes. ODS 10.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="act3">
+<p class="quiz-enunciado">Una empresa ofrece una app para que los comercios controlen su consumo de luz. Eso es…</p>
+<button class="quiz-op" data-op="a">a) una oportunidad de producto</button>
+<button class="quiz-op" data-op="b">b) un riesgo reputacional</button>
+<button class="quiz-op" data-op="c">c) un riesgo legal</button>
+<button class="quiz-op" data-op="d">d) greenwashing</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Crea un producto que ayuda a otros a ser sostenibles. ODS 7.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="act3">
+<p class="quiz-enunciado">Una ola de calor obliga a apagar parte de un centro de datos. Es un riesgo…</p>
+<button class="quiz-op" data-op="a">a) legal</button>
+<button class="quiz-op" data-op="b">b) de talento</button>
+<button class="quiz-op" data-op="c">c) reputacional</button>
+<button class="quiz-op" data-op="d">d) operativo</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Afecta al funcionamiento del servicio. ODS 13.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="act3">
+<p class="quiz-enunciado">Se filtran los datos personales de los clientes de una app. ¿Qué riesgos genera?</p>
+<button class="quiz-op" data-op="a">a) solo económico</button>
+<button class="quiz-op" data-op="b">b) legal y reputacional</button>
+<button class="quiz-op" data-op="c">c) ninguno</button>
+<button class="quiz-op" data-op="d">d) solo de talento</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Sanción del RGPD y pérdida de confianza. ODS 16.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="act3">
+<p class="quiz-enunciado">Un concurso público exige que la aplicación sea accesible. La empresa que ya lo es tiene…</p>
+<button class="quiz-op" data-op="a">a) un riesgo legal</button>
+<button class="quiz-op" data-op="b">b) un riesgo operativo</button>
+<button class="quiz-op" data-op="c">c) una oportunidad de mercado</button>
+<button class="quiz-op" data-op="d">d) una obligación de cerrar</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Puede presentarse y ganar el contrato.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="act3">
+<p class="quiz-enunciado">Una empresa ofrece teletrabajo y horarios flexibles y le cuesta menos contratar buenos profesionales. ¿Con qué ODS se relaciona?</p>
+<button class="quiz-op" data-op="a">a) ODS 8 · Trabajo decente</button>
+<button class="quiz-op" data-op="b">b) ODS 13 · Clima</button>
+<button class="quiz-op" data-op="c">c) ODS 7 · Energía</button>
+<button class="quiz-op" data-op="d">d) ODS 12 · Consumo responsable</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Trabajo decente y crecimiento económico.</p>
+</div>
+
+---
+
+## 4. Prácticas sostenibles en el ambiente personal
+
+Lo que haces fuera del trabajo también cuenta, y muchas de estas costumbres se llevan a la oficina.
+
+### 4.1 Cómo vas a trabajar o a clase
+
+Ir y volver cada día es una de las mayores fuentes de emisiones de mucha gente.
+
+| Medio | kg de CO₂ por km y persona |
 |---|---:|
 | 🚗 Coche | 0,16 |
 | 🏍️ Moto | 0,10 |
 | 🚌 Autobús | 0,08 |
 | 🚇 Metro / tren | 0,03 |
-| 🚲 Bici / a pie | 0,00 |
+| 🚲 Bici / a pie | 0 |
 
 ```text
 kg al año = factor × km de ida × 2 × días por semana × semanas
                                  ↑
-                             ¡la vuelta!
+                         ¡no olvides la vuelta!
 ```
 
-### Resumen de la unidad
+!!! example "Ejemplo resuelto"
+    12 km de ida, 5 días por semana, 42 semanas:
 
-| Concepto | Cómo se mide | Herramienta |
-|---|---|---|
-| Peso de una página | Total transferido | F12 → Red |
-| ¿Viene comprimido? | `Content-Encoding` | `curl -I` |
-| Cuánto ahorra comprimir | Bytes antes y después | `curl -w`, `gzip`, `ls -l` |
-| Caché | `Cache-Control` | `curl -I`, F12 |
-| Accesibilidad | Informe de accesibilidad | F12 → Lighthouse |
-| Datos innecesarios | Bytes de cada respuesta | `wc -c` |
-| Huella del desplazamiento | factor × km × 2 × días × semanas | `bc` |
+    - En **coche**: `0,16 × 12 × 2 × 5 × 42 =` **806,4 kg** al año.
+    - En **autobús**: `0,08 × 12 × 2 × 5 × 42 =` **403,2 kg** al año. **La mitad.**
 
----
+    Si olvidas el × 2, te sale justo la mitad de lo real.
 
-## 2. Prácticas guiadas
+```mermaid
+xychart-beta
+    title "kg de CO₂ al año · 12 km · 5 días · 42 semanas"
+    x-axis ["Coche", "Moto", "Autobús", "Metro", "Bici"]
+    y-axis "kg al año" 0 --> 900
+    bar [806.4, 504, 403.2, 151.2, 0]
+```
 
-> Nueve prácticas cortas, **todas resueltas**. Primero hazlas tú en tu ordenador y luego compara con la salida y la explicación. Tus números pueden variar un poco: las webs cambian.
-
-### Práctica 1 · Mira cuánto pesa una página
+### 4.2 Tus dispositivos
 
 ```mermaid
 flowchart LR
-    A["Abre la web"] --> B["F12"] --> C["Pestaña<br/>Red / Network"] --> D["Recarga<br/>Ctrl + F5"] --> E["Mira la barra<br/>de abajo"]
+    A["🛒 Compra solo<br/>lo que necesitas"] --> B["🔋 Úsalo mucho tiempo<br/>cuida la batería, límpialo"] --> C["🔧 Repáralo<br/>antes de cambiarlo"] --> D["♻️ Dale una<br/>segunda vida<br/>vender, regalar"] --> E["🏭 Recíclalo en un<br/>punto limpio o en la tienda"]
 ```
 
-**Haz esto** con `https://pypi.org`:
+Un aparato electrónico **nunca va a la basura normal ni al contenedor amarillo** (ese es para envases). Tiene materiales valiosos y otros contaminantes. Recuerda de la UT2: en 2022 solo se recogió de forma correcta **el 22,3 %** de los residuos electrónicos del mundo.
 
-1. Pulsa **F12** y ve a la pestaña **Red** (*Network*).
-2. Recarga con **Ctrl + F5** (recarga sin usar la caché).
-3. Mira la barra de abajo del todo.
+### 4.3 Tu consumo digital
 
-??? success "Qué vas a ver y qué significa"
-
-    Algo parecido a esto (los números exactos cambian cada vez):
-
-    ```text
-    32 solicitudes │ 180 kB transferidos │ 620 kB recursos │ Finalizado: 1,2 s
-    ```
-
-    | Dato | Qué significa |
-    |---|---|
-    | **solicitudes** | Cuántas peticiones ha hecho el navegador: cada una es un viaje por la red |
-    | **transferidos** | Lo que ha viajado de verdad por la red (ya comprimido) |
-    | **recursos** | Lo que ocupa todo una vez descomprimido en tu ordenador |
-
-    Si **transferidos** es mucho menor que **recursos**, la web **comprime bien**.
-
-    Pulsa en los filtros (**Doc**, **CSS**, **JS**, **Img**…) para ver qué tipo de recurso pesa más. Casi siempre ganan las imágenes o el JavaScript.
-
----
-
-### Práctica 2 · Lee las cabeceras con `curl`
-
-`curl -I` pide **solo las cabeceras**, sin descargar el contenido.
-
-```bash
-curl -sI -H "Accept-Encoding: gzip" https://pypi.org/
-```
-
-| Parte del comando | Qué hace |
+| Hábito | Por qué ayuda |
 |---|---|
-| `-s` | Modo silencioso: sin barra de progreso |
-| `-I` | Solo las cabeceras |
-| `-H "Accept-Encoding: gzip"` | Dice al servidor que entendemos gzip, como hace un navegador |
+| Ver series y vídeos en la **calidad que tu pantalla aprovecha** | En un móvil, la calidad máxima no se nota y gasta más datos y energía |
+| **Descargar** lo que vas a ver o escuchar muchas veces | No se transmite una y otra vez |
+| Borrar fotos y ficheros **duplicados** de la nube | Menos almacenamiento ocupado en centros de datos |
+| Darte de baja de correos que no lees | Menos mensajes enviados y guardados |
+| **Apagar** los aparatos en vez de dejarlos en espera | La espera también consume |
 
-??? success "Salida (resumida) y qué significa"
+### 4.4 Tu bienestar digital
 
-    ```text
-    HTTP/2 200
-    content-type: text/html; charset=UTF-8
-    content-encoding: gzip
-    content-length: 5938
-    ```
+La sostenibilidad también es **social**: cuidarte a ti. Silencia notificaciones que no necesitas, haz pausas lejos de la pantalla y respeta tus horas de descanso.
 
-    | Cabecera | Qué te dice |
-    |---|---|
-    | `HTTP/2 200` | La petición ha ido bien |
-    | `content-type: text/html` | Es una página HTML: **texto**, así que debe comprimirse |
-    | `content-encoding: gzip` | ✅ Viene comprimida |
-    | `content-length: 5938` | Ocupa 5938 bytes por la red |
-    | *(no hay `cache-control`)* | El HTML no se cachea. Es normal: la portada cambia a menudo |
+### 🔎 Autodiagnóstico · ¿Cuántos de estos hábitos tienes?
 
-    Para ver solo lo que te interesa, filtra con `grep -i` (la `-i` ignora mayúsculas):
+Marca los que ya haces. El contador se actualiza solo (no se guarda nada).
 
-    ```bash
-    curl -sI -H "Accept-Encoding: gzip" https://pypi.org/ | grep -i "content-type\|content-encoding\|cache-control"
-    ```
+<div class="habitos">
+<label><input type="checkbox"> Voy a clase o a trabajar a pie, en bici o en transporte público</label>
+<label><input type="checkbox"> Mi móvil tiene más de 3 años o lo compré reacondicionado</label>
+<label><input type="checkbox"> Cuando algo se rompe, primero intento repararlo</label>
+<label><input type="checkbox"> Llevo los aparatos viejos a un punto limpio o a la tienda</label>
+<label><input type="checkbox"> Apago los aparatos en vez de dejarlos en espera</label>
+<label><input type="checkbox"> Veo vídeos en la calidad que necesito, no siempre en la máxima</label>
+<label><input type="checkbox"> Borro de vez en cuando fotos y ficheros duplicados</label>
+<label><input type="checkbox"> Desconecto del móvil a ratos y respeto mis horas de descanso</label>
+<span class="habitos-total"></span>
+</div>
 
----
+### ✍️ Actividad 4 · Comprueba lo que has leído
 
-### Práctica 3 · ¿Cuánto ahorra comprimir?
+<div class="quiz" data-correcta="d" data-grupo="act4">
+<p class="quiz-enunciado">Vas 10 km de ida en coche (0,16 kg/km), 5 días por semana, 40 semanas. ¿Cuánto CO₂ emites al año?</p>
+<button class="quiz-op" data-op="a">a) 320 kg</button>
+<button class="quiz-op" data-op="b">b) 64 kg</button>
+<button class="quiz-op" data-op="c">c) 1280 kg</button>
+<button class="quiz-op" data-op="d">d) 640 kg</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. 0,16 × 10 × 2 × 5 × 40 = 640 kg. 320 sería olvidar la vuelta.</p>
+</div>
 
-Pide la misma página **dos veces**: sin compresión y con compresión. La opción `-w "%{size_download}"` escribe los bytes descargados y `-o /dev/null` tira el contenido (no lo necesitas).
+<div class="quiz" data-correcta="b" data-grupo="act4">
+<p class="quiz-enunciado">¿Qué haces con un móvil viejo que ya no funciona?</p>
+<button class="quiz-op" data-op="a">a) tirarlo a la basura normal</button>
+<button class="quiz-op" data-op="b">b) llevarlo a un punto limpio o a la tienda para reciclarlo</button>
+<button class="quiz-op" data-op="c">c) guardarlo en un cajón para siempre</button>
+<button class="quiz-op" data-op="d">d) tirarlo al contenedor amarillo</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Los aparatos electrónicos tienen materiales valiosos y contaminantes.</p>
+</div>
 
-```bash
-curl -s -o /dev/null -w "%{size_download}\n" https://pypi.org/
-curl -s -H "Accept-Encoding: gzip" -o /dev/null -w "%{size_download}\n" https://pypi.org/
-```
+<div class="quiz" data-correcta="c" data-grupo="act4">
+<p class="quiz-enunciado">¿Qué alarga más la vida de un portátil?</p>
+<button class="quiz-op" data-op="a">a) cambiarlo cada año</button>
+<button class="quiz-op" data-op="b">b) dejarlo siempre encendido</button>
+<button class="quiz-op" data-op="c">c) cuidar la batería, limpiarlo y reparar en lugar de cambiar</button>
+<button class="quiz-op" data-op="d">d) no actualizarlo nunca</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Cuanto más dura un aparato, menos se fabrica.</p>
+</div>
 
-??? success "Salida y cálculo"
-
-    ```text
-    27885
-    5938
-    ```
-
-    ```text
-    reducción = (antes − después) ÷ antes × 100
-              = (27 885 − 5 938) ÷ 27 885 × 100  =  78,7 %
-    ```
-
-    ```text
-    Sin comprimir  ████████████████████████████████████████  27,9 kB
-    Comprimido     █████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   5,9 kB
-    ```
-
-    Con una hoja de estilos de la misma web el resultado fue **115 485 → 19 094 bytes: un 83,5 % menos**.
-
-    Todo eso lo consigue **una línea de configuración del servidor**. Multiplica por todas las visitas del año.
-
----
-
-### Práctica 4 · Comprime tú: texto frente a «foto»
-
-Vas a crear dos ficheros y comprimirlos con `gzip`:
-
-- **`catalogo.json`**: un JSON de 2000 productos, muy repetitivo, como la respuesta de una API.
-- **`foto.bin`**: 100 000 bytes al azar. Se comporta como un JPEG: los datos ya comprimidos parecen aleatorios.
-
-```bash
-for i in $(seq 1 2000); do
-  echo "{\"id\": $i, \"nombre\": \"Producto de ejemplo\", \"precio\": 9.99, \"stock\": true},"
-done > catalogo.json
-
-head -c 100000 /dev/urandom > foto.bin
-
-gzip -k catalogo.json        # -k: conserva el original
-gzip -k foto.bin
-ls -l catalogo.json* foto.bin*
-```
-
-??? success "Salida y qué significa"
-
-    ```text
-    154893  catalogo.json
-      5525  catalogo.json.gz
-    100000  foto.bin
-    100047  foto.bin.gz
-    ```
-
-    | Fichero | Antes | Después | Reducción |
-    |---|---:|---:|---:|
-    | JSON (texto) | 154 893 | 5 525 | **96,4 %** |
-    | «Foto» (datos ya comprimidos) | 100 000 | 100 047 | **¡crece 47 bytes!** |
-
-    ```mermaid
-    xychart-beta
-        title "Bytes antes y después de gzip"
-        x-axis ["JSON antes", "JSON gzip", "Foto antes", "Foto gzip"]
-        y-axis "bytes" 0 --> 160000
-        bar [154893, 5525, 100000, 100047]
-    ```
-
-    **La conclusión de la unidad:** se comprime **solo el texto**. Comprimir una imagen gasta CPU y no ahorra nada; incluso puede hacerla un poco más grande.
+<div class="quiz" data-correcta="a" data-grupo="act4">
+<p class="quiz-enunciado">Ver una serie en una calidad más alta de la que distingue tu pantalla gasta datos y energía sin ninguna ventaja.</p>
+<button class="quiz-op" data-op="a">a) Verdadero</button>
+<button class="quiz-op" data-op="b">b) Falso</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Elige la calidad que necesitas: en un móvil, la máxima no se nota.</p>
+</div>
 
 ---
 
-### Práctica 5 · ¿Se cachea?
-
-```bash
-curl -sI https://pypi.org/static/css/warehouse-ltr.eeaed0b2.css | grep -i cache-control
-```
-
-El nombre del CSS cambia con cada versión de la web. Si falla, búscalo en F12 → Red → filtro **CSS** y copia su dirección.
-
-??? success "Salida y qué significa"
-
-    ```text
-    cache-control: max-age=315360000, public, immutable
-    ```
-
-    | Parte | Qué significa |
-    |---|---|
-    | `max-age=315360000` | Puede reutilizarse **10 años** (315 360 000 s ÷ 31 536 000 s/año) |
-    | `public` | Lo pueden guardar también los servidores intermedios |
-    | `immutable` | No va a cambiar nunca: ni siquiera hace falta preguntar |
-
-    ¿Cómo actualizan entonces el CSS? **Cambiándole el nombre** (`eeaed0b2` es una huella del contenido). Si el fichero cambia, cambia el nombre, y el navegador lo descarga como uno nuevo.
-
-    **Compruébalo en el navegador:** con F12 abierto en Red, recarga con **F5** normal. En la columna **Tamaño** de los CSS verás **(memoria caché)** o **(disco caché)**: 0 bytes por la red.
-
-**Ejercicio rápido.** ¿Cuánto tiempo puede reutilizarse cada recurso?
-
-| Cabecera | Respuesta |
-|---|---|
-| `public, max-age=31536000, immutable` | ? |
-| `max-age=3600` | ? |
-| `no-store, max-age=3600` | ? |
-| *(no viene)* | ? |
-
-??? success "Solución"
-
-    | Cabecera | Respuesta |
-    |---|---|
-    | `public, max-age=31536000, immutable` | **1 año** |
-    | `max-age=3600` | **1 hora** |
-    | `no-store, max-age=3600` | **Nada**: `no-store` prohíbe guardarlo y gana al `max-age` |
-    | *(no viene)* | **Nada**, a efectos prácticos |
-
----
-
-### Práctica 6 · Audita una página con una ficha de puntos
-
-Un auditor parte de **100 puntos** por recurso y resta:
-
-| Problema | Resta |
-|---|---:|
-| Es texto y **no** viene comprimido | −30 |
-| No tiene caché | −20 |
-| Pesa más de 500 kB | −25 |
-
-Esta es la tienda del apartado 1.3, medida con F12:
-
-| Recurso | Tipo | Tamaño | ¿Comprimido? | Caché |
-|---|---|---:|:-:|---|
-| `/` | HTML | 1,2 kB | No | No |
-| `/estilo.css` | CSS | 0,5 kB | No | No |
-| `/api/catalogo` | JSON | 366 kB | No | No |
-| `/cabecera.png` | PNG | 780 kB | No | 10 minutos |
-
-**Haz esto:** pon nota a cada recurso y decide **qué arreglarías primero**.
-
-??? success "Solución"
-
-    | Recurso | Restas | Nota |
-    |---|---|---:|
-    | `/` | −30 (texto sin comprimir) −20 (sin caché) | **50** |
-    | `/estilo.css` | −30 −20 | **50** |
-    | `/api/catalogo` | −30 −20. No llega a 500 kB | **50** |
-    | `/cabecera.png` | −25 (pesa más de 500 kB). **No** resta por compresión: un PNG no es texto | **75** |
-
-    **La trampa:** la imagen saca **la mejor nota** y es **el 68 % del peso** de la página.
-
-    ```mermaid
-    quadrantChart
-        title Nota frente a peso
-        x-axis "Pesa poco" --> "Pesa mucho"
-        y-axis "Nota baja" --> "Nota alta"
-        quadrant-1 "Peligro oculto"
-        quadrant-2 "Bien"
-        quadrant-3 "Fácil de arreglar"
-        quadrant-4 "Prioridad clara"
-        "cabecera.png": [0.9, 0.75]
-        "api/catalogo": [0.55, 0.5]
-        "estilo.css": [0.05, 0.5]
-        "HTML": [0.08, 0.5]
-    ```
-
-    **El orden correcto para arreglar:**
-
-    1. **La imagen a WebP** y a su tamaño real: de 780 kB a unos 90 kB.
-    2. **Comprimir el catálogo**: de 366 kB a unos 26 kB, con una línea de configuración.
-    3. Después, la caché del HTML y del CSS.
-
-    Resultado: de **1,1 MB a unos 120 kB**, una décima parte.
-
-    **La lección:** una puntuación automática **orienta, no decide**. Sirve para encontrar problemas; para ordenarlos hay que mirar qué pesa de verdad.
-
----
-
-### Práctica 7 · Pasa un análisis de accesibilidad
+## Resumen de la unidad
 
 ```mermaid
-flowchart LR
-    A["Abre la web<br/>en Chrome"] --> B["F12"] --> C["Pestaña<br/>Lighthouse"] --> D["Marca solo<br/>Accesibilidad"] --> E["Analizar"]
+mindmap
+  root((UT3))
+    Introducción
+      Tres dimensiones en cada decisión
+      Lo digital es físico
+      Fabricar contamina más que usar
+      Efecto multiplicador
+    Desempeño profesional
+      Sostenibilidad en cada fase
+      Comprimir, cachear, WebP, solo lo necesario
+      Accesibilidad WCAG y Ley 11/2023
+      Minimización de datos RGPD
+      Sin patrones oscuros ni greenwashing
+      Enlaces, reparar, videollamadas
+      Desconexión digital
+    Riesgos y oportunidades
+      Riesgo si no actúa
+      Oportunidad si actúa
+      Legal, reputacional, económico, operativo, talento
+      Ahorro, mercado, producto, talento
+    Vida personal
+      Movilidad con el × 2
+      Alargar la vida de los aparatos
+      Punto limpio
+      Consumo digital responsable
 ```
-
-Lighthouse da una nota de 0 a 100 y la lista de fallos. Completa además estas **cinco comprobaciones a mano**, que no necesitan ninguna herramienta:
-
-| Comprobación | Cómo se hace | Qué debería pasar |
-|---|---|---|
-| ⌨️ Teclado | Recorre la página solo con **Tab** y **Enter** | Llegas a todo y ves dónde está el foco |
-| 🖼️ Texto alternativo | F12 → inspecciona una imagen | Tiene `alt="…"` describiendo lo que muestra |
-| 🎨 Contraste | Lighthouse lo marca | El texto se lee bien sobre su fondo |
-| 🏷️ Formularios | Haz clic en el texto de una etiqueta | El cursor salta a su campo |
-| 🔍 Zoom | **Ctrl +** hasta el 200 % | No se corta ni se solapa nada |
-
-??? success "Qué hacer con el resultado"
-
-    Una nota alta de Lighthouse **no garantiza** que la web sea accesible: solo comprueba lo que se puede medir automáticamente. Por eso las comprobaciones a mano son imprescindibles, sobre todo la del **teclado**: muchas personas no pueden usar un ratón.
-
-    Recuerda por qué importa: desde el **28 de junio de 2025**, la Ley 11/2023 exige accesibilidad a muchos servicios digitales para consumidores.
 
 ---
 
-### Práctica 8 · Envía solo lo necesario
-
-La pantalla de «Mis pedidos» solo muestra el **nombre** del cliente. Compara lo que devuelve la API con lo que de verdad hace falta:
-
-```bash
-echo '{"id":1,"nombre":"Ana García","email":"ana@correo.es","telefono":"600123456","dni":"12345678Z","direccion":"Calle Mayor 1, Alcalá","fechaNacimiento":"1999-04-12","ultimoAcceso":"2026-11-08T10:15:00"}' > completo.json
-echo '{"id":1,"nombre":"Ana García"}' > necesario.json
-wc -c completo.json necesario.json
-```
-
-??? success "Salida y qué significa"
-
-    ```text
-    202 completo.json
-     32 necesario.json
-    ```
-
-    ```text
-    completo.json   ████████████████████████████████████████  202 bytes
-    necesario.json  ██████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░   32 bytes
-    ```
-
-    **84 % menos bytes** en cada petición. Pero lo importante es otra cosa: la respuesta completa enviaba **DNI, teléfono, dirección y fecha de nacimiento** que nadie iba a usar. Si esa respuesta se filtra, el daño es mucho mayor.
-
-    Es la **minimización de datos** del RGPD: un solo cambio mejora a la vez lo **ambiental** (bytes) y la **gobernanza** (privacidad).
-
----
-
-### Práctica 9 · La huella de ir a clase o a trabajar
-
-`bc` es una calculadora de terminal. Alguien vive a **12 km**, va **5 días** a la semana durante **42 semanas**:
-
-```bash
-echo "0.16 * 12 * 2 * 5 * 42" | bc     # coche
-echo "0.08 * 12 * 2 * 5 * 42" | bc     # autobús
-```
-
-??? success "Salida y qué significa"
-
-    ```text
-    806.40
-    403.20
-    ```
-
-    ```mermaid
-    xychart-beta
-        title "kg de CO₂ al año · 12 km · 5 días · 42 semanas"
-        x-axis ["Coche", "Moto", "Autobús", "Metro", "Bici"]
-        y-axis "kg al año" 0 --> 900
-        bar [806.4, 504, 403.2, 151.2, 0]
-    ```
-
-    - **Pasar del coche al autobús ahorra 403,2 kg al año**, la mitad.
-    - El fallo típico es olvidar el **× 2** de la vuelta: sale justo la mitad, y en un informe real eso lo invalida.
-
-    **Ahora tú:** cambia los números por tu trayecto real y calcula tu propia huella.
-
----
-
-## 3. Simulacro de examen
-
-> **Esta es la evaluación de la unidad.** Como la UT3 no usa Java, el simulacro es **solo un test de 30 preguntas**, y **las preguntas de RA3 del examen del trimestre salen de aquí**.
-
-```mermaid
-flowchart LR
-    S["Simulacro RA3"] --> T["Test<br/>30 preguntas"] --> N["Tu nota del RA3<br/>sobre 10"]
-```
-
-Hazlo **en 30 minutos**, sin mirar los apuntes. Tápate las respuestas, apunta las tuyas y corrige al final. Son preguntas **sencillas**: si has entendido la teoría y has hecho las prácticas, salen solas.
-
-#### A · Conceptos
-
-**1.** ¿Por qué una web más ligera es más sostenible?
-
-a) porque se ve más bonita · b) porque ocupa menos en el disco del programador · c) porque gasta menos red, menos servidor y menos batería · d) no tiene relación con la sostenibilidad
-
-??? success "Respuesta"
-
-    **c**. Menos bytes = menos energía en todo el camino.
-
-**2.** Hacer una web inaccesible para personas con discapacidad va contra el…
-
-a) ODS 10 · b) ODS 7 · c) ODS 13 · d) ODS 12
-
-??? success "Respuesta"
-
-    **a**. Reducción de las desigualdades.
-
-**3.** Una web tan pesada que obliga a cambiar de móvil para usarla va contra el…
-
-a) ODS 10 · b) ODS 16 · c) ODS 7 · d) ODS 12
-
-??? success "Respuesta"
-
-    **d**. Consumo y producción responsables.
-
-**4.** ¿Qué tipo de fichero **no** conviene comprimir con gzip?
-
-a) un CSS · b) una imagen JPEG · c) un JSON · d) un HTML
-
-??? success "Respuesta"
-
-    **b**. Ya viene comprimida: no ahorra nada y gasta CPU.
-
-**5.** ¿Por qué un JSON se comprime tanto?
-
-a) porque es pequeño · b) porque es binario · c) porque repite muchas veces las mismas claves y palabras · d) porque lo comprime el navegador
-
-??? success "Respuesta"
-
-    **c**. La compresión aprovecha las repeticiones.
-
-**6.** La cabecera con la que el **servidor** indica que envía la respuesta comprimida es…
-
-a) Content-Encoding · b) Accept-Encoding · c) Content-Type · d) Cache-Control
-
-??? success "Respuesta"
-
-    **a**. Accept-Encoding la envía el navegador.
-
-**7.** La cabecera con la que el **navegador** dice qué compresiones entiende es…
-
-a) Content-Encoding · b) Content-Length · c) Cache-Control · d) Accept-Encoding
-
-??? success "Respuesta"
-
-    **d**. Por ejemplo: Accept-Encoding: gzip, br.
-
-**8.** ¿Qué cabecera dice durante cuánto tiempo puede reutilizarse un recurso?
-
-a) Content-Type · b) Cache-Control · c) Content-Encoding · d) Accept-Encoding
-
-??? success "Respuesta"
-
-    **b**. Con la directiva max-age.
-
-**9.** ¿Qué formatos de imagen se recomiendan para aligerar una web?
-
-a) BMP y TIFF · b) PNG y GIF siempre · c) WebP y AVIF · d) ninguno: las imágenes no pesan
-
-??? success "Respuesta"
-
-    **c**. Pesan mucho menos con la misma calidad visible.
-
-**10.** Las pautas de accesibilidad web del W3C se llaman…
-
-a) WCAG · b) RGPD · c) ODS · d) HTTP
-
-??? success "Respuesta"
-
-    **a**. Versión actual: WCAG 2.2.
-
-**11.** Desde el 28 de junio de 2025 la accesibilidad es exigible a muchos servicios digitales para consumidores por la…
-
-a) Agenda 2030 · b) Ley de Cookies · c) Directiva de Ecodiseño · d) Ley 11/2023
-
-??? success "Respuesta"
-
-    **d**. Ley 11/2023.
-
-**12.** El principio del RGPD de tratar solo los datos necesarios se llama…
-
-a) portabilidad · b) minimización de datos · c) exactitud · d) anonimato
-
-??? success "Respuesta"
-
-    **b**. Menos datos: menos riesgo y menos bytes.
-
-#### B · Las herramientas
-
-**13.** Para ver el peso de una página en el navegador se usa…
-
-a) F5 → Ajustes · b) Ctrl + P · c) F12 → pestaña Red · d) el administrador de tareas
-
-??? success "Respuesta"
-
-    **c**. Y se recarga con Ctrl + F5 para no usar la caché.
-
-**14.** En la pestaña Red, «transferidos» mucho menor que «recursos» indica que…
-
-a) la web comprime bien · b) la web está rota · c) no hay caché · d) hay demasiadas imágenes
-
-??? success "Respuesta"
-
-    **a**. Transferidos es lo que viaja comprimido; recursos, lo descomprimido.
-
-**15.** ¿Qué hace `curl -I`?
-
-a) descarga las imágenes · b) instala curl · c) comprime un fichero · d) pide solo las cabeceras de la respuesta
-
-??? success "Respuesta"
-
-    **d**. Sin descargar el contenido.
-
-**16.** En `curl -s -o /dev/null -w "%{size_download}" URL`, ¿qué muestra el comando?
-
-a) el código HTML · b) los bytes descargados · c) las cabeceras · d) el tiempo de carga
-
-??? success "Respuesta"
-
-    **b**. -o /dev/null tira el contenido y -w escribe el tamaño.
-
-**17.** ¿Para qué sirve `gzip -k catalogo.json`?
-
-a) borra el fichero · b) descomprime el fichero · c) comprime el fichero y conserva el original · d) cuenta las líneas
-
-??? success "Respuesta"
-
-    **c**. -k significa keep: conservar.
-
-**18.** ¿Qué comando cuenta los bytes de un fichero?
-
-a) wc -c · b) ls -d · c) gzip -k · d) curl -I
-
-??? success "Respuesta"
-
-    **a**. c de caracteres (bytes).
-
-**19.** ¿Dónde se pasa un análisis de accesibilidad automático en Chrome?
-
-a) F12 → Consola · b) Ctrl + F5 · c) Configuración → Privacidad · d) F12 → Lighthouse
-
-??? success "Respuesta"
-
-    **d**. Marcando solo la categoría Accesibilidad.
-
-#### C · Calcular e interpretar
-
-**20.** Una página pasa de 27 885 bytes a 5 938 al comprimirla. La reducción es de aproximadamente…
-
-a) 21 % · b) 79 % · c) 5 % · d) 95 %
-
-??? success "Respuesta"
-
-    **b**. (27 885 − 5 938) ÷ 27 885 × 100 = 78,7 %.
-
-**21.** Al comprimir con gzip un fichero de datos aleatorios (como un JPEG) de 100 000 bytes, ocupa…
-
-a) la mitad · b) un 10 % · c) casi lo mismo o algo más · d) 0 bytes
-
-??? success "Respuesta"
-
-    **c**. En la práctica 4 creció a 100 047 bytes.
-
-**22.** `Cache-Control: max-age=3600` significa que el recurso puede reutilizarse…
-
-a) una hora · b) un día · c) un año · d) nunca
-
-??? success "Respuesta"
-
-    **a**. 3600 segundos.
-
-**23.** `Cache-Control: no-store, max-age=3600` significa que…
-
-a) se guarda una hora · b) se guarda un año · c) es un error del servidor · d) no se puede guardar: no-store gana
-
-??? success "Respuesta"
-
-    **d**. no-store prohíbe guardarlo.
-
-**24.** ¿Cómo se actualiza un CSS que tiene caché de 10 años e `immutable`?
-
-a) esperando 10 años · b) cambiándole el nombre al fichero · c) borrando la caché de cada usuario · d) no se puede actualizar
-
-??? success "Respuesta"
-
-    **b**. La huella del nombre cambia con el contenido.
-
-**25.** Con la ficha de puntos (−30 texto sin comprimir, −20 sin caché, −25 más de 500 kB), un JSON de 366 kB sin comprimir ni caché saca…
-
-a) 25 · b) 75 · c) 50 · d) 100
-
-??? success "Respuesta"
-
-    **c**. 100 − 30 − 20. No pasa de 500 kB.
-
-**26.** Con la misma ficha, un PNG de 780 kB con caché saca…
-
-a) 75 · b) 25 · c) 50 · d) 45
-
-??? success "Respuesta"
-
-    **a**. Solo resta por peso: un PNG no es texto.
-
-**27.** En la tienda de la práctica 6, ¿qué conviene arreglar **primero**?
-
-a) el CSS de 0,5 kB · b) el HTML de 1,2 kB · c) nada: la nota media es buena · d) la imagen de 780 kB
-
-??? success "Respuesta"
-
-    **d**. Es el 68 % del peso, aunque tenga la mejor nota.
-
-**28.** Una API devuelve 202 bytes por cliente cuando la pantalla solo necesita 32. Recortarla mejora…
-
-a) solo la privacidad · b) los bytes y la privacidad a la vez · c) solo los bytes · d) nada
-
-??? success "Respuesta"
-
-    **b**. Minimización de datos: ambiental y gobernanza.
-
-**29.** 12 km de ida en coche (0,16 kg/km), 5 días, 42 semanas emiten al año…
-
-a) 403,2 kg · b) 100,8 kg · c) 806,4 kg · d) 1612,8 kg
-
-??? success "Respuesta"
-
-    **c**. 0,16 × 12 × 2 × 5 × 42. 403,2 sería olvidar la vuelta.
-
-**30.** Ese mismo trayecto en autobús (0,08 kg/km) ahorra frente al coche…
-
-a) 403,2 kg · b) 806,4 kg · c) 0 kg · d) 201,6 kg
-
-??? success "Respuesta"
-
-    **a**. El autobús emite la mitad: 403,2 kg.
+## 5. Simulacro de examen
+
+> **Esta es la evaluación de la unidad.** Son 30 preguntas sobre lo que acabas de leer, y **las preguntas de RA3 del examen del trimestre salen de aquí**. Pulsa una respuesta en cada pregunta: el marcador lleva la cuenta y, al responder las 30, te da la **nota sobre 10**.
+
+<p class="quiz-marcador" data-grupo="simulacro"></p>
+
+<button class="quiz-reiniciar" data-grupo="simulacro">↺ Volver a empezar</button>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>1.</strong> Actuar de forma sostenible en el trabajo es tener en cuenta en cada decisión…</p>
+<button class="quiz-op" data-op="a">a) solo el coste</button>
+<button class="quiz-op" data-op="b">b) solo la velocidad</button>
+<button class="quiz-op" data-op="c">c) solo la opinión del cliente</button>
+<button class="quiz-op" data-op="d">d) el impacto ambiental, social y económico</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Las tres dimensiones de la sostenibilidad.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>2.</strong> ¿Por qué se dice que lo digital <strong>no</strong> es inmaterial?</p>
+<button class="quiz-op" data-op="a">a) porque se imprime</button>
+<button class="quiz-op" data-op="b">b) porque necesita centros de datos, redes y dispositivos que gastan recursos</button>
+<button class="quiz-op" data-op="c">c) porque ocupa espacio en el disco</button>
+<button class="quiz-op" data-op="d">d) porque los datos pesan</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. La nube es física: electricidad, agua y aparatos.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>3.</strong> En un móvil o un portátil, ¿qué suele contaminar más?</p>
+<button class="quiz-op" data-op="a">a) cargarlo un año</button>
+<button class="quiz-op" data-op="b">b) actualizarlo</button>
+<button class="quiz-op" data-op="c">c) fabricarlo</button>
+<button class="quiz-op" data-op="d">d) conectarlo al wifi</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Por eso alargar su vida es tan eficaz.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>4.</strong> Una mejora pequeña en una web visitada por millones de personas tiene un gran efecto. Esto se llama…</p>
+<button class="quiz-op" data-op="a">a) efecto multiplicador</button>
+<button class="quiz-op" data-op="b">b) efecto rebote</button>
+<button class="quiz-op" data-op="c">c) greenwashing</button>
+<button class="quiz-op" data-op="d">d) minimización</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Lo que haces se repite en cada visita.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>5.</strong> ¿En qué fase del desarrollo se decide qué datos personales hacen falta de verdad?</p>
+<button class="quiz-op" data-op="a">a) retirada</button>
+<button class="quiz-op" data-op="b">b) uso</button>
+<button class="quiz-op" data-op="c">c) pruebas</button>
+<button class="quiz-op" data-op="d">d) requisitos</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Antes de construir nada.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>6.</strong> Pedir solo los datos imprescindibles es el principio del RGPD llamado…</p>
+<button class="quiz-op" data-op="a">a) portabilidad</button>
+<button class="quiz-op" data-op="b">b) minimización de datos</button>
+<button class="quiz-op" data-op="c">c) transparencia</button>
+<button class="quiz-op" data-op="d">d) anonimato</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Menos datos: menos riesgo y menos bytes.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>7.</strong> ¿Qué es una buena práctica en la fase de <strong>pruebas y despliegue</strong>?</p>
+<button class="quiz-op" data-op="a">a) pedir el DNI a todos los usuarios</button>
+<button class="quiz-op" data-op="b">b) comprar móviles nuevos al equipo</button>
+<button class="quiz-op" data-op="c">c) apagar los entornos de pruebas cuando no se usan</button>
+<button class="quiz-op" data-op="d">d) imprimir el código</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Un servidor encendido sin uso gasta energía y dinero.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>8.</strong> Al <strong>retirar</strong> una aplicación hay que…</p>
+<button class="quiz-op" data-op="a">a) borrar los datos que ya no se necesitan y apagar sus servidores</button>
+<button class="quiz-op" data-op="b">b) dejarla encendida por si acaso</button>
+<button class="quiz-op" data-op="c">c) copiar los datos en otro sitio</button>
+<button class="quiz-op" data-op="d">d) no hacer nada</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Lo abandonado sigue consumiendo.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>9.</strong> ¿Qué formato de imagen ayuda a que una web pese menos?</p>
+<button class="quiz-op" data-op="a">a) BMP</button>
+<button class="quiz-op" data-op="b">b) TIFF</button>
+<button class="quiz-op" data-op="c">c) un PNG enorme</button>
+<button class="quiz-op" data-op="d">d) WebP</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Pesa menos con la misma calidad visible.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>10.</strong> ¿Qué se puede comprimir con buen resultado?</p>
+<button class="quiz-op" data-op="a">a) las fotos JPEG</button>
+<button class="quiz-op" data-op="b">b) el texto: HTML, CSS, JavaScript, JSON</button>
+<button class="quiz-op" data-op="c">c) los vídeos MP4</button>
+<button class="quiz-op" data-op="d">d) los ficheros ZIP</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Las imágenes y vídeos ya vienen comprimidos.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>11.</strong> La caché sirve para…</p>
+<button class="quiz-op" data-op="a">a) comprimir imágenes</button>
+<button class="quiz-op" data-op="b">b) borrar datos personales</button>
+<button class="quiz-op" data-op="c">c) no descargar dos veces el mismo fichero</button>
+<button class="quiz-op" data-op="d">d) hacer la web accesible</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. El navegador reutiliza lo que ya tiene.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>12.</strong> Las pautas internacionales de accesibilidad web se llaman…</p>
+<button class="quiz-op" data-op="a">a) WCAG</button>
+<button class="quiz-op" data-op="b">b) RGPD</button>
+<button class="quiz-op" data-op="c">c) ODS</button>
+<button class="quiz-op" data-op="d">d) CSS</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Web Content Accessibility Guidelines.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>13.</strong> ¿Qué ley española exige accesibilidad a muchos servicios digitales desde el 28 de junio de 2025?</p>
+<button class="quiz-op" data-op="a">a) la Ley de Cookies</button>
+<button class="quiz-op" data-op="b">b) la Agenda 2030</button>
+<button class="quiz-op" data-op="c">c) el RGPD</button>
+<button class="quiz-op" data-op="d">d) la Ley 11/2023</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Ley 11/2023.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>14.</strong> Un «patrón oscuro» es…</p>
+<button class="quiz-op" data-op="a">a) el modo oscuro de una app</button>
+<button class="quiz-op" data-op="b">b) un diseño que engaña al usuario para que haga algo que no quiere</button>
+<button class="quiz-op" data-op="c">c) un error de programación</button>
+<button class="quiz-op" data-op="d">d) un tipo de caché</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Es un problema ético y de gobernanza.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>15.</strong> En la empresa, enviar un <strong>enlace</strong> a un fichero compartido en vez de un adjunto pesado a mucha gente…</p>
+<button class="quiz-op" data-op="a">a) gasta más</button>
+<button class="quiz-op" data-op="b">b) es ilegal</button>
+<button class="quiz-op" data-op="c">c) evita guardar muchas copias</button>
+<button class="quiz-op" data-op="d">d) no cambia nada</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Cada adjunto es una copia en cada buzón.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>16.</strong> ¿Qué práctica con los equipos de la empresa es más sostenible?</p>
+<button class="quiz-op" data-op="a">a) alargar su vida, repararlos o usar reacondicionados</button>
+<button class="quiz-op" data-op="b">b) renovarlos cada año</button>
+<button class="quiz-op" data-op="c">c) tirarlos a la basura</button>
+<button class="quiz-op" data-op="d">d) dejarlos encendidos el fin de semana</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Fabricar es lo que más contamina.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>17.</strong> Una videollamada en lugar de un viaje para una reunión…</p>
+<button class="quiz-op" data-op="a">a) contamina más que el viaje</button>
+<button class="quiz-op" data-op="b">b) no tiene ningún efecto</button>
+<button class="quiz-op" data-op="c">c) está prohibida</button>
+<button class="quiz-op" data-op="d">d) evita las emisiones del desplazamiento</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Desplazarse es una de las mayores fuentes de emisiones.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>18.</strong> El derecho a la desconexión digital reconoce que…</p>
+<button class="quiz-op" data-op="a">a) la empresa puede llamarte siempre</button>
+<button class="quiz-op" data-op="b">b) no tienes que responder mensajes de trabajo fuera de tu horario</button>
+<button class="quiz-op" data-op="c">c) debes apagar el móvil en el trabajo</button>
+<button class="quiz-op" data-op="d">d) no puedes usar internet en casa</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Ley Orgánica 3/2018, artículo 88.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>19.</strong> Para una empresa, un <strong>riesgo</strong> relacionado con los ODS es…</p>
+<button class="quiz-op" data-op="a">a) algo que la beneficia si actúa</button>
+<button class="quiz-op" data-op="b">b) un objetivo de la ONU</button>
+<button class="quiz-op" data-op="c">c) algo que puede dañarla si no actúa</button>
+<button class="quiz-op" data-op="d">d) un tipo de rating</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Multas, mala imagen, costes, pérdida de clientes…</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>20.</strong> Para una empresa, una <strong>oportunidad</strong> relacionada con los ODS es…</p>
+<button class="quiz-op" data-op="a">a) algo que puede beneficiarla si actúa</button>
+<button class="quiz-op" data-op="b">b) algo que la daña si no actúa</button>
+<button class="quiz-op" data-op="c">c) una sanción</button>
+<button class="quiz-op" data-op="d">d) una ley</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Ahorro, nuevos clientes, talento, nuevos productos…</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>21.</strong> Una multa por no cumplir el RGPD es un riesgo…</p>
+<button class="quiz-op" data-op="a">a) operativo</button>
+<button class="quiz-op" data-op="b">b) de talento</button>
+<button class="quiz-op" data-op="c">c) de producto</button>
+<button class="quiz-op" data-op="d">d) legal</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Viene del incumplimiento de una norma.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>22.</strong> Anunciarse como «empresa verde» sin datos y que se descubra es un riesgo…</p>
+<button class="quiz-op" data-op="a">a) operativo</button>
+<button class="quiz-op" data-op="b">b) reputacional</button>
+<button class="quiz-op" data-op="c">c) legal únicamente</button>
+<button class="quiz-op" data-op="d">d) de mercado</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Es greenwashing y daña la imagen.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>23.</strong> Que suba el precio de la electricidad y crezca la factura de los servidores es un riesgo…</p>
+<button class="quiz-op" data-op="a">a) legal</button>
+<button class="quiz-op" data-op="b">b) reputacional</button>
+<button class="quiz-op" data-op="c">c) económico</button>
+<button class="quiz-op" data-op="d">d) de talento</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Afecta directamente a los costes.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>24.</strong> Gastar menos servidores gracias a un código más eficiente es una oportunidad de…</p>
+<button class="quiz-op" data-op="a">a) ahorro</button>
+<button class="quiz-op" data-op="b">b) riesgo legal</button>
+<button class="quiz-op" data-op="c">c) greenwashing</button>
+<button class="quiz-op" data-op="d">d) talento</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. Menos energía y menos factura.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>25.</strong> Desarrollar una app de compraventa de segunda mano es una oportunidad de producto relacionada con el…</p>
+<button class="quiz-op" data-op="a">a) ODS 16 · Instituciones</button>
+<button class="quiz-op" data-op="b">b) ODS 5 · Igualdad de género</button>
+<button class="quiz-op" data-op="c">c) ODS 7 · Energía</button>
+<button class="quiz-op" data-op="d">d) ODS 12 · Consumo responsable</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. Alarga la vida de los objetos.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>26.</strong> Una web inaccesible deja fuera a personas con discapacidad. Va contra el…</p>
+<button class="quiz-op" data-op="a">a) ODS 13 · Clima</button>
+<button class="quiz-op" data-op="b">b) ODS 10 · Reducción de las desigualdades</button>
+<button class="quiz-op" data-op="c">c) ODS 9 · Industria</button>
+<button class="quiz-op" data-op="d">d) ODS 7 · Energía</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Y además es un riesgo legal.</p>
+</div>
+
+<div class="quiz" data-correcta="c" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>27.</strong> Ofrecer formación continua a la plantilla se relaciona con el…</p>
+<button class="quiz-op" data-op="a">a) ODS 13 · Clima</button>
+<button class="quiz-op" data-op="b">b) ODS 12 · Consumo responsable</button>
+<button class="quiz-op" data-op="c">c) ODS 4 · Educación de calidad</button>
+<button class="quiz-op" data-op="d">d) ODS 16 · Instituciones</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>c</strong>. Una plantilla sin formación se queda atrás.</p>
+</div>
+
+<div class="quiz" data-correcta="a" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>28.</strong> La fórmula de la huella anual de ir a trabajar es…</p>
+<button class="quiz-op" data-op="a">a) factor × km de ida × 2 × días por semana × semanas</button>
+<button class="quiz-op" data-op="b">b) factor × km de ida × días</button>
+<button class="quiz-op" data-op="c">c) km × semanas</button>
+<button class="quiz-op" data-op="d">d) factor ÷ km</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>a</strong>. El × 2 es la vuelta.</p>
+</div>
+
+<div class="quiz" data-correcta="d" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>29.</strong> 12 km de ida en coche (0,16 kg/km), 5 días, 42 semanas: ¿cuánto se emite al año?</p>
+<button class="quiz-op" data-op="a">a) 403,2 kg</button>
+<button class="quiz-op" data-op="b">b) 100,8 kg</button>
+<button class="quiz-op" data-op="c">c) 1612,8 kg</button>
+<button class="quiz-op" data-op="d">d) 806,4 kg</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>d</strong>. 0,16 × 12 × 2 × 5 × 42. 403,2 es olvidar la vuelta.</p>
+</div>
+
+<div class="quiz" data-correcta="b" data-grupo="simulacro">
+<p class="quiz-enunciado"><strong>30.</strong> Un aparato electrónico que ya no sirve se lleva…</p>
+<button class="quiz-op" data-op="a">a) al contenedor de basura normal</button>
+<button class="quiz-op" data-op="b">b) a un punto limpio o a la tienda</button>
+<button class="quiz-op" data-op="c">c) al contenedor amarillo</button>
+<button class="quiz-op" data-op="d">d) a ningún sitio</button>
+<p class="quiz-expl"><span class="quiz-veredicto"></span>Respuesta correcta: <strong>b</strong>. Solo una parte pequeña de los residuos electrónicos se recoge bien.</p>
+</div>
 
 ### Tu nota del simulacro
 
@@ -777,4 +801,4 @@ a) 403,2 kg · b) 806,4 kg · c) 0 kg · d) 201,6 kg
 nota RA3 = aciertos ÷ 30 × 10
 ```
 
-Si sale por debajo de 5, repite las prácticas de la unidad antes del examen del trimestre.
+Si sale por debajo de 5, vuelve a leer los apartados en los que más has fallado y repite el simulacro con el botón **↺ Volver a empezar**.

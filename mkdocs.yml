@@ -33,12 +33,18 @@ nav:
   - Unidades:
       - 1 · Sostenibilidad, ODS y ASG: ut1/index.md
       - 2 · Retos ambientales y energía: ut2/index.md
-      - 3 · Tu trabajo y tu vida: ut3/index.md
+      - 3 · Desempeño profesional y personal: ut3/index.md
       - 4 · Economía circular: ut4/index.md
       - 5 · Huella del software: ut5/index.md
       - 6 · Plan de sostenibilidad: ut6/index.md
   - Simulacro del trimestre: simulacros.md
   - Cómo se evalúa: evaluacion.md
+
+extra_css:
+  - stylesheets/autoevaluacion.css
+
+extra_javascript:
+  - javascripts/autoevaluacion.js
 
 plugins:
   - search:

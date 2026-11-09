@@ -23,7 +23,7 @@ cd proyecto
 mvn test
 ```
 
-Verás **192 tests y 192 fallos** (124 de las unidades y 68 de los simulacros). Es lo correcto: todos los métodos están sin hacer.
+Verás **todos los tests en rojo**. Es lo correcto: todos los métodos están sin hacer.
 
 ## El ciclo de trabajo
 
@@ -53,7 +53,6 @@ proyecto/
     ├── main/java/sostenibilidad/
     │   ├── Ut1Asg.java        ← tus 8 métodos de la UT1
     │   ├── Ut2Energia.java
-    │   ├── Ut3Desarrollo.java
     │   ├── Ut4Circular.java
     │   ├── Ut5Huella.java
     │   └── Ut6Plan.java

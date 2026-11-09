@@ -318,7 +318,7 @@ Y el rating sale de esa nota: **≥ 85 AAA · ≥ 70 AA · ≥ 55 A · ≥ 40 BB
 ```mermaid
 flowchart LR
     S["Simulacro RA1"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
-    S --> T["Banco de preguntas<br/>60 preguntas · el examen elige 4"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
     P --> N["Tu nota del RA1<br/>sobre 10"]
     T --> N
 ```
@@ -340,9 +340,7 @@ nota práctica = (tests superados ÷ 13) × 8
 
 ### Banco de preguntas · 2 puntos
 
-En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. El banco tiene **60 preguntas**: tápate las respuestas y hazlas todas. Si las dominas, tienes el test del examen preparado.
-
-Son preguntas **sencillas**: si has entendido la teoría y has hecho la batería, salen solas. Los cálculos llevan números redondos y se hacen de cabeza.
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Tápate las respuestas y hazlas todas: si las dominas, tienes el test del examen preparado.
 
 #### A · Conceptos
 
@@ -378,15 +376,7 @@ a) Gestión · b) Gasto · c) Garantía · d) Gobernanza
 
     **d**. Cómo se dirige y controla la empresa.
 
-**5.** La gobernanza mide…
-
-a) cómo se dirige y controla la empresa: ética, transparencia y cumplimiento · b) cuánto factura la empresa · c) cuánta energía consume · d) cuántas personas tiene en plantilla
-
-??? success "Respuesta"
-
-    **a**. Es la dimensión económica del desarrollo sostenible vista desde dentro de la empresa.
-
-**6.** La Agenda 2030 de la ONU fija…
+**5.** La Agenda 2030 de la ONU fija…
 
 a) 10 ODS · b) 17 ODS · c) 169 ODS · d) 30 ODS
 
@@ -394,7 +384,7 @@ a) 10 ODS · b) 17 ODS · c) 169 ODS · d) 30 ODS
 
     **b**. 17 objetivos y 169 metas. 169 son las metas, no los objetivos.
 
-**7.** ¿Qué ODS trata la **acción por el clima**?
+**6.** ¿Qué ODS trata la **acción por el clima**?
 
 a) ODS 7 · b) ODS 10 · c) ODS 16 · d) ODS 13
 
@@ -402,15 +392,7 @@ a) ODS 7 · b) ODS 10 · c) ODS 16 · d) ODS 13
 
     **d**. El 7 es energía, el 10 desigualdades y el 16 transparencia e instituciones.
 
-**8.** ¿Qué ODS trata la **energía**?
-
-a) ODS 7 · b) ODS 12 · c) ODS 13 · d) ODS 16
-
-??? success "Respuesta"
-
-    **a**. Energía asequible y no contaminante.
-
-**9.** Hacer una web accesible para personas con discapacidad conecta sobre todo con el…
+**7.** Hacer una web accesible para personas con discapacidad conecta sobre todo con el…
 
 a) ODS 13 · b) ODS 7 · c) ODS 10 · d) ODS 16
 
@@ -418,7 +400,7 @@ a) ODS 13 · b) ODS 7 · c) ODS 10 · d) ODS 16
 
     **c**. Reducción de las desigualdades, que incluye la accesibilidad.
 
-**10.** Una empresa se anuncia como «empresa verde» sin aportar ningún dato. Eso es…
+**8.** Una empresa se anuncia como «empresa verde» sin aportar ningún dato. Eso es…
 
 a) un indicador ASG · b) greenwashing · c) un rating · d) una meta
 
@@ -426,55 +408,7 @@ a) un indicador ASG · b) greenwashing · c) un rating · d) una meta
 
     **b**. Toda cifra lleva su fuente; sin datos, es greenwashing.
 
-**11.** El Informe Brundtland, que definió el desarrollo sostenible, es de…
-
-a) 2015 · b) 2000 · c) 1987 · d) 1992
-
-??? success "Respuesta"
-
-    **c**. La Agenda 2030 es de 2015.
-
-**12.** La Agenda 2030 la aprobó…
-
-a) la ONU, en 2015 · b) la Unión Europea, en 2020 · c) el Gobierno de España, en 2030 · d) las agencias de rating
-
-??? success "Respuesta"
-
-    **a**. Naciones Unidas, 2015.
-
-**13.** ¿Cuántas **metas** tiene la Agenda 2030?
-
-a) 17 · b) 30 · c) 2030 · d) 169
-
-??? success "Respuesta"
-
-    **d**. 17 objetivos (ODS) y 169 metas.
-
-**14.** El ODS 12 trata…
-
-a) el clima · b) la producción y el consumo responsables · c) la energía · d) la igualdad de género
-
-??? success "Respuesta"
-
-    **b**. Por ejemplo: alargar la vida de los equipos informáticos.
-
-**15.** El ODS 16 trata…
-
-a) la energía · b) el agua · c) la transparencia y las instituciones · d) el clima
-
-??? success "Respuesta"
-
-    **c**. Paz, justicia e instituciones sólidas: transparencia y datos abiertos.
-
-**16.** Alargar la vida de los ordenadores en lugar de cambiarlos conecta sobre todo con el…
-
-a) ODS 12 · b) ODS 16 · c) ODS 10 · d) ODS 7
-
-??? success "Respuesta"
-
-    **a**. Consumo responsable.
-
-**17.** Toda cifra de sostenibilidad que publique una empresa debe ir acompañada de…
+**9.** Toda cifra de sostenibilidad que publique una empresa debe ir acompañada de…
 
 a) un logotipo verde · b) un rating · c) una foto · d) su fuente
 
@@ -482,7 +416,7 @@ a) un logotipo verde · b) un rating · c) una foto · d) su fuente
 
     **d**. Sin fuente, no se puede comprobar.
 
-**18.** Greenwashing es…
+**10.** Greenwashing es…
 
 a) reciclar el papel · b) aparentar ser más sostenible de lo que se es · c) un tipo de rating · d) un ODS
 
@@ -492,7 +426,7 @@ a) reciclar el papel · b) aparentar ser más sostenible de lo que se es · c) u
 
 #### B · Indicadores: dimensión y dirección
 
-**19.** «Porcentaje de electricidad renovable del centro de datos» es un indicador…
+**11.** «Porcentaje de electricidad renovable del centro de datos» es un indicador…
 
 a) social · b) de gobernanza · c) ambiental · d) que no es ASG
 
@@ -500,7 +434,7 @@ a) social · b) de gobernanza · c) ambiental · d) que no es ASG
 
     **c**. Mide energía.
 
-**20.** «Brecha salarial de género» es un indicador…
+**12.** «Brecha salarial de género» es un indicador…
 
 a) social · b) ambiental · c) de gobernanza · d) que no es ASG
 
@@ -508,7 +442,7 @@ a) social · b) ambiental · c) de gobernanza · d) que no es ASG
 
     **a**. Mide igualdad entre personas de la plantilla.
 
-**21.** «Porcentaje de la plantilla formada en el código ético» es un indicador…
+**13.** «Porcentaje de la plantilla formada en el código ético» es un indicador…
 
 a) ambiental · b) social · c) que no es ASG · d) de gobernanza
 
@@ -516,15 +450,7 @@ a) ambiental · b) social · c) que no es ASG · d) de gobernanza
 
     **d**. Mide ética y cumplimiento.
 
-**22.** «Porcentaje de consejeros independientes» es un indicador…
-
-a) ambiental · b) de gobernanza · c) social · d) que no es ASG
-
-??? success "Respuesta"
-
-    **b**. Mide cómo se dirige y controla la empresa.
-
-**23.** ¿En cuál de estos indicadores conviene que el número **baje**?
+**14.** ¿En cuál de estos indicadores conviene que el número **baje**?
 
 a) % de electricidad renovable · b) horas de formación por persona · c) % de plantilla formada · d) toneladas de CO₂ emitidas
 
@@ -532,7 +458,7 @@ a) % de electricidad renovable · b) horas de formación por persona · c) % de 
 
     **d**. Es un indicador de «menor es mejor».
 
-**24.** Las emisiones de una empresa pasan de 380 t a 410 t. El indicador…
+**15.** Las emisiones de una empresa pasan de 380 t a 410 t. El indicador…
 
 a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
@@ -540,7 +466,7 @@ a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
     **b**. Sube un indicador de «menor es mejor».
 
-**25.** La brecha salarial pasa del 11 % al 9 %. El indicador…
+**16.** La brecha salarial pasa del 11 % al 9 %. El indicador…
 
 a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
@@ -548,15 +474,7 @@ a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
 
     **a**. Baja un indicador de «menor es mejor».
 
-**26.** Que el número de un indicador suba, ¿es siempre una buena noticia?
-
-a) sí, siempre · b) solo en la dimensión social · c) no: depende de si en ese indicador mayor o menor es mejor · d) solo si tiene meta
-
-??? success "Respuesta"
-
-    **c**. Por eso el método `cumplimiento` lleva el parámetro `mayorEsMejor`.
-
-**27.** «Horas de formación por persona» es un indicador…
+**17.** «Horas de formación por persona» es un indicador…
 
 a) ambiental · b) de gobernanza · c) social · d) que no es ASG
 
@@ -564,7 +482,7 @@ a) ambiental · b) de gobernanza · c) social · d) que no es ASG
 
     **c**. Mide formación de la plantilla.
 
-**28.** «Agua reciclada en la refrigeración» es un indicador…
+**18.** «Agua reciclada en la refrigeración» es un indicador…
 
 a) ambiental · b) social · c) de gobernanza · d) que no es ASG
 
@@ -572,23 +490,7 @@ a) ambiental · b) social · c) de gobernanza · d) que no es ASG
 
     **a**. Mide uso de agua.
 
-**29.** «Web conforme a las normas de accesibilidad (WCAG)» es un indicador…
-
-a) ambiental · b) de gobernanza · c) que no es ASG · d) social
-
-??? success "Respuesta"
-
-    **d**. La accesibilidad es igualdad de acceso para las personas.
-
-**30.** «Existencia de una política anticorrupción» es un indicador…
-
-a) social · b) de gobernanza · c) ambiental · d) que no es ASG
-
-??? success "Respuesta"
-
-    **b**. Mide ética y cumplimiento.
-
-**31.** Las horas de formación por persona pasan de 24 a 28. El indicador…
+**19.** Las horas de formación por persona pasan de 24 a 28. El indicador…
 
 a) ha empeorado · b) no ha cambiado · c) ha mejorado · d) no se puede saber
 
@@ -596,17 +498,9 @@ a) ha empeorado · b) no ha cambiado · c) ha mejorado · d) no se puede saber
 
     **c**. Sube un indicador de «mayor es mejor».
 
-**32.** Los residuos enviados al vertedero pasan de 50 t a 40 t. El indicador…
+#### C · Cálculos
 
-a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
-
-??? success "Respuesta"
-
-    **a**. Baja un indicador de «menor es mejor».
-
-#### C · Cálculos sencillos
-
-**33.** Mayor es mejor. Meta 100 %, valor 50 %. El cumplimiento es…
+**20.** Mayor es mejor. Meta 100 %, valor 50 %. El cumplimiento es…
 
 a) 0,5 · b) 2,0 · c) 50 · d) 1,0
 
@@ -614,7 +508,7 @@ a) 0,5 · b) 2,0 · c) 50 · d) 1,0
 
     **a**. valor / meta = 50 / 100.
 
-**34.** Mayor es mejor. Meta 80, valor 100. El cumplimiento es…
+**21.** Mayor es mejor. Meta 80, valor 100. El cumplimiento es…
 
 a) 1,25 · b) 0,8 · c) 0,2 · d) 1,0
 
@@ -622,7 +516,7 @@ a) 1,25 · b) 0,8 · c) 0,2 · d) 1,0
 
     **d**. 100 / 80 = 1,25, pero se corta en 1,0: la meta está conseguida.
 
-**35.** Menor es mejor. Meta 400 t y se emiten 300 t. El cumplimiento es…
+**22.** Menor es mejor. Meta 400 t y se emiten 300 t. El cumplimiento es…
 
 a) 0,75 · b) 1,0 · c) 1,33 · d) 0,0
 
@@ -630,39 +524,7 @@ a) 0,75 · b) 1,0 · c) 1,33 · d) 0,0
 
     **b**. Está por debajo de la meta: cumplida.
 
-**36.** Menor es mejor. Meta 200 t y se emiten 400 t. El cumplimiento es…
-
-a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
-
-??? success "Respuesta"
-
-    **c**. Se ha pasado, así que se divide al revés: meta / valor = 200 / 400.
-
-**37.** Meta «cero accidentes» y ha habido 3. El cumplimiento es…
-
-a) 0,33 · b) 1,0 · c) excepción · d) 0,0
-
-??? success "Respuesta"
-
-    **d**. Con meta 0 es todo o nada: cualquier valor por encima da 0.
-
-**38.** Los indicadores de una dimensión tienen cumplimientos 1,0 · 0,8 · 0,6. Su puntuación es…
-
-a) 80,0 · b) 0,8 · c) 2,4 · d) 240
-
-??? success "Respuesta"
-
-    **a**. Media 0,8, multiplicada por 100.
-
-**39.** A = 100, S = 50, G = 50, con pesos 0,4 / 0,3 / 0,3. La nota global es…
-
-a) 66,7 · b) 60,0 · c) 70,0 · d) 75,0
-
-??? success "Respuesta"
-
-    **c**. 40 + 15 + 15. La a) sería la media simple.
-
-**40.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A, una nota global de 70 tiene rating…
+**23.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A, una nota global de 70 tiene rating…
 
 a) AAA · b) AA · c) A · d) BBB
 
@@ -670,7 +532,7 @@ a) AAA · b) AA · c) A · d) BBB
 
     **b**. AA empieza justo en 70.
 
-**41.** Mayor es mejor. Meta 50 y valor 25. El cumplimiento es…
+**24.** Mayor es mejor. Meta 50 y valor 25. El cumplimiento es…
 
 a) 2,0 · b) 25 · c) 1,0 · d) 0,5
 
@@ -678,7 +540,7 @@ a) 2,0 · b) 25 · c) 1,0 · d) 0,5
 
     **d**. valor / meta = 25 / 50.
 
-**42.** Menor es mejor. Meta 100 t y se emiten exactamente 100 t. El cumplimiento es…
+**25.** Menor es mejor. Meta 100 t y se emiten exactamente 100 t. El cumplimiento es…
 
 a) 0,0 · b) 1,0 · c) 0,5 · d) 100
 
@@ -686,15 +548,7 @@ a) 0,0 · b) 1,0 · c) 0,5 · d) 100
 
     **b**. Estar justo en la meta es cumplirla.
 
-**43.** Menor es mejor. Meta 300 t y se emiten 600 t. El cumplimiento es…
-
-a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
-
-??? success "Respuesta"
-
-    **c**. Se ha pasado: meta / valor = 300 / 600. Emitir el doble de lo permitido da 0,5.
-
-**44.** Meta «cero accidentes» y no ha habido ninguno. El cumplimiento es…
+**26.** Meta «cero accidentes» y no ha habido ninguno. El cumplimiento es…
 
 a) 1,0 · b) 0,0 · c) excepción · d) no se puede calcular
 
@@ -702,7 +556,7 @@ a) 1,0 · b) 0,0 · c) excepción · d) no se puede calcular
 
     **a**. Valor ≤ meta: cumplida.
 
-**45.** Una dimensión con un solo indicador de cumplimiento 0,91 tiene una puntuación de…
+**27.** Una dimensión con un solo indicador de cumplimiento 0,91 tiene una puntuación de…
 
 a) 0,91 · b) 9,1 · c) 100 · d) 91,0
 
@@ -710,7 +564,197 @@ a) 0,91 · b) 9,1 · c) 100 · d) 91,0
 
     **d**. Media 0,91 × 100.
 
-**46.** Una dimensión **sin indicadores** (array vacío) tiene una puntuación de…
+#### D · Interpretar el resultado
+
+**28.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de 0,75 es…
+
+a) VERDE · b) ROJO · c) ÁMBAR · d) depende de la dimensión
+
+??? success "Respuesta"
+
+    **c**. Está entre 0,70 y 0,90.
+
+**29.** Una empresa saca un rating **AA**, pero tiene la brecha salarial en **rojo**. ¿Qué conclusión es correcta?
+
+a) va bien, porque el rating es alto · b) el rating está mal calculado · c) la nota global puede esconder un indicador muy débil: hay que mirar el detalle · d) lo social no cuenta en el rating
+
+??? success "Respuesta"
+
+    **c**. La acción prioritaria no es la que sale en la portada.
+
+**30.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de exactamente 0,90 es…
+
+a) ÁMBAR · b) ROJO · c) VERDE · d) depende
+
+??? success "Respuesta"
+
+    **c**. El verde empieza **en** 0,90.
+
+### Tu nota del simulacro
+
+```text
+nota RA1 = (tests superados ÷ 13) × 8  +  aciertos en 4 preguntas × 0,5
+```
+
+Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.
+
+---
+
+## 4. Ampliación · 30 preguntas más
+
+> Más preguntas de la unidad para seguir practicando. Mismo formato: tápate las respuestas y corrige al final.
+
+#### A · Conceptos
+
+**31.** La gobernanza mide…
+
+a) cómo se dirige y controla la empresa: ética, transparencia y cumplimiento · b) cuánto factura la empresa · c) cuánta energía consume · d) cuántas personas tiene en plantilla
+
+??? success "Respuesta"
+
+    **a**. Es la dimensión económica del desarrollo sostenible vista desde dentro de la empresa.
+
+**32.** ¿Qué ODS trata la **energía**?
+
+a) ODS 7 · b) ODS 12 · c) ODS 13 · d) ODS 16
+
+??? success "Respuesta"
+
+    **a**. Energía asequible y no contaminante.
+
+**33.** El Informe Brundtland, que definió el desarrollo sostenible, es de…
+
+a) 2015 · b) 2000 · c) 1987 · d) 1992
+
+??? success "Respuesta"
+
+    **c**. La Agenda 2030 es de 2015.
+
+**34.** La Agenda 2030 la aprobó…
+
+a) la ONU, en 2015 · b) la Unión Europea, en 2020 · c) el Gobierno de España, en 2030 · d) las agencias de rating
+
+??? success "Respuesta"
+
+    **a**. Naciones Unidas, 2015.
+
+**35.** ¿Cuántas **metas** tiene la Agenda 2030?
+
+a) 17 · b) 30 · c) 2030 · d) 169
+
+??? success "Respuesta"
+
+    **d**. 17 objetivos (ODS) y 169 metas.
+
+**36.** El ODS 12 trata…
+
+a) el clima · b) la producción y el consumo responsables · c) la energía · d) la igualdad de género
+
+??? success "Respuesta"
+
+    **b**. Por ejemplo: alargar la vida de los equipos informáticos.
+
+**37.** El ODS 16 trata…
+
+a) la energía · b) el agua · c) la transparencia y las instituciones · d) el clima
+
+??? success "Respuesta"
+
+    **c**. Paz, justicia e instituciones sólidas: transparencia y datos abiertos.
+
+**38.** Alargar la vida de los ordenadores en lugar de cambiarlos conecta sobre todo con el…
+
+a) ODS 12 · b) ODS 16 · c) ODS 10 · d) ODS 7
+
+??? success "Respuesta"
+
+    **a**. Consumo responsable.
+
+#### B · Indicadores: dimensión y dirección
+
+**39.** «Porcentaje de consejeros independientes» es un indicador…
+
+a) ambiental · b) de gobernanza · c) social · d) que no es ASG
+
+??? success "Respuesta"
+
+    **b**. Mide cómo se dirige y controla la empresa.
+
+**40.** Que el número de un indicador suba, ¿es siempre una buena noticia?
+
+a) sí, siempre · b) solo en la dimensión social · c) no: depende de si en ese indicador mayor o menor es mejor · d) solo si tiene meta
+
+??? success "Respuesta"
+
+    **c**. Por eso el método `cumplimiento` lleva el parámetro `mayorEsMejor`.
+
+**41.** «Web conforme a las normas de accesibilidad (WCAG)» es un indicador…
+
+a) ambiental · b) de gobernanza · c) que no es ASG · d) social
+
+??? success "Respuesta"
+
+    **d**. La accesibilidad es igualdad de acceso para las personas.
+
+**42.** «Existencia de una política anticorrupción» es un indicador…
+
+a) social · b) de gobernanza · c) ambiental · d) que no es ASG
+
+??? success "Respuesta"
+
+    **b**. Mide ética y cumplimiento.
+
+**43.** Los residuos enviados al vertedero pasan de 50 t a 40 t. El indicador…
+
+a) ha mejorado · b) ha empeorado · c) no ha cambiado · d) no se puede saber
+
+??? success "Respuesta"
+
+    **a**. Baja un indicador de «menor es mejor».
+
+#### C · Cálculos
+
+**44.** Menor es mejor. Meta 200 t y se emiten 400 t. El cumplimiento es…
+
+a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
+
+??? success "Respuesta"
+
+    **c**. Se ha pasado, así que se divide al revés: meta / valor = 200 / 400.
+
+**45.** Meta «cero accidentes» y ha habido 3. El cumplimiento es…
+
+a) 0,33 · b) 1,0 · c) excepción · d) 0,0
+
+??? success "Respuesta"
+
+    **d**. Con meta 0 es todo o nada: cualquier valor por encima da 0.
+
+**46.** Los indicadores de una dimensión tienen cumplimientos 1,0 · 0,8 · 0,6. Su puntuación es…
+
+a) 80,0 · b) 0,8 · c) 2,4 · d) 240
+
+??? success "Respuesta"
+
+    **a**. Media 0,8, multiplicada por 100.
+
+**47.** A = 100, S = 50, G = 50, con pesos 0,4 / 0,3 / 0,3. La nota global es…
+
+a) 66,7 · b) 60,0 · c) 70,0 · d) 75,0
+
+??? success "Respuesta"
+
+    **c**. 40 + 15 + 15. La a) sería la media simple.
+
+**48.** Menor es mejor. Meta 300 t y se emiten 600 t. El cumplimiento es…
+
+a) 2,0 · b) 1,0 · c) 0,5 · d) 0,0
+
+??? success "Respuesta"
+
+    **c**. Se ha pasado: meta / valor = 300 / 600. Emitir el doble de lo permitido da 0,5.
+
+**49.** Una dimensión **sin indicadores** (array vacío) tiene una puntuación de…
 
 a) 100,0 · b) 0,0 · c) excepción · d) 50,0
 
@@ -718,7 +762,7 @@ a) 100,0 · b) 0,0 · c) excepción · d) 50,0
 
     **b**. Una dimensión sin indicadores no ha demostrado nada.
 
-**47.** A = 50, S = 80, G = 90, con pesos 0,4 / 0,3 / 0,3. La nota global es…
+**50.** A = 50, S = 80, G = 90, con pesos 0,4 / 0,3 / 0,3. La nota global es…
 
 a) 73,3 · b) 80,0 · c) 71,0 · d) 66,7
 
@@ -726,7 +770,7 @@ a) 73,3 · b) 80,0 · c) 71,0 · d) 66,7
 
     **c**. 20 + 24 + 27. 73,3 sería la media simple.
 
-**48.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A · ≥ 40 BBB · ≥ 25 BB · resto B, una nota de 85 tiene rating…
+**51.** Con los tramos ≥ 85 AAA · ≥ 70 AA · ≥ 55 A · ≥ 40 BBB · ≥ 25 BB · resto B, una nota de 85 tiene rating…
 
 a) AAA · b) AA · c) A · d) BBB
 
@@ -734,7 +778,7 @@ a) AAA · b) AA · c) A · d) BBB
 
     **a**. AAA empieza justo en 85.
 
-**49.** Con los mismos tramos, una nota de 54 tiene rating…
+**52.** Con los mismos tramos, una nota de 54 tiene rating…
 
 a) A · b) BB · c) AA · d) BBB
 
@@ -742,7 +786,7 @@ a) A · b) BB · c) AA · d) BBB
 
     **d**. No llega a 55 (A), pero pasa de 40.
 
-**50.** Con los mismos tramos, una nota de 20 tiene rating…
+**53.** Con los mismos tramos, una nota de 20 tiene rating…
 
 a) BB · b) B · c) BBB · d) no tiene rating
 
@@ -752,15 +796,7 @@ a) BB · b) B · c) BBB · d) no tiene rating
 
 #### D · Interpretar el resultado
 
-**51.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de 0,75 es…
-
-a) VERDE · b) ROJO · c) ÁMBAR · d) depende de la dimensión
-
-??? success "Respuesta"
-
-    **c**. Está entre 0,70 y 0,90.
-
-**52.** ¿Por qué el cumplimiento tiene un tope de 1,0?
+**54.** ¿Por qué el cumplimiento tiene un tope de 1,0?
 
 a) para no dividir entre cero · b) para que un indicador espectacular no tape a otros malos · c) porque Java no admite valores mayores · d) para redondear
 
@@ -768,29 +804,13 @@ a) para no dividir entre cero · b) para que un indicador espectacular no tape a
 
     **b**. No existe el «119 % conseguido».
 
-**53.** Una empresa saca un rating **AA**, pero tiene la brecha salarial en **rojo**. ¿Qué conclusión es correcta?
-
-a) va bien, porque el rating es alto · b) el rating está mal calculado · c) la nota global puede esconder un indicador muy débil: hay que mirar el detalle · d) lo social no cuenta en el rating
-
-??? success "Respuesta"
-
-    **c**. La acción prioritaria no es la que sale en la portada.
-
-**54.** Dos agencias dan ratings distintos a la misma empresa. Lo más probable es que…
+**55.** Dos agencias dan ratings distintos a la misma empresa. Lo más probable es que…
 
 a) usen indicadores o pesos distintos · b) una de las dos mienta · c) sea aleatorio · d) los ratings no sirvan para nada
 
 ??? success "Respuesta"
 
     **a**. Por eso las agencias publican su metodología.
-
-**55.** Con el semáforo VERDE ≥ 0,90 · ÁMBAR ≥ 0,70 · ROJO por debajo, un cumplimiento de exactamente 0,90 es…
-
-a) ÁMBAR · b) ROJO · c) VERDE · d) depende
-
-??? success "Respuesta"
-
-    **c**. El verde empieza **en** 0,90.
 
 **56.** El método `semaforo` recibe 1,2. ¿Qué debe hacer?
 
@@ -831,11 +851,3 @@ a) un rating no se entiende sin saber cómo se pondera · b) la media simple est
 ??? success "Respuesta"
 
     **a**. Por eso las agencias publican su metodología.
-
-### Tu nota del simulacro
-
-```text
-nota RA1 = (tests superados ÷ 13) × 8  +  aciertos en 4 preguntas × 0,5
-```
-
-Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.

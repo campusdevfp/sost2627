@@ -506,7 +506,7 @@ double[] mwh         = {   300,              200,       500   };
 ```mermaid
 flowchart LR
     S["Simulacro RA2"] --> P["Parte práctica<br/>3 métodos · 8 puntos"]
-    S --> T["Banco de preguntas<br/>60 preguntas · el examen elige 4"]
+    S --> T["Banco de preguntas<br/>30 preguntas · el examen elige 4"]
     P --> N["Tu nota del RA2<br/>sobre 10"]
     T --> N
 ```
@@ -536,9 +536,7 @@ Son tres métodos que ya conoces (`factorEmision`, `intensidad` y `kgCo2`), con 
 
 ### Banco de preguntas · 2 puntos
 
-En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. El banco tiene **60 preguntas**: tápate las respuestas y hazlas todas. Si las dominas, tienes el test del examen preparado.
-
-Son preguntas **sencillas**: si has entendido la teoría y has hecho la batería, salen solas. Los cálculos llevan números redondos y se hacen de cabeza.
+En el examen salen **4 preguntas de este banco**, a 0,5 puntos cada una. Tápate las respuestas y hazlas todas: si las dominas, tienes el test del examen preparado.
 
 #### A · Retos ambientales y sociales
 
@@ -558,15 +556,7 @@ a) agotamiento de recursos · b) trabajo precario · c) desigualdad de género �
 
     **a**. Los otros tres son retos sociales.
 
-**3.** Una ola de calor perjudica más a quien trabaja al aire libre. Esto muestra que…
-
-a) el cambio climático solo es un problema ambiental · b) los retos ambientales y sociales van juntos · c) hay que dejar de trabajar en verano · d) el problema es solo económico
-
-??? success "Respuesta"
-
-    **b**. De ahí la idea de transición justa.
-
-**4.** La transición justa consiste en…
+**3.** La transición justa consiste en…
 
 a) repartir las emisiones por igual entre países · b) cobrar una tasa por contaminar · c) cerrar todas las industrias contaminantes · d) descarbonizar sin dejar atrás a trabajadores ni territorios
 
@@ -574,31 +564,7 @@ a) repartir las emisiones por igual entre países · b) cobrar una tasa por cont
 
     **d**. Reducir emisiones teniendo en cuenta a quién afecta el cambio.
 
-**5.** Los centros de datos consumían en 2024 cerca de qué parte de la electricidad mundial…
-
-a) 0,01 % · b) 1,5 % · c) 15 % · d) 50 %
-
-??? success "Respuesta"
-
-    **b**. Dato de la IEA (2025).
-
-**6.** Del residuo electrónico generado en 2022 se recogió formalmente…
-
-a) casi todo · b) la mitad · c) algo más de una quinta parte · d) nada
-
-??? success "Respuesta"
-
-    **c**. El 22,3 % de 62 Mt.
-
-**7.** ¿Por qué se dice que el sector digital **no es inmaterial**?
-
-a) porque consume electricidad y agua y genera residuos electrónicos · b) porque usa mucho papel · c) porque no emite CO₂ · d) porque los datos pesan
-
-??? success "Respuesta"
-
-    **a**. Detrás de cada servicio web hay máquinas, refrigeración y aparatos que acaban como residuo.
-
-**8.** La brecha digital es un reto…
+**4.** La brecha digital es un reto…
 
 a) ambiental · b) económico, no social · c) social · d) que no afecta a la informática
 
@@ -606,7 +572,7 @@ a) ambiental · b) económico, no social · c) social · d) que no afecta a la i
 
     **c**. Afecta a las personas: quién tiene acceso a la tecnología y quién no.
 
-**9.** La escasez de agua es un reto…
+**5.** La escasez de agua es un reto…
 
 a) ambiental · b) social · c) de gobernanza · d) que no afecta a la informática
 
@@ -614,7 +580,7 @@ a) ambiental · b) social · c) de gobernanza · d) que no afecta a la informát
 
     **a**. Y toca a lo digital: los centros de datos usan agua.
 
-**10.** ¿Para qué usan agua los centros de datos?
+**6.** ¿Para qué usan agua los centros de datos?
 
 a) para fabricar electricidad · b) para limpiar los discos · c) no usan agua · d) para refrigerar las máquinas
 
@@ -622,25 +588,9 @@ a) para fabricar electricidad · b) para limpiar los discos · c) no usan agua �
 
     **d**. Es un problema en zonas con sequía.
 
-**11.** ¿Cuántos residuos electrónicos se generaron en el mundo en 2022?
-
-a) 62 t · b) 62 Mt · c) 6 Mt · d) 620 Mt
-
-??? success "Respuesta"
-
-    **b**. Millones de toneladas; solo el 22,3 % se recogió formalmente.
-
-**12.** La transición justa se preocupa sobre todo por…
-
-a) el precio de la luz · b) los centros de datos · c) los trabajadores y territorios que viven de las industrias contaminantes · d) las agencias de rating
-
-??? success "Respuesta"
-
-    **c**. Descarbonizar sin dejarlos atrás.
-
 #### B · La intensidad de carbono
 
-**13.** La intensidad de carbono de la red eléctrica indica…
+**7.** La intensidad de carbono de la red eléctrica indica…
 
 a) cuánta electricidad se genera en un día · b) el precio del kWh · c) cuánto CO₂ hay detrás de cada kWh consumido · d) el porcentaje renovable
 
@@ -648,7 +598,7 @@ a) cuánta electricidad se genera en un día · b) el precio del kWh · c) cuán
 
     **c**. Es una media: CO₂ emitido entre electricidad generada.
 
-**14.** La intensidad de carbono se mide en…
+**8.** La intensidad de carbono se mide en…
 
 a) kWh · b) €/MWh · c) t/año · d) g CO₂/kWh
 
@@ -656,23 +606,7 @@ a) kWh · b) €/MWh · c) t/año · d) g CO₂/kWh
 
     **d**. Gramos de CO₂ por cada kWh.
 
-**15.** ¿Cuál es la fórmula de la intensidad?
-
-a) toneladas totales ÷ MWh totales × 1000 · b) MWh totales ÷ toneladas totales × 1000 · c) toneladas totales × MWh totales · d) MWh renovables ÷ MWh totales
-
-??? success "Respuesta"
-
-    **a**. La d) es el porcentaje renovable (sin el × 100).
-
-**16.** En esa fórmula, ¿por qué se multiplica por 1000?
-
-a) para redondear · b) porque 1 t/MWh equivale a 1000 g/kWh · c) para pasarlo a porcentaje · d) para quitar los decimales
-
-??? success "Respuesta"
-
-    **b**. 1 000 000 g ÷ 1000 kWh = 1000 g/kWh.
-
-**17.** ¿Qué tecnología tiene el factor de emisión **más alto** de la tabla?
+**9.** ¿Qué tecnología tiene el factor de emisión **más alto** de la tabla?
 
 a) ciclo combinado · b) carbón · c) cogeneración · d) nuclear
 
@@ -680,23 +614,7 @@ a) ciclo combinado · b) carbón · c) cogeneración · d) nuclear
 
     **b**. 0,95 t/MWh, casi el triple que el ciclo combinado.
 
-**18.** Sobre la energía nuclear, ¿qué es correcto?
-
-a) emite mucho CO₂ y es renovable · b) no emite CO₂ al generar y es renovable · c) emite CO₂ y no es renovable · d) no emite CO₂ al generar y no es renovable
-
-??? success "Respuesta"
-
-    **d**. Son dos preguntas distintas: no emite, pero el uranio es un recurso finito.
-
-**19.** Un día se generan **menos** MWh que otro, pero con más carbón. Su intensidad…
-
-a) puede ser mayor: importa con qué se genera, no cuánto · b) es seguro menor, porque hay menos electricidad · c) es igual · d) no se puede calcular
-
-??? success "Respuesta"
-
-    **a**. Es el día 2 de la batería: la mitad de MWh y cinco veces más intensidad.
-
-**20.** El mix eléctrico es…
+**10.** El mix eléctrico es…
 
 a) la mezcla de tecnologías con que se fabrica la electricidad de un día · b) la factura de la luz · c) un tipo de central · d) el porcentaje renovable
 
@@ -704,15 +622,7 @@ a) la mezcla de tecnologías con que se fabrica la electricidad de un día · b)
 
     **a**. Un poco de eólica, un poco de nuclear, algo de gas…
 
-**21.** ¿Por qué el mix eléctrico cambia de un día a otro?
-
-a) porque lo decide cada empresa · b) no cambia nunca · c) porque cambia el precio · d) porque depende del viento, del sol, del agua disponible…
-
-??? success "Respuesta"
-
-    **d**. Si no sopla viento, hay que tirar de gas o de carbón.
-
-**22.** 1 MWh son…
+**11.** 1 MWh son…
 
 a) 100 kWh · b) 1000 kWh · c) 10 kWh · d) 1 000 000 kWh
 
@@ -720,23 +630,7 @@ a) 100 kWh · b) 1000 kWh · c) 10 kWh · d) 1 000 000 kWh
 
     **b**. Mega = mil veces kilo.
 
-**23.** 1 tonelada son…
-
-a) 1000 g · b) 100 000 g · c) 1 000 000 g · d) 10 000 g
-
-??? success "Respuesta"
-
-    **c**. 1 t = 1000 kg y 1 kg = 1000 g.
-
-**24.** El factor de emisión de una tecnología indica…
-
-a) las toneladas de CO₂ por cada MWh que fabrica · b) cuánta electricidad fabrica · c) si es renovable · d) su precio
-
-??? success "Respuesta"
-
-    **a**. Cuánto ensucia cada MWh.
-
-**25.** ¿Cuál es el factor de emisión de la eólica?
+**12.** ¿Cuál es el factor de emisión de la eólica?
 
 a) 0,37 · b) 0,95 · c) 1 · d) 0
 
@@ -744,7 +638,7 @@ a) 0,37 · b) 0,95 · c) 1 · d) 0
 
     **d**. No emite CO₂ al generar.
 
-**26.** ¿Cuál de estas tecnologías es **renovable**?
+**13.** ¿Cuál de estas tecnologías es **renovable**?
 
 a) nuclear · b) hidráulica · c) carbón · d) ciclo combinado
 
@@ -752,7 +646,7 @@ a) nuclear · b) hidráulica · c) carbón · d) ciclo combinado
 
     **b**. La nuclear no emite, pero no es renovable.
 
-**27.** ¿Qué tecnología **no emite** CO₂ al generar y **no es renovable**?
+**14.** ¿Qué tecnología **no emite** CO₂ al generar y **no es renovable**?
 
 a) eólica · b) carbón · c) nuclear · d) solar
 
@@ -760,33 +654,9 @@ a) eólica · b) carbón · c) nuclear · d) solar
 
     **c**. El uranio es un recurso que se acaba.
 
-**28.** Al calcular la intensidad, los MWh de la eólica…
+#### C · Cálculos
 
-a) no suman toneladas, pero sí cuentan en el total de MWh · b) no se tienen en cuenta · c) suman toneladas · d) se restan
-
-??? success "Respuesta"
-
-    **a**. Son los que bajan la media.
-
-#### C · Cálculos sencillos
-
-**29.** 0,37 t/MWh equivalen a…
-
-a) 3,7 g/kWh · b) 37 g/kWh · c) 370 g/kWh · d) 3700 g/kWh
-
-??? success "Respuesta"
-
-    **c**. Se multiplica por 1000.
-
-**30.** Un día se generan 1000 MWh: 100 de carbón (0,95 t/MWh) y el resto eólica y nuclear. La intensidad es…
-
-a) 95 g/kWh · b) 950 g/kWh · c) 9,5 g/kWh · d) 0 g/kWh
-
-??? success "Respuesta"
-
-    **a**. 100 × 0,95 = 95 t; 95 / 1000 × 1000 = 95. La eólica y la nuclear no emiten, pero sí cuentan en el total de MWh.
-
-**31.** Con el semáforo de la red (VERDE < 100 · ÁMBAR < 200 · ROJO desde 200), una red a 150 g/kWh está en…
+**15.** Con el semáforo de la red (VERDE < 100 · ÁMBAR < 200 · ROJO desde 200), una red a 150 g/kWh está en…
 
 a) VERDE · b) ROJO · c) ÁMBAR · d) depende del día
 
@@ -794,15 +664,7 @@ a) VERDE · b) ROJO · c) ÁMBAR · d) depende del día
 
     **c**. Está entre 100 y 200.
 
-**32.** De 1000 MWh, 400 son eólicos, 300 nucleares y 300 de ciclo combinado. El porcentaje renovable es…
-
-a) 70 % · b) 40 % · c) 30 % · d) 100 %
-
-??? success "Respuesta"
-
-    **b**. Solo cuenta la eólica: la nuclear no es renovable.
-
-**33.** Un proceso consume 100 kWh con la red a 200 g/kWh. Emite…
+**16.** Un proceso consume 100 kWh con la red a 200 g/kWh. Emite…
 
 a) 2 kg · b) 200 kg · c) 20 000 kg · d) 20 kg
 
@@ -810,7 +672,7 @@ a) 2 kg · b) 200 kg · c) 20 000 kg · d) 20 kg
 
     **d**. 100 × 200 = 20 000 g = 20 kg.
 
-**34.** Un proceso emite 5 kg si se lanza el lunes y 15 kg si se lanza el martes. Lanzándolo el lunes se ahorran…
+**17.** Un proceso emite 5 kg si se lanza el lunes y 15 kg si se lanza el martes. Lanzándolo el lunes se ahorran…
 
 a) 10 kg · b) 5 kg · c) 15 kg · d) 20 kg
 
@@ -818,15 +680,7 @@ a) 10 kg · b) 5 kg · c) 15 kg · d) 20 kg
 
     **a**. 15 − 5.
 
-**35.** Cambiar un proceso de día ahorra 2 kg cada semana. En un año (52 semanas) son…
-
-a) 26 kg · b) 52 kg · c) 104 kg · d) 1040 kg
-
-??? success "Respuesta"
-
-    **c**. 2 × 52. La escala convierte lo pequeño en relevante.
-
-**36.** 200 MWh de ciclo combinado (0,37 t/MWh) emiten…
+**18.** 200 MWh de ciclo combinado (0,37 t/MWh) emiten…
 
 a) 37 t · b) 200 t · c) 740 t · d) 74 t
 
@@ -834,7 +688,7 @@ a) 37 t · b) 200 t · c) 740 t · d) 74 t
 
     **d**. 200 × 0,37.
 
-**37.** 100 MWh de carbón (0,95 t/MWh) emiten…
+**19.** 100 MWh de carbón (0,95 t/MWh) emiten…
 
 a) 9,5 t · b) 95 t · c) 950 t · d) 0,95 t
 
@@ -842,7 +696,7 @@ a) 9,5 t · b) 95 t · c) 950 t · d) 0,95 t
 
     **b**. 100 × 0,95.
 
-**38.** Un día emite 74 t y genera 1000 MWh. Su intensidad es…
+**20.** Un día emite 74 t y genera 1000 MWh. Su intensidad es…
 
 a) 7,4 g/kWh · b) 740 g/kWh · c) 74 g/kWh · d) 0,074 g/kWh
 
@@ -850,15 +704,7 @@ a) 7,4 g/kWh · b) 740 g/kWh · c) 74 g/kWh · d) 0,074 g/kWh
 
     **c**. 74 ÷ 1000 × 1000.
 
-**39.** Un día emite 206 t y genera 500 MWh. Su intensidad es…
-
-a) 412 g/kWh · b) 206 g/kWh · c) 103 g/kWh · d) 41,2 g/kWh
-
-??? success "Respuesta"
-
-    **a**. 206 ÷ 500 × 1000.
-
-**40.** Con el semáforo VERDE < 100 · ÁMBAR < 200 · ROJO desde 200, una red a 74 g/kWh está en…
+**21.** Con el semáforo VERDE < 100 · ÁMBAR < 200 · ROJO desde 200, una red a 74 g/kWh está en…
 
 a) ÁMBAR · b) ROJO · c) depende del día · d) VERDE
 
@@ -866,15 +712,7 @@ a) ÁMBAR · b) ROJO · c) depende del día · d) VERDE
 
     **d**. Está por debajo de 100.
 
-**41.** Con el mismo semáforo, una red a exactamente 200 g/kWh está en…
-
-a) ÁMBAR · b) ROJO · c) VERDE · d) depende del día
-
-??? success "Respuesta"
-
-    **b**. Ámbar es «menos de 200».
-
-**42.** De 1000 MWh, 300 son eólicos y 200 solares. El porcentaje renovable es…
+**22.** De 1000 MWh, 300 son eólicos y 200 solares. El porcentaje renovable es…
 
 a) 30 % · b) 20 % · c) 50 % · d) 500 %
 
@@ -882,7 +720,7 @@ a) 30 % · b) 20 % · c) 50 % · d) 500 %
 
     **c**. (300 + 200) ÷ 1000 × 100.
 
-**43.** Un proceso de 50 kWh con la red a 74 g/kWh emite…
+**23.** Un proceso de 50 kWh con la red a 74 g/kWh emite…
 
 a) 3,7 kg · b) 37 kg · c) 0,37 kg · d) 3700 kg
 
@@ -890,25 +728,9 @@ a) 3,7 kg · b) 37 kg · c) 0,37 kg · d) 3700 kg
 
     **a**. 50 × 74 = 3700 g = 3,7 kg.
 
-**44.** Un proceso de 10 kWh con la red a 300 g/kWh emite…
-
-a) 30 kg · b) 0,3 kg · c) 3000 kg · d) 3 kg
-
-??? success "Respuesta"
-
-    **d**. 10 × 300 = 3000 g = 3 kg.
-
-**45.** Cambiar un proceso de día ahorra 6,6 kg por semana. En un año (52 semanas) son unos…
-
-a) 34 kg · b) 343 kg · c) 66 kg · d) 3430 kg
-
-??? success "Respuesta"
-
-    **b**. 6,6 × 52 = 343,2.
-
 #### D · Actuar con criterio
 
-**46.** ¿Cuál es el orden correcto para reducir impactos?
+**24.** ¿Cuál es el orden correcto para reducir impactos?
 
 a) compensar, sustituir, reducir, evitar · b) reducir, evitar, compensar, sustituir · c) sustituir, compensar, evitar, reducir · d) evitar, reducir, sustituir, compensar
 
@@ -916,7 +738,7 @@ a) compensar, sustituir, reducir, evitar · b) reducir, evitar, compensar, susti
 
     **d**. Compensar siempre es lo último.
 
-**47.** Eliminar un informe nocturno que nadie lee es un ejemplo de…
+**25.** Eliminar un informe nocturno que nadie lee es un ejemplo de…
 
 a) evitar · b) reducir · c) sustituir · d) compensar
 
@@ -924,7 +746,7 @@ a) evitar · b) reducir · c) sustituir · d) compensar
 
     **a**. Ese consumo deja de existir.
 
-**48.** Contratar electricidad 100 % renovable para los servidores es un ejemplo de…
+**26.** Contratar electricidad 100 % renovable para los servidores es un ejemplo de…
 
 a) evitar · b) compensar · c) sustituir · d) reducir
 
@@ -932,7 +754,7 @@ a) evitar · b) compensar · c) sustituir · d) reducir
 
     **c**. Se sigue consumiendo lo mismo, pero de una fuente limpia.
 
-**49.** Una empresa compra créditos de carbono sin reducir nada y se anuncia «neutra en carbono». Es…
+**27.** Una empresa compra créditos de carbono sin reducir nada y se anuncia «neutra en carbono». Es…
 
 a) lo correcto · b) greenwashing · c) transición justa · d) obligatorio por ley
 
@@ -940,63 +762,7 @@ a) lo correcto · b) greenwashing · c) transición justa · d) obligatorio por 
 
     **b**. Compensar sin reducir antes.
 
-**50.** Lanzar un proceso por lotes el día con la red más limpia…
-
-a) reduce sus emisiones aunque consuma los mismos kWh · b) reduce los kWh que consume · c) no cambia nada · d) aumenta sus emisiones
-
-??? success "Respuesta"
-
-    **a**. Misma máquina, mismo código, distinto momento: es una acción de sustituir.
-
-**51.** `factorEmision("Nuclear")` devuelve 0.0 porque…
-
-a) el código tiene un error · b) la nuclear es renovable · c) la nuclear no está en la tabla de tecnologías que emiten · d) lanza una excepción
-
-??? success "Respuesta"
-
-    **c**. Solo están en la tabla las que emiten CO₂. Si el bucle no la encuentra, devuelve 0.
-
-**52.** ¿Por qué `factorEmision` y `esRenovable` son dos métodos separados?
-
-a) por rendimiento · b) porque emitir y ser renovable son propiedades distintas · c) porque Java lo exige · d) para tener más tests
-
-??? success "Respuesta"
-
-    **b**. La nuclear no emite y tampoco es renovable: un único método no podría responder bien.
-
-**53.** Si el total de MWh es 0, `intensidad` devuelve 0.0 en lugar de dividir. ¿Por qué?
-
-a) para redondear · b) porque 0 es VERDE · c) da igual lo que devuelva · d) porque dividir entre 0 da NaN y estropea las cuentas siguientes
-
-??? success "Respuesta"
-
-    **d**. NaN es contagioso: todo lo que se calcule con él también da NaN.
-
-**54.** Dos días generan los mismos MWh y tienen el mismo porcentaje renovable (30 %), pero uno emite bastante más. ¿Qué lo explica?
-
-a) que uno genera más electricidad · b) la nuclear · c) es imposible: tendrían que emitir lo mismo · d) que uno cubre el resto con carbón y el otro con gas
-
-??? success "Respuesta"
-
-    **d**. El porcentaje renovable no lo dice todo: importa con qué se cubre el resto. El carbón (0,95) emite casi el triple que el gas (0,37).
-
-**55.** `diaMasLimpio(new double[]{90, 60, 120})` devuelve…
-
-a) 60 · b) 0 · c) 1 · d) 2
-
-??? success "Respuesta"
-
-    **c**. La **posición** del menor, no su valor.
-
-**56.** `diaMasLimpio` con un array vacío devuelve…
-
-a) −1 · b) 0 · c) una excepción · d) null
-
-??? success "Respuesta"
-
-    **a**. No hay ningún día que elegir.
-
-**57.** Optimizar una consulta lenta para que gaste menos es un ejemplo de…
+**28.** Optimizar una consulta lenta para que gaste menos es un ejemplo de…
 
 a) evitar · b) sustituir · c) compensar · d) reducir
 
@@ -1004,7 +770,7 @@ a) evitar · b) sustituir · c) compensar · d) reducir
 
     **d**. Se sigue haciendo, pero consumiendo menos.
 
-**58.** Comprar créditos de carbono es un ejemplo de…
+**29.** Comprar créditos de carbono es un ejemplo de…
 
 a) reducir · b) compensar · c) evitar · d) sustituir
 
@@ -1012,15 +778,7 @@ a) reducir · b) compensar · c) evitar · d) sustituir
 
     **b**. Es el último paso de la jerarquía.
 
-**59.** En Java, para redondear `x` a 1 decimal se escribe…
-
-a) Math.round(x) / 10 · b) Math.round(x / 10) · c) Math.round(x * 10) / 10.0 · d) (int) x * 10
-
-??? success "Respuesta"
-
-    **c**. El `.0` evita la división entera.
-
-**60.** En Java, para comparar dos textos se usa…
+**30.** En Java, para comparar dos textos se usa…
 
 a) equals · b) == · c) = · d) compare
 
@@ -1035,3 +793,257 @@ nota RA2 = (tests superados ÷ 7) × 8  +  aciertos en 4 preguntas × 0,5
 ```
 
 Si sale por debajo de 5, vuelve a la batería de la unidad antes del examen del trimestre.
+
+---
+
+## 4. Ampliación · 30 preguntas más
+
+> Más preguntas de la unidad para seguir practicando. Mismo formato: tápate las respuestas y corrige al final.
+
+#### A · Retos ambientales y sociales
+
+**31.** Una ola de calor perjudica más a quien trabaja al aire libre. Esto muestra que…
+
+a) el cambio climático solo es un problema ambiental · b) los retos ambientales y sociales van juntos · c) hay que dejar de trabajar en verano · d) el problema es solo económico
+
+??? success "Respuesta"
+
+    **b**. De ahí la idea de transición justa.
+
+**32.** Los centros de datos consumían en 2024 cerca de qué parte de la electricidad mundial…
+
+a) 0,01 % · b) 1,5 % · c) 15 % · d) 50 %
+
+??? success "Respuesta"
+
+    **b**. Dato de la IEA (2025).
+
+**33.** Del residuo electrónico generado en 2022 se recogió formalmente…
+
+a) casi todo · b) la mitad · c) algo más de una quinta parte · d) nada
+
+??? success "Respuesta"
+
+    **c**. El 22,3 % de 62 Mt.
+
+**34.** ¿Por qué se dice que el sector digital **no es inmaterial**?
+
+a) porque consume electricidad y agua y genera residuos electrónicos · b) porque usa mucho papel · c) porque no emite CO₂ · d) porque los datos pesan
+
+??? success "Respuesta"
+
+    **a**. Detrás de cada servicio web hay máquinas, refrigeración y aparatos que acaban como residuo.
+
+**35.** ¿Cuántos residuos electrónicos se generaron en el mundo en 2022?
+
+a) 62 t · b) 62 Mt · c) 6 Mt · d) 620 Mt
+
+??? success "Respuesta"
+
+    **b**. Millones de toneladas; solo el 22,3 % se recogió formalmente.
+
+**36.** La transición justa se preocupa sobre todo por…
+
+a) el precio de la luz · b) los centros de datos · c) los trabajadores y territorios que viven de las industrias contaminantes · d) las agencias de rating
+
+??? success "Respuesta"
+
+    **c**. Descarbonizar sin dejarlos atrás.
+
+#### B · La intensidad de carbono
+
+**37.** ¿Cuál es la fórmula de la intensidad?
+
+a) toneladas totales ÷ MWh totales × 1000 · b) MWh totales ÷ toneladas totales × 1000 · c) toneladas totales × MWh totales · d) MWh renovables ÷ MWh totales
+
+??? success "Respuesta"
+
+    **a**. La d) es el porcentaje renovable (sin el × 100).
+
+**38.** En esa fórmula, ¿por qué se multiplica por 1000?
+
+a) para redondear · b) porque 1 t/MWh equivale a 1000 g/kWh · c) para pasarlo a porcentaje · d) para quitar los decimales
+
+??? success "Respuesta"
+
+    **b**. 1 000 000 g ÷ 1000 kWh = 1000 g/kWh.
+
+**39.** Sobre la energía nuclear, ¿qué es correcto?
+
+a) emite mucho CO₂ y es renovable · b) no emite CO₂ al generar y es renovable · c) emite CO₂ y no es renovable · d) no emite CO₂ al generar y no es renovable
+
+??? success "Respuesta"
+
+    **d**. Son dos preguntas distintas: no emite, pero el uranio es un recurso finito.
+
+**40.** Un día se generan **menos** MWh que otro, pero con más carbón. Su intensidad…
+
+a) puede ser mayor: importa con qué se genera, no cuánto · b) es seguro menor, porque hay menos electricidad · c) es igual · d) no se puede calcular
+
+??? success "Respuesta"
+
+    **a**. Es el día 2 de la batería: la mitad de MWh y cinco veces más intensidad.
+
+**41.** ¿Por qué el mix eléctrico cambia de un día a otro?
+
+a) porque lo decide cada empresa · b) no cambia nunca · c) porque cambia el precio · d) porque depende del viento, del sol, del agua disponible…
+
+??? success "Respuesta"
+
+    **d**. Si no sopla viento, hay que tirar de gas o de carbón.
+
+**42.** 1 tonelada son…
+
+a) 1000 g · b) 100 000 g · c) 1 000 000 g · d) 10 000 g
+
+??? success "Respuesta"
+
+    **c**. 1 t = 1000 kg y 1 kg = 1000 g.
+
+**43.** El factor de emisión de una tecnología indica…
+
+a) las toneladas de CO₂ por cada MWh que fabrica · b) cuánta electricidad fabrica · c) si es renovable · d) su precio
+
+??? success "Respuesta"
+
+    **a**. Cuánto ensucia cada MWh.
+
+**44.** Al calcular la intensidad, los MWh de la eólica…
+
+a) no suman toneladas, pero sí cuentan en el total de MWh · b) no se tienen en cuenta · c) suman toneladas · d) se restan
+
+??? success "Respuesta"
+
+    **a**. Son los que bajan la media.
+
+#### C · Cálculos
+
+**45.** 0,37 t/MWh equivalen a…
+
+a) 3,7 g/kWh · b) 37 g/kWh · c) 370 g/kWh · d) 3700 g/kWh
+
+??? success "Respuesta"
+
+    **c**. Se multiplica por 1000.
+
+**46.** Un día se generan 1000 MWh: 100 de carbón (0,95 t/MWh) y el resto eólica y nuclear. La intensidad es…
+
+a) 95 g/kWh · b) 950 g/kWh · c) 9,5 g/kWh · d) 0 g/kWh
+
+??? success "Respuesta"
+
+    **a**. 100 × 0,95 = 95 t; 95 / 1000 × 1000 = 95. La eólica y la nuclear no emiten, pero sí cuentan en el total de MWh.
+
+**47.** De 1000 MWh, 400 son eólicos, 300 nucleares y 300 de ciclo combinado. El porcentaje renovable es…
+
+a) 70 % · b) 40 % · c) 30 % · d) 100 %
+
+??? success "Respuesta"
+
+    **b**. Solo cuenta la eólica: la nuclear no es renovable.
+
+**48.** Cambiar un proceso de día ahorra 2 kg cada semana. En un año (52 semanas) son…
+
+a) 26 kg · b) 52 kg · c) 104 kg · d) 1040 kg
+
+??? success "Respuesta"
+
+    **c**. 2 × 52. La escala convierte lo pequeño en relevante.
+
+**49.** Un día emite 206 t y genera 500 MWh. Su intensidad es…
+
+a) 412 g/kWh · b) 206 g/kWh · c) 103 g/kWh · d) 41,2 g/kWh
+
+??? success "Respuesta"
+
+    **a**. 206 ÷ 500 × 1000.
+
+**50.** Con el semáforo VERDE < 100 · ÁMBAR < 200 · ROJO desde 200, una red a exactamente 200 g/kWh está en…
+
+a) ÁMBAR · b) ROJO · c) VERDE · d) depende del día
+
+??? success "Respuesta"
+
+    **b**. Ámbar es «menos de 200».
+
+**51.** Un proceso de 10 kWh con la red a 300 g/kWh emite…
+
+a) 30 kg · b) 0,3 kg · c) 3000 kg · d) 3 kg
+
+??? success "Respuesta"
+
+    **d**. 10 × 300 = 3000 g = 3 kg.
+
+**52.** Cambiar un proceso de día ahorra 6,6 kg por semana. En un año (52 semanas) son unos…
+
+a) 34 kg · b) 343 kg · c) 66 kg · d) 3430 kg
+
+??? success "Respuesta"
+
+    **b**. 6,6 × 52 = 343,2.
+
+#### D · Actuar con criterio
+
+**53.** Lanzar un proceso por lotes el día con la red más limpia…
+
+a) reduce sus emisiones aunque consuma los mismos kWh · b) reduce los kWh que consume · c) no cambia nada · d) aumenta sus emisiones
+
+??? success "Respuesta"
+
+    **a**. Misma máquina, mismo código, distinto momento: es una acción de sustituir.
+
+**54.** `factorEmision("Nuclear")` devuelve 0.0 porque…
+
+a) el código tiene un error · b) la nuclear es renovable · c) la nuclear no está en la tabla de tecnologías que emiten · d) lanza una excepción
+
+??? success "Respuesta"
+
+    **c**. Solo están en la tabla las que emiten CO₂. Si el bucle no la encuentra, devuelve 0.
+
+**55.** ¿Por qué `factorEmision` y `esRenovable` son dos métodos separados?
+
+a) por rendimiento · b) porque emitir y ser renovable son propiedades distintas · c) porque Java lo exige · d) para tener más tests
+
+??? success "Respuesta"
+
+    **b**. La nuclear no emite y tampoco es renovable: un único método no podría responder bien.
+
+**56.** Si el total de MWh es 0, `intensidad` devuelve 0.0 en lugar de dividir. ¿Por qué?
+
+a) para redondear · b) porque 0 es VERDE · c) da igual lo que devuelva · d) porque dividir entre 0 da NaN y estropea las cuentas siguientes
+
+??? success "Respuesta"
+
+    **d**. NaN es contagioso: todo lo que se calcule con él también da NaN.
+
+**57.** Dos días generan los mismos MWh y tienen el mismo porcentaje renovable (30 %), pero uno emite bastante más. ¿Qué lo explica?
+
+a) que uno genera más electricidad · b) la nuclear · c) es imposible: tendrían que emitir lo mismo · d) que uno cubre el resto con carbón y el otro con gas
+
+??? success "Respuesta"
+
+    **d**. El porcentaje renovable no lo dice todo: importa con qué se cubre el resto. El carbón (0,95) emite casi el triple que el gas (0,37).
+
+**58.** `diaMasLimpio(new double[]{90, 60, 120})` devuelve…
+
+a) 60 · b) 0 · c) 1 · d) 2
+
+??? success "Respuesta"
+
+    **c**. La **posición** del menor, no su valor.
+
+**59.** `diaMasLimpio` con un array vacío devuelve…
+
+a) −1 · b) 0 · c) una excepción · d) null
+
+??? success "Respuesta"
+
+    **a**. No hay ningún día que elegir.
+
+**60.** En Java, para redondear `x` a 1 decimal se escribe…
+
+a) Math.round(x) / 10 · b) Math.round(x / 10) · c) Math.round(x * 10) / 10.0 · d) (int) x * 10
+
+??? success "Respuesta"
+
+    **c**. El `.0` evita la división entera.

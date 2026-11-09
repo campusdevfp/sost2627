@@ -1,7 +1,7 @@
 # 1708 · Sostenibilidad aplicada al sistema productivo
 
 Curso práctico del módulo común **1708** (30 h) para el ciclo de **Desarrollo de Aplicaciones Web**.
-Seis unidades, **48 ejercicios en Java** y **124 tests** que los corrigen.
+Seis unidades. Cinco se trabajan con **ejercicios en Java y tests** que los corrigen; la UT3, con el navegador y la terminal.
 
 - **Documentación:** carpeta `docs/`, publicable con MkDocs.
 - **Ejercicios:** carpeta `proyecto/`, un único proyecto Maven con Java 21 y JUnit 5 como única dependencia.
@@ -10,7 +10,7 @@ Seis unidades, **48 ejercicios en Java** y **124 tests** que los corrigen.
 
 ```bash
 cd proyecto
-mvn test                      # 124 tests, todos en rojo al principio
+mvn test                      # todos en rojo al principio
 mvn test -Dtest=Ut1AsgTest    # solo la unidad 1
 ```
 

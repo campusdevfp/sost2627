@@ -25,16 +25,16 @@ Junta los tres simulacros del trimestre y hazlos **seguidos, en 2 horas**:
 
 | Trimestre | Simulacros | Comando |
 |---|---|---|
-| **1.º** | RA1 + RA2 + RA3 | `mvn test -Dtest="SimulacroRa1Test,SimulacroRa2Test,SimulacroRa3Test"` |
+| **1.º** | RA1 + RA2 + RA3 | `mvn test -Dtest="SimulacroRa1Test,SimulacroRa2Test"` + test de 30 preguntas de RA3 |
 | **2.º** | RA4 + RA5 + RA6 | `mvn test -Dtest="SimulacroRa4Test,SimulacroRa5Test,SimulacroRa6Test"` |
 
-Las preguntas de test están al final de cada unidad, en el apartado **Simulacro de examen**: 60 en las unidades 1 y 2 y 30 en el resto, y **las del examen salen de ahí**.
+Las preguntas de test están al final de cada unidad, en el apartado **Simulacro de examen**: 30 por unidad, y **las del examen salen de ahí**. Las unidades 1 y 2 tienen además 30 preguntas de **ampliación** para seguir practicando.
 
 ## Reparto del tiempo
 
 | Minuto | Qué hacer |
 |---|---|
-| 0 – 10 | **Leer los nueve Javadoc** y subrayar lo que cambia respecto a clase. No escribas nada todavía |
+| 0 – 10 | **Leer todos los Javadoc** y subrayar lo que cambia respecto a clase. No escribas nada todavía |
 | 10 – 90 | Métodos, del más fácil al más difícil. Lanza los tests cada poco |
 | 90 – 110 | Las 12 preguntas de test |
 | 110 – 120 | Repasar los métodos que aún fallan |
